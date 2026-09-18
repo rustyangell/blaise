@@ -85,7 +85,9 @@ def nav(active):
     def dropdown(label, pairs):
         is_active = any(href == active for href, _ in pairs)
         return f"""<li>
-        <details class="nav-dropdown">
+        <!-- Shared name= makes these an exclusive accordion: opening one
+             dropdown closes the other, so their panels can't overlap. -->
+        <details class="nav-dropdown" name="nav-menu">
           <summary{active_style if is_active else ""}>{label}</summary>
           <ul>
             {link_items(pairs)}
