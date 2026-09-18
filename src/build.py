@@ -228,18 +228,18 @@ def serve_callout(area):
 
 def home():
     return f"""
-<section class="hero">
-  <div>
-    <span class="eyebrow">Mocksville, North Carolina</span>
-    <h1>A place to belong.</h1>
-    <p class="lede">A faith worth living.</p>
-    <p>Blaise Baptist is a church in Davie County where real people are known by name, Scripture is taught straight, and following Jesus is a community endeavor &mdash; not a solo project.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="about.html">Plan Your Visit</a>
-      <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online</a>
-    </div>
+<section class="stripe">
+  <div class="wrap" style="text-align:center;">
+    <h2 class="tagline"><span class="t-sage">Rooted in Christ.</span> <span class="t-teal">Growing Together.</span> <span class="t-gold">Reaching Others.</span></h2>
   </div>
+</section>
+
+<section class="hero">
   <div class="hero-art">{LOGO_HERO}</div>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="about.html">Plan Your Visit</a>
+    <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online</a>
+  </div>
 </section>
 
 <section class="section-tight section-soft">
@@ -252,11 +252,6 @@ def home():
   </div>
 </section>
 
-<section class="stripe">
-  <div class="wrap" style="text-align:center;">
-    <h2 class="tagline"><span class="t-sage">Rooted in Christ.</span> <span class="t-teal">Growing Together.</span> <span class="t-gold">Reaching Others.</span></h2>
-  </div>
-</section>
 
 <section>
   <div class="wrap">

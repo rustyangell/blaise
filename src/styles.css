@@ -232,30 +232,16 @@ a { color: inherit; }
 
 /* Hero */
 .hero {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 48px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 56px 24px 90px;
+  gap: 32px;
+  padding: 56px 24px 64px;
   max-width: var(--max-width);
   margin: 0 auto;
 }
-
-.hero-art {
-  background: color-mix(in srgb, var(--pane-1) 16%, var(--offwhite));
-  border-radius: var(--radius);
-  aspect-ratio: 4 / 3.4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  box-shadow: var(--shadow-lift);
-}
-.hero-art img { width: 58%; max-width: 300px; }
-
-.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 1.6em; }
-
-.hero .lede { font-style: italic; color: var(--sage); font-size: 1.35em; }
+.hero-art img { width: 280px; max-width: 70vw; display: block; }
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
 /* Page hero (interior pages) */
 .page-hero {
@@ -412,7 +398,6 @@ footer li { margin-bottom: 0.35em; }
 .nav-close { display: none; }
 
 @media (max-width: 860px) {
-  .hero { grid-template-columns: 1fr; }
   .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
   footer { padding: 28px 20px 16px; }
   /* Brand spans the top; Visit and Connect sit side by side under it. */
