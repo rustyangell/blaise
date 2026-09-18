@@ -164,6 +164,7 @@ PAGE_TEMPLATE = """<!doctype html>
 <link rel="stylesheet" href="styles.css">
 <script src="https://js.churchcenter.com/modal/v1"></script>
 <script src="assets/events.js" defer></script>
+<script src="assets/nav.js" defer></script>
 </head>
 <body>
 {nav}
