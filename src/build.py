@@ -485,7 +485,6 @@ def childcare():
       at <a href="tel:3366958937">336-695-8937</a> and we'll walk you through it.</p>
       {plain_link(LINKS['childcare_registration'], "Enroll Your Child")}
     </div>
-    {serve_callout("Blaise Childcare")}
   </div>
 </section>
 """
