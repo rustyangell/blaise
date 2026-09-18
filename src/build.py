@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Static site builder for Blaise Baptist Church. Renders PAGES into dist/."""
-import os, shutil
+import os, re, shutil
+from urllib.parse import quote_plus
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src")
@@ -556,6 +557,25 @@ def contact():
 """
 
 
+def scripture_links(refs):
+    """Link each reference in a "Book 1:2; 3:4; Other 5" list to Bible Gateway (NIV).
+    A segment with no book name (e.g. "4:24") continues the previous book."""
+    links, book = [], ""
+    for seg in refs.split("; "):
+        m = re.match(r"((?:I{1,3} )?[A-Z][a-z]+) (.+)", seg)
+        if m:
+            book, verses = m.groups()
+        else:
+            verses = seg
+        search_book = re.sub(r"^(I{1,3}) ", lambda n: f"{len(n.group(1))} ", book)
+        search = f"{search_book} {verses}".replace("&ndash;", "-").replace(" ", "")
+        search = re.sub(r"(\d)[ab]\b", r"\1", search)  # "47a" -> "47"
+        search = re.sub(r"^(\d?)([A-Za-z]+)", r"\1 \2 ", search).strip()
+        url = f"https://www.biblegateway.com/passage/?search={quote_plus(search)}&version=NIV"
+        links.append(f'<a href="{url}" target="_blank" rel="noopener">{seg}</a>')
+    return "; ".join(links)
+
+
 def beliefs():
     statements = [
         ("the Bible is the verbally and plenarily inspired Word of God, inerrant in its original manuscripts. The Bible is our supreme and final authority in faith and life.", "II Timothy 3:16; II Peter 1:20, 21"),
@@ -571,7 +591,7 @@ def beliefs():
         ("that as Christians we are to meet together regularly for worship, ordinances, and the encouragement of each other.", "Hebrews 10:24, 25; Acts 2:42, 46, 47a"),
     ]
     items = "\n".join(
-        f'<li><p><strong>We believe</strong> {text}</p><span class="refs">{refs}</span></li>'
+        f'<li><p><strong>We believe</strong> {text}</p><span class="refs">{scripture_links(refs)}</span></li>'
         for text, refs in statements
     )
     return f"""

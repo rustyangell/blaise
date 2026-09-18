@@ -534,3 +534,5 @@ footer li { margin-bottom: 0.35em; }
 /* Accent bands are painted as a background so the rounded corners clip them flat. */
 .card, .event-card { background: linear-gradient(var(--accent, #fff) 0 5px, #fff 5px); }
 .value-card { background: linear-gradient(var(--pane) 0 6px, color-mix(in srgb, var(--pane) 18%, #fff) 6px); box-shadow: var(--shadow-soft); }
+.beliefs .refs a { color: var(--forest); text-decoration: underline; text-decoration-color: var(--pane-1); text-underline-offset: 3px; }
+.beliefs .refs a:hover { text-decoration-color: var(--forest); }
