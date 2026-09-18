@@ -284,7 +284,7 @@ def home():
 def about():
     staff = [
         ("Rev. Ken Furches", "Senior Pastor", "ken.furches@blaisebaptist.org"),
-        ("Michael Hanna", "Youth Pastor", "michael.hanna@blaisebaptist.org"),
+        ("Michael Hanna", "Youth Director", "michael.hanna@blaisebaptist.org"),
         ("Kristen Hollars", "Children's Outreach Director", "kristen.hollars@blaisebaptist.org"),
     ]
     staff_cards = "\n".join(
