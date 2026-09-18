@@ -17,9 +17,21 @@ templates into `dist/`, which is what actually gets deployed.
 python3 src/build.py                # writes dist/
 ```
 
-To deploy (the site is not Git-connected, so the function must be uploaded with it):
+## Deploying
+
+The Netlify project is Git-connected to this repo, so deploys are automatic:
+
+- **Merge a PR into `main`** → Netlify runs `python3 src/build.py` and publishes to production.
+- **Open a PR** → Netlify builds a deploy preview at its own URL, so a change can be reviewed
+  before it goes live.
+
+Build settings live in `netlify.toml` (build command, publish dir, functions dir) — Netlify reads
+them from the repo, so there is nothing to configure in the dashboard.
+
+Manual deploy from a laptop, if ever needed:
 
 ```bash
+python3 src/build.py
 netlify deploy --prod --site 64f6e724-fa41-4cc5-bbf1-df1232a4876d --dir=dist --functions=netlify/functions
 ```
 
@@ -66,6 +78,10 @@ at the top of `src/build.py`). Two different link behaviors, deliberately:
   (Name of Child, Birthday, Name of Parents, Address, School & Grade Completed, Phone, Allergies, T-shirt
   Size, Full/Part Time, Pay in full/daily). ProCare gives a link or embeddable button — drop it into
   `childcare()` in `build.py` in place of the `.placeholder-note` block.
+- **Senior Adults** (`senior-adults.html`) is a placeholder — the page exists in the Ministries nav with
+  a "Coming Soon" note so the ministry has a home, but the real content hasn't been written yet. The
+  ministry is called **Good Life**. Replace the Coming Soon section in `senior_adults()` in `build.py`
+  once schedule, contact, and description copy are available.
 - **Small Group Leader interest** is intentionally *not* a separate form — it routes to the existing
   PCO "Interested in Serving?" form (id 1202575), which already has a "Small Groups" checkbox option.
 - **Celebrate Recovery** has no PCO group link on the site — the CR group in Planning Center is currently

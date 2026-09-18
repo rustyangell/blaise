@@ -37,6 +37,7 @@ ABOUT_ITEMS = [
 MINISTRY_ITEMS = [
     ("students.html", "Students"),
     ("children.html", "Children"),
+    ("senior-adults.html", "Senior Adults"),
     ("small-groups.html", "Small Groups"),
     ("childcare.html", "Childcare"),
     ("celebrate-recovery.html", "Celebrate Recovery"),
@@ -391,6 +392,24 @@ def children():
 """
 
 
+def senior_adults():
+    return f"""
+<div class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Senior Adults</span>
+    <h1>Good Life</h1>
+    <p>Our senior adult ministry at Blaise Baptist Church.</p>
+  </div>
+</div>
+<section>
+  <div class="wrap">
+    <h2>Coming Soon</h2>
+    <p>This page will be updated soon with all of the details about our senior adults ministry, which we call <strong>Good Life</strong>.</p>
+  </div>
+</section>
+"""
+
+
 def small_groups():
     return f"""
 <div class="page-hero">
@@ -681,6 +700,7 @@ PAGES = [
     ("baptism.html", "Baptism", "Baptism at Blaise Baptist Church.", baptism),
     ("students.html", "Students", "Blaise Youth (Y4J) for 6th grade through high school seniors.", students),
     ("children.html", "Children", "Blaise Kids ministry for birth through 5th grade.", children),
+    ("senior-adults.html", "Senior Adults", "Good Life, the senior adult ministry at Blaise Baptist Church.", senior_adults),
     ("small-groups.html", "Small Groups", "Find a small group at Blaise Baptist Church.", small_groups),
     ("childcare.html", "Childcare", "Shining Son before/after school care and Fun in the Son summer day camp.", childcare),
     ("celebrate-recovery.html", "Celebrate Recovery", "A biblical recovery program for hurts, habits, and hang-ups.", celebrate_recovery),
