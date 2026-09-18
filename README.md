@@ -17,9 +17,21 @@ templates into `dist/`, which is what actually gets deployed.
 python3 src/build.py                # writes dist/
 ```
 
-To deploy (the site is not Git-connected, so the function must be uploaded with it):
+## Deploying
+
+The Netlify project is Git-connected to this repo, so deploys are automatic:
+
+- **Merge a PR into `main`** → Netlify runs `python3 src/build.py` and publishes to production.
+- **Open a PR** → Netlify builds a deploy preview at its own URL, so a change can be reviewed
+  before it goes live.
+
+Build settings live in `netlify.toml` (build command, publish dir, functions dir) — Netlify reads
+them from the repo, so there is nothing to configure in the dashboard.
+
+Manual deploy from a laptop, if ever needed:
 
 ```bash
+python3 src/build.py
 netlify deploy --prod --site 64f6e724-fa41-4cc5-bbf1-df1232a4876d --dir=dist --functions=netlify/functions
 ```
 
