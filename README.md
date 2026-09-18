@@ -78,6 +78,10 @@ at the top of `src/build.py`). Two different link behaviors, deliberately:
   (Name of Child, Birthday, Name of Parents, Address, School & Grade Completed, Phone, Allergies, T-shirt
   Size, Full/Part Time, Pay in full/daily). ProCare gives a link or embeddable button — drop it into
   `childcare()` in `build.py` in place of the `.placeholder-note` block.
+- **Senior Adults** (`senior-adults.html`) is a placeholder — the page exists in the Ministries nav with
+  a "Coming Soon" note so the ministry has a home, but the real content hasn't been written yet. The
+  ministry is called **Good Life**. Replace the Coming Soon section in `senior_adults()` in `build.py`
+  once schedule, contact, and description copy are available.
 - **Small Group Leader interest** is intentionally *not* a separate form — it routes to the existing
   PCO "Interested in Serving?" form (id 1202575), which already has a "Small Groups" checkbox option.
 - **Celebrate Recovery** has no PCO group link on the site — the CR group in Planning Center is currently
