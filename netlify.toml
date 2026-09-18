@@ -2,3 +2,9 @@
   command = "python3 src/build.py"
   publish = "dist"
   functions = "netlify/functions"
+
+# Short, speakable URL: "go to blaisebaptist.org/childcare" over the phone.
+[[redirects]]
+  from = "/childcare"
+  to = "/childcare.html"
+  status = 301

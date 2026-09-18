@@ -14,6 +14,9 @@ LINKS = {
     "dedication_form": f"{CC}/people/forms/945729",
     "serving_form": f"{CC}/people/forms/1202575",
     "missions_form": f"{CC}/people/forms/1236262",
+    # Childcare enrollment lives in ProCare, not Church Center. Until the ProCare
+    # registration exists (see README "Known gaps"), this points at the office.
+    "childcare_registration": "mailto:childcare@blaisebaptist.org",
     "groups": f"{CC}/groups",
     "calendar": f"{CC}/calendar",
     "give": "https://app.easytithe.com/App/Giving/blaise",
@@ -39,12 +42,13 @@ MINISTRY_ITEMS = [
     ("children.html", "Children"),
     ("senior-adults.html", "Senior Adults"),
     ("small-groups.html", "Small Groups"),
-    ("childcare.html", "Childcare"),
     ("celebrate-recovery.html", "Celebrate Recovery"),
     ("missions.html", "Missions"),
 ]
 
 NAV_ITEMS_AFTER = [
+    # Top level, not under Ministries: parents often come to the site for this alone.
+    ("childcare.html", "Childcare"),
     ("events.html", "Events"),
     ("contact.html", "Contact"),
 ]
@@ -274,10 +278,13 @@ def home():
 <section class="section-tight section-soft">
   <div class="wrap card" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
     <div>
-      <h3 style="margin-bottom:4px;">Fun in the Son &amp; Shining Son Childcare</h3>
-      <p style="margin:0;">Summer day camp and before/after school care in a Christian environment.</p>
+      <h3 style="margin-bottom:4px;">Blaise Childcare</h3>
+      <p style="margin:0;">Before &amp; after school care and summer day camp in a Christian environment.</p>
     </div>
-    <a class="btn btn-primary" href="childcare.html">Learn More</a>
+    <div class="hero-actions" style="margin:0;">
+      {plain_link(LINKS['childcare_registration'], "Enroll Your Child")}
+      <a class="btn btn-outline" href="childcare.html">Learn More</a>
+    </div>
   </div>
 </section>
 """
@@ -449,28 +456,34 @@ def childcare():
     return f"""
 <div class="page-hero">
   <div class="wrap">
-    <span class="eyebrow">Before/After School Care &amp; Summer Day Camp</span>
-    <h1>Childcare at Blaise</h1>
+    <span class="eyebrow">Before &amp; After School Care &amp; Summer Day Camp</span>
+    <h1>Blaise Childcare</h1>
+    <p>Safe, dependable care for grades K&ndash;8 in a Christian environment &mdash; during the school year and all summer long.</p>
+    <div class="hero-actions">
+      {plain_link(LINKS['childcare_registration'], "Enroll Your Child")}
+      <a class="btn btn-outline" href="tel:3366958937">Call 336-695-8937</a>
+    </div>
   </div>
 </div>
 <section>
   <div class="wrap grid-2">
     <div class="card">
-      <h3>Shining Son</h3>
-      <p><strong>Before &amp; After School Care</strong> &mdash; serving multiple schools with safe, reliable transportation, quality counselors, homework help, and activities in a biblical, value-based environment. Grades K&ndash;8.</p>
-      <p>Contact Director Kristen Hollars: <a href="tel:3366958937">336-695-8937</a></p>
+      <h3>Before &amp; After School Care</h3>
+      <p>Grades K&ndash;8 during the school year. Safe, reliable transportation from multiple schools, quality counselors, homework help, and activities in a biblical, value-based environment.</p>
+      <p>Questions? Director Kristen Hollars: <a href="tel:3366958937">336-695-8937</a></p>
     </div>
     <div class="card">
-      <h3>Fun in the Son &amp; Summer Madness</h3>
-      <p><strong>Fun in the Son</strong> Summer Day Camp is for rising kindergarten through completed 5th grade: Bible lessons, worship, swimming, sports, crafts, and field trips. <strong>Summer Madness</strong> serves completed grades 6&ndash;8 with the same spirit, built for middle schoolers.</p>
+      <h3>Summer Day Camp</h3>
+      <p>Rising kindergarten through completed 8th grade. Bible lessons, worship, swimming, sports, crafts, and field trips &mdash; with the older grades grouped separately so camp fits middle schoolers too.</p>
       <p>Pricing: <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a></p>
     </div>
   </div>
   <div class="wrap" style="margin-top:32px;">
     <div class="placeholder-note">
-      Registration is opening soon here &mdash; in the meantime, contact us at <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a> to register.
+      To enroll, email <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a> or call
+      Kristen at <a href="tel:3366958937">336-695-8937</a> and we'll walk you through it. Online registration is on the way.
     </div>
-    {serve_callout("our childcare programs")}
+    {serve_callout("Blaise Childcare")}
   </div>
 </section>
 """
@@ -705,7 +718,7 @@ PAGES = [
     ("children.html", "Children", "Blaise Kids ministry for birth through 5th grade.", children),
     ("senior-adults.html", "Senior Adults", "Good Life, the senior adult ministry at Blaise Baptist Church.", senior_adults),
     ("small-groups.html", "Small Groups", "Find a small group at Blaise Baptist Church.", small_groups),
-    ("childcare.html", "Childcare", "Shining Son before/after school care and Fun in the Son summer day camp.", childcare),
+    ("childcare.html", "Childcare", "Before and after school care and summer day camp for grades K-8 at Blaise Baptist Church in Mocksville, NC.", childcare),
     ("celebrate-recovery.html", "Celebrate Recovery", "A biblical recovery program for hurts, habits, and hang-ups.", celebrate_recovery),
     ("missions.html", "Missions", "Local and global missions at Blaise Baptist Church.", missions),
     ("events.html", "Events", "Upcoming events and the full Blaise Baptist Church calendar.", events),

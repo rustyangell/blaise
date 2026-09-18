@@ -71,13 +71,18 @@ at the top of `src/build.py`). Two different link behaviors, deliberately:
 
 ## Known gaps / next steps
 
-- **Childcare registration** (`childcare.html`) has a placeholder ("Registration opening soon — contact
-  us to register"). The church uses **ProCare**, not Planning Center, for this ministry. Build the
-  registration form in ProCare (Enrollment → Registration → Create Registration, recipient type "Active
-  Student"), matching the field list that was on the old Wix site's "Returning Camper Registration" form
-  (Name of Child, Birthday, Name of Parents, Address, School & Grade Completed, Phone, Allergies, T-shirt
-  Size, Full/Part Time, Pay in full/daily). ProCare gives a link or embeddable button — drop it into
-  `childcare()` in `build.py` in place of the `.placeholder-note` block.
+- **Childcare registration** (`childcare.html`) has no online form yet. The church uses **ProCare**,
+  not Planning Center, for this ministry. Build the registration in ProCare (Enrollment →
+  Registration → Create Registration, recipient type "Active Student"), matching the field list
+  that was on the old Wix site's "Returning Camper Registration" form (Name of Child, Birthday,
+  Name of Parents, Address, School & Grade Completed, Phone, Allergies, T-shirt Size, Full/Part
+  Time, Pay in full/daily). ProCare gives a link — drop it into `LINKS["childcare_registration"]`
+  in `build.py`. That one constant feeds every childcare call-to-action (page hero and home page),
+  so it is the only edit needed; until then it points at the childcare office email.
+- **Childcare naming.** The ministry is branded as one name, **Blaise Childcare**, with "Before &
+  After School Care" and "Summer Day Camp" as plain descriptive subheads. The older program names
+  (Shining Son, Fun in the Son, Summer Madness) were retired from the site in favor of a single
+  name a first-time parent can follow.
 - **Senior Adults** (`senior-adults.html`) is a placeholder — the page exists in the Ministries nav with
   a "Coming Soon" note so the ministry has a home, but the real content hasn't been written yet. The
   ministry is called **Good Life**. Replace the Coming Soon section in `senior_adults()` in `build.py`
