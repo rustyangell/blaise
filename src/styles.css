@@ -529,8 +529,9 @@ footer li { margin-bottom: 0.35em; }
 
 /* Home hero photo: full width, no crop, so the logo baked into it is never cut off.
    The band above matches the photo's sky so they read as one piece. */
-.stripe-home { background: #1E3C1D; padding-bottom: 8px; }
-.hero-photo { background: #1E3C1D; }
+.stripe-home { background: #254623; padding: 22px 20px 6px; }
+.stripe-home .tagline { margin: 0; }
+.hero-photo { background: #254623; }
 .hero-photo img { display: block; width: 100%; height: auto; }
 @media (max-width: 600px) {
   /* Trim the photo's sides on phones so the building and logo read larger; the logo sits in the middle third. */

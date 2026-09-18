@@ -235,7 +235,7 @@ def home():
 </section>
 
 <div class="hero-photo">
-  <img src="assets/hero-church.webp" srcset="assets/hero-church-900.webp 900w, assets/hero-church.webp 1774w" sizes="100vw" width="1774" height="887" alt="The Blaise Baptist Church building">
+  <img src="assets/hero-church.webp" srcset="assets/hero-church-900.webp 900w, assets/hero-church.webp 2000w" sizes="100vw" width="2000" height="741" alt="The Blaise Baptist Church building">
 </div>
 
 <section class="section-tight section-soft">
