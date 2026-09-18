@@ -242,7 +242,7 @@ a { color: inherit; }
 }
 
 .hero-art {
-  background: radial-gradient(circle at 32% 28%, #234a23 0%, var(--forest) 62%);
+  background: color-mix(in srgb, var(--pane-1) 16%, var(--offwhite));
   border-radius: var(--radius);
   aspect-ratio: 4 / 3.4;
   display: flex;
@@ -251,7 +251,7 @@ a { color: inherit; }
   overflow: hidden;
   box-shadow: var(--shadow-lift);
 }
-.hero-art img { width: 55%; max-width: 260px; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.2)); }
+.hero-art img { width: 58%; max-width: 300px; }
 
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 1.6em; }
 
@@ -370,7 +370,7 @@ footer .wrap {
   grid-template-columns: 1.4fr 1fr 1fr;
   gap: 28px;
 }
-footer .logo-inverse { max-width: 56px; margin-bottom: 8px; }
+footer .footer-mark { width: 52px; margin-bottom: 10px; display: block; }
 footer p { margin: 0 0 0.4em; }
 footer h4 {
   color: #fff;
@@ -401,7 +401,8 @@ footer li { margin-bottom: 0.35em; }
   padding: 22px 26px;
   font-weight: 600;
   color: var(--nearblack);
-  box-shadow: inset 6px 0 0 var(--youth), var(--shadow-soft);
+  background: linear-gradient(90deg, var(--youth) 0 6px, #fff 6px);
+  box-shadow: var(--shadow-soft);
 }
 
 /* Mobile nav drawer — pure CSS via a hidden checkbox, no JS needed */
@@ -507,3 +508,42 @@ footer li { margin-bottom: 0.35em; }
   .map-block { grid-template-columns: 1fr; }
   .map-embed { min-height: 260px; }
 }
+
+/* Core values each take a pane color. */
+.pane-sage { --pane: var(--pane-1); }
+.pane-gold { --pane: var(--pane-2); }
+.pane-teal { --pane: var(--pane-3); }
+.pane-blue { --pane: var(--pane-4); }
+.pane-mauve { --pane: var(--pane-5); }
+
+/* Callout accent bars and event dates pick up the palette instead of plain sage. */
+.callout { background: linear-gradient(var(--pane-2) 0 5px, #fff 5px); box-shadow: var(--shadow-soft); }
+.section-soft { background: color-mix(in srgb, var(--pane-3) 16%, var(--offwhite)); }
+
+/* Tagline: each phrase in its pane color on the dark green band. */
+.tagline .t-sage { color: var(--pane-1); }
+.tagline .t-teal { color: var(--pane-3); }
+.tagline .t-gold { color: var(--pane-2); }
+
+/* Service times: the time sits in a tinted chip. */
+.schedule-row .time { background: color-mix(in srgb, var(--pane, var(--pane-1)) 35%, #fff); padding: 8px 14px; border-radius: var(--radius-sm); text-align: center; }
+
+/* Cards in a row take turns through the palette as a thin top accent. */
+.grid-2 > :is(.card, .event-card):nth-child(5n+1),
+.grid-3 > :is(.card, .event-card):nth-child(5n+1),
+.grid-4 > :is(.card, .event-card):nth-child(5n+1) { --accent: var(--pane-3); }
+.grid-2 > :is(.card, .event-card):nth-child(5n+2),
+.grid-3 > :is(.card, .event-card):nth-child(5n+2),
+.grid-4 > :is(.card, .event-card):nth-child(5n+2) { --accent: var(--pane-2); }
+.grid-2 > :is(.card, .event-card):nth-child(5n+3),
+.grid-3 > :is(.card, .event-card):nth-child(5n+3),
+.grid-4 > :is(.card, .event-card):nth-child(5n+3) { --accent: var(--pane-4); }
+.grid-2 > :is(.card, .event-card):nth-child(5n+4),
+.grid-3 > :is(.card, .event-card):nth-child(5n+4),
+.grid-4 > :is(.card, .event-card):nth-child(5n+4) { --accent: var(--pane-5); }
+.grid-2 > :is(.card, .event-card):nth-child(5n),
+.grid-3 > :is(.card, .event-card):nth-child(5n),
+.grid-4 > :is(.card, .event-card):nth-child(5n) { --accent: var(--pane-1); }
+/* Accent bands are painted as a background so the rounded corners clip them flat. */
+.card, .event-card { background: linear-gradient(var(--accent, #fff) 0 5px, #fff 5px); }
+.value-card { background: linear-gradient(var(--pane) 0 6px, color-mix(in srgb, var(--pane) 18%, #fff) 6px); box-shadow: var(--shadow-soft); }

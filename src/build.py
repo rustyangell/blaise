@@ -47,8 +47,9 @@ NAV_ITEMS_AFTER = [
     ("contact.html", "Contact"),
 ]
 
-LOGO_GREEN = '<img src="assets/logo-green.png" alt="Blaise Baptist Church" class="brand-mark">'
-LOGO_INVERSE = '<img src="assets/logo-green.png" alt="Blaise Baptist Church" class="logo-inverse">'
+LOGO_NAV = '<img src="assets/logo-green.png" alt="Blaise Baptist Church" class="brand-mark">'
+LOGO_HERO = '<img src="assets/mark-panes.png" alt="Blaise Baptist Church">'
+LOGO_FOOTER = '<img src="assets/mark-panes.png" alt="Blaise Baptist Church" class="footer-mark">'
 def icon_badge(src, alt, extra_class=""):
     return f'<span class="icon-badge {extra_class}"><img src="{src}" alt="{alt}"></span>'
 
@@ -94,7 +95,7 @@ def nav(active):
     return f"""
 <nav class="site-nav">
   <a class="brand" href="index.html">
-    {LOGO_GREEN}
+    {LOGO_NAV}
     <span class="brand-text"><strong>BLAISE BAPTIST</strong><span>Mocksville, NC</span></span>
   </a>
   <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
@@ -120,7 +121,7 @@ FOOTER = f"""
 <footer>
   <div class="wrap">
     <div>
-      {LOGO_INVERSE}
+      {LOGO_FOOTER}
       <h4>Blaise Baptist Church</h4>
       <p>Rooted in Christ &bull; Growing Together &bull; Reaching Others</p>
       <p>A disciple-making church in Mocksville, NC &mdash; Davie County.</p>
@@ -238,7 +239,7 @@ def home():
       <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online</a>
     </div>
   </div>
-  <div class="hero-art">{LOGO_INVERSE}</div>
+  <div class="hero-art">{LOGO_HERO}</div>
 </section>
 
 <section class="section-tight section-soft">
@@ -246,14 +247,14 @@ def home():
     <h2>Sunday Mornings</h2>
   </div>
   <div class="wrap grid-2">
-    <div class="schedule-row"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong><br>Classes for every age</div></div>
-    <div class="schedule-row"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Family Life Center &mdash; streamed live on Facebook &amp; YouTube starting at 10:20am</div></div>
+    <div class="schedule-row pane-teal"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong><br>Classes for every age</div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Family Life Center &mdash; streamed live on Facebook &amp; YouTube starting at 10:20am</div></div>
   </div>
 </section>
 
 <section class="stripe">
   <div class="wrap" style="text-align:center;">
-    <h2>Rooted in Christ. Growing Together. Reaching Others.</h2>
+    <h2 class="tagline"><span class="t-sage">Rooted in Christ.</span> <span class="t-teal">Growing Together.</span> <span class="t-gold">Reaching Others.</span></h2>
   </div>
 </section>
 
@@ -318,8 +319,8 @@ def about():
     <h2>Sunday Mornings</h2>
   </div>
   <div class="wrap grid-2">
-    <div class="schedule-row"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong></div></div>
-    <div class="schedule-row"><span class="time">10:30 AM</span><div><strong>Worship</strong><br>Family Life Center</div></div>
+    <div class="schedule-row pane-teal"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong></div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship</strong><br>Family Life Center</div></div>
   </div>
 </section>
 
@@ -378,7 +379,7 @@ def children():
   <div class="wrap">
     <h2>Sundays</h2>
     <div class="schedule-row"><span class="time">9:30&ndash;10:30</span><div><strong>Bible Fellowship Classes</strong><br>Nursery (infant&ndash;3yrs) &middot; Pre-K&ndash;2nd Grade &middot; 3rd&ndash;5th Grade</div></div>
-    <div class="schedule-row"><span class="time">10:30 AM</span><div><strong>Worship Hour</strong><br>Nursery, plus Children's Church for ages 4&ndash;1st grade</div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Hour</strong><br>Nursery, plus Children's Church for ages 4&ndash;1st grade</div></div>
     <h2 style="margin-top:40px;">Wednesdays, 6:30&ndash;7:45 PM</h2>
     <div class="schedule-row"><span class="time">Mission Friends</span><div>Age 3 (potty trained) &ndash; Kindergarten</div></div>
     <div class="schedule-row"><span class="time">Mission Journey</span><div>1st&ndash;5th Grade</div></div>
@@ -588,9 +589,9 @@ def beliefs():
   <div class="wrap">
     <h2>Our Core Values</h2>
     <div class="grid-3">
-      <div class="card"><h3>Rooted in Christ</h3><p style="margin:0;">Everything starts with Jesus and His Word.</p></div>
-      <div class="card"><h3>Growing Together</h3><p style="margin:0;">Following Jesus is a community endeavor, not a solo project.</p></div>
-      <div class="card"><h3>Reaching Others</h3><p style="margin:0;">From Davie County to the nations, we share the Gospel.</p></div>
+      <div class="card value-card pane-sage"><h3>Rooted in Christ</h3><p style="margin:0;">Everything starts with Jesus and His Word.</p></div>
+      <div class="card value-card pane-teal"><h3>Growing Together</h3><p style="margin:0;">Following Jesus is a community endeavor, not a solo project.</p></div>
+      <div class="card value-card pane-gold"><h3>Reaching Others</h3><p style="margin:0;">From Davie County to the nations, we share the Gospel.</p></div>
     </div>
   </div>
 </section>
