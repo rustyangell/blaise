@@ -361,34 +361,38 @@ section { padding: 72px 24px; }
 footer {
   background: var(--forest);
   color: var(--pane-3);
-  padding: 64px 24px 32px;
+  padding: 36px 24px 20px;
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 footer .wrap {
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 36px;
+  gap: 28px;
 }
+footer .logo-inverse { max-width: 56px; margin-bottom: 8px; }
+footer p { margin: 0 0 0.4em; }
 footer h4 {
   color: #fff;
   text-transform: uppercase;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   letter-spacing: 0.08em;
-  margin-bottom: 1em;
+  margin: 0 0 0.6em;
 }
 footer a { color: var(--pane-3); text-decoration: none; transition: color 0.15s ease; }
 footer a:hover { color: #fff; }
 footer ul { list-style: none; padding: 0; margin: 0; }
-footer li { margin-bottom: 0.7em; }
+footer li { margin-bottom: 0.35em; }
 .footer-bottom {
   max-width: var(--max-width);
-  margin: 44px auto 0;
-  padding-top: 22px;
+  margin: 24px auto 0;
+  padding-top: 14px;
   border-top: 1px solid rgba(255,255,255,0.15);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .placeholder-note {
@@ -409,7 +413,10 @@ footer li { margin-bottom: 0.7em; }
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; }
   .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
-  footer .wrap { grid-template-columns: 1fr; }
+  footer { padding: 28px 20px 16px; }
+  /* Brand spans the top; Visit and Connect sit side by side under it. */
+  footer .wrap { grid-template-columns: 1fr 1fr; gap: 20px; }
+  footer .wrap > div:first-child { grid-column: 1 / -1; }
 
   .nav-toggle {
     display: flex;

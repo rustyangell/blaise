@@ -242,6 +242,9 @@ def home():
 </section>
 
 <section class="section-tight section-soft">
+  <div class="wrap">
+    <h2>Sunday Mornings</h2>
+  </div>
   <div class="wrap grid-2">
     <div class="schedule-row"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong><br>Classes for every age</div></div>
     <div class="schedule-row"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Family Life Center &mdash; streamed live on Facebook &amp; YouTube starting at 10:20am</div></div>
@@ -440,12 +443,12 @@ def childcare():
     <div class="card">
       <h3>Fun in the Son &amp; Summer Madness</h3>
       <p><strong>Fun in the Son</strong> Summer Day Camp is for rising kindergarten through completed 5th grade: Bible lessons, worship, swimming, sports, crafts, and field trips. <strong>Summer Madness</strong> serves completed grades 6&ndash;8 with the same spirit, built for middle schoolers.</p>
-      <p>Pricing: <a href="mailto:blaisechildcare@gmail.com">blaisechildcare@gmail.com</a></p>
+      <p>Pricing: <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a></p>
     </div>
   </div>
   <div class="wrap" style="margin-top:32px;">
     <div class="placeholder-note">
-      Registration is opening soon here &mdash; in the meantime, contact us at <a href="mailto:blaisechildcare@gmail.com">blaisechildcare@gmail.com</a> to register.
+      Registration is opening soon here &mdash; in the meantime, contact us at <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a> to register.
     </div>
     {serve_callout("our childcare programs")}
   </div>
@@ -537,14 +540,15 @@ def contact():
 <section>
   <div class="wrap grid-2">
     <div class="card">
-      <h3>Visit or Reach Out</h3>
-      <p>134 Blaise Church Rd<br>Mocksville, NC 27028</p>
+      <h3>Have a question?</h3>
+      <p>Call or email the church office and we'll get back to you.</p>
       <p><a href="tel:3367513639">(336) 751-3639</a><br><a href="mailto:info@blaisebaptist.org">info@blaisebaptist.org</a></p>
-      <a class="btn btn-primary" href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a>
+      <p>134 Blaise Church Rd<br>Mocksville, NC 27028</p>
+      <a class="btn btn-outline" href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a>
     </div>
     <div class="callout">
-      <h3>Have a question?</h3>
-      <p>Fill out our Connection Form and we'll get back to you shortly.</p>
+      <h3>Ready to get plugged in?</h3>
+      <p>New to Blaise or looking for your place here? Fill out our Connection Form and we'll help you get connected.</p>
       {modal_link(LINKS['connection_form'], 'Fill Out the Connection Form')}
       <p style="margin-top:20px;">Interested in Baptism?</p>
       {modal_link(LINKS['baptism_form'], "I'm Interested in Baptism", "btn btn-outline")}
