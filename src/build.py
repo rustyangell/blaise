@@ -49,7 +49,6 @@ NAV_ITEMS_AFTER = [
 ]
 
 LOGO_NAV = '<img src="assets/logo-green.png" alt="Blaise Baptist Church" class="brand-mark">'
-LOGO_HERO = '<img src="assets/mark-panes.png" alt="Blaise Baptist Church">'
 LOGO_FOOTER = '<img src="assets/mark-panes.png" alt="Blaise Baptist Church" class="footer-mark">'
 def icon_badge(src, alt, extra_class=""):
     return f'<span class="icon-badge {extra_class}"><img src="{src}" alt="{alt}"></span>'
@@ -229,15 +228,15 @@ def serve_callout(area):
 
 def home():
     return f"""
-<section class="stripe">
+<section class="stripe stripe-home">
   <div class="wrap" style="text-align:center;">
     <h2 class="tagline"><span class="t-sage">Rooted in Christ.</span> <span class="t-teal">Growing Together.</span> <span class="t-gold">Reaching Others.</span></h2>
   </div>
 </section>
 
-<section class="hero">
-  <div class="hero-art">{LOGO_HERO}</div>
-</section>
+<div class="hero-photo">
+  <img src="assets/hero-church.webp" srcset="assets/hero-church-900.webp 900w, assets/hero-church.webp 1774w" sizes="100vw" width="1774" height="887" alt="The Blaise Baptist Church building">
+</div>
 
 <section class="section-tight section-soft">
   <div class="wrap">

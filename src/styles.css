@@ -231,16 +231,6 @@ a { color: inherit; }
 .btn-outline:hover { background: var(--forest); color: var(--offwhite); }
 
 /* Hero */
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-  padding: 56px 24px 64px;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
-.hero-art img { width: 280px; max-width: 70vw; display: block; }
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
 
 /* Page hero (interior pages) */
@@ -536,3 +526,13 @@ footer li { margin-bottom: 0.35em; }
 .value-card { background: linear-gradient(var(--pane) 0 6px, color-mix(in srgb, var(--pane) 18%, #fff) 6px); box-shadow: var(--shadow-soft); }
 .beliefs .refs a { color: var(--forest); text-decoration: underline; text-decoration-color: var(--pane-1); text-underline-offset: 3px; }
 .beliefs .refs a:hover { text-decoration-color: var(--forest); }
+
+/* Home hero photo: full width, no crop, so the logo baked into it is never cut off.
+   The band above matches the photo's sky so they read as one piece. */
+.stripe-home { background: #1E3C1D; padding-bottom: 8px; }
+.hero-photo { background: #1E3C1D; }
+.hero-photo img { display: block; width: 100%; height: auto; }
+@media (max-width: 600px) {
+  /* Trim the photo's sides on phones so the building and logo read larger; the logo sits in the middle third. */
+  .hero-photo img { height: 260px; object-fit: cover; object-position: center; }
+}
