@@ -14,9 +14,9 @@ LINKS = {
     "dedication_form": f"{CC}/people/forms/945729",
     "serving_form": f"{CC}/people/forms/1202575",
     "missions_form": f"{CC}/people/forms/1236262",
-    # Childcare enrollment lives in ProCare, not Church Center. Until the ProCare
-    # registration exists (see README "Known gaps"), this points at the office.
-    "childcare_registration": "mailto:childcare@blaisebaptist.org",
+    # Childcare enrollment lives in ProCare, not Church Center. Every childcare
+    # call-to-action reads from this one constant.
+    "childcare_registration": "https://schools.procareconnect.com/register/shining-son",
     "groups": f"{CC}/groups",
     "calendar": f"{CC}/calendar",
     "give": "https://app.easytithe.com/App/Giving/blaise",
@@ -479,9 +479,11 @@ def childcare():
     </div>
   </div>
   <div class="wrap" style="margin-top:32px;">
-    <div class="placeholder-note">
-      To enroll, email <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a> or call
-      Kristen at <a href="tel:3366958937">336-695-8937</a> and we'll walk you through it. Online registration is on the way.
+    <div class="callout">
+      <h3>Questions before you enroll?</h3>
+      <p>Email <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a> or call Kristen
+      at <a href="tel:3366958937">336-695-8937</a> and we'll walk you through it.</p>
+      {plain_link(LINKS['childcare_registration'], "Enroll Your Child")}
     </div>
     {serve_callout("Blaise Childcare")}
   </div>

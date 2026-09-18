@@ -71,14 +71,9 @@ at the top of `src/build.py`). Two different link behaviors, deliberately:
 
 ## Known gaps / next steps
 
-- **Childcare registration** (`childcare.html`) has no online form yet. The church uses **ProCare**,
-  not Planning Center, for this ministry. Build the registration in ProCare (Enrollment →
-  Registration → Create Registration, recipient type "Active Student"), matching the field list
-  that was on the old Wix site's "Returning Camper Registration" form (Name of Child, Birthday,
-  Name of Parents, Address, School & Grade Completed, Phone, Allergies, T-shirt Size, Full/Part
-  Time, Pay in full/daily). ProCare gives a link — drop it into `LINKS["childcare_registration"]`
-  in `build.py`. That one constant feeds every childcare call-to-action (page hero and home page),
-  so it is the only edit needed; until then it points at the childcare office email.
+- **Childcare registration** runs through **ProCare**, not Planning Center. Every childcare
+  call-to-action reads from `LINKS["childcare_registration"]` in `build.py`, so if the ProCare
+  registration link ever changes, that single constant is the only edit needed.
 - **Childcare naming.** The ministry is branded as one name, **Blaise Childcare**, with "Before &
   After School Care" and "Summer Day Camp" as plain descriptive subheads. The older program names
   (Shining Son, Fun in the Son, Summer Madness) were retired from the site in favor of a single
