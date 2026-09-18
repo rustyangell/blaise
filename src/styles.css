@@ -1,0 +1,487 @@
+/* Blaise Baptist Church — brand tokens (see Brand Guide One-Pager) */
+:root {
+  --forest: #1A3A1A;
+  --sage: #8CA08C;
+  --offwhite: #F5F5F0;
+  --nearblack: #1A1A1A;
+  --kids: #00A878;
+  --kids-light: #AADFD1;
+  --youth: #F08C00;
+  --youth-light: #EEC685;
+  --men: #142864;
+  --men-light: #91A3C1;
+  --women: #6B3D52;
+  --women-light: #AF979D;
+  --pane-1: #8CA08C;
+  --pane-2: #EEC685;
+  --pane-3: #AADFD1;
+  --pane-4: #91A3C1;
+  --pane-5: #AF979D;
+  --cream: #FBFAF6;
+  --sage-tint: #EEF1EC;
+  --shadow-soft: 0 6px 24px rgba(26, 58, 26, 0.08);
+  --shadow-lift: 0 12px 32px rgba(26, 58, 26, 0.14);
+  --max-width: 1120px;
+  --radius: 20px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--offwhite);
+  color: var(--nearblack);
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  font-size: 18px;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  color: var(--forest);
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: clamp(2.3rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); }
+h3 { font-size: 1.3rem; }
+
+p { margin: 0 0 1em; max-width: 62ch; }
+
+a { color: inherit; }
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--sage);
+  display: block;
+  margin-bottom: 0.9em;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Nav */
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-mark {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+/* The brand kit has no true light-colored logo file, so this flattens the
+   real green mark to white for use on dark backgrounds. */
+.logo-inverse { max-width: 130px; filter: brightness(0) invert(1); opacity: 0.95; }
+
+/* Ministry icon art is tinted close to its own ministry color, so it sits on
+   a soft white badge for contrast when placed on a same-color card or banner. */
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-soft);
+}
+.icon-badge img { width: 40px; height: 40px; object-fit: contain; display: block; }
+.icon-badge-lg { padding: 22px; margin-bottom: 0; border-radius: 22px; }
+.icon-badge-lg img { width: 56px; height: 56px; }
+
+.hero-icon-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+.brand-text { line-height: 1.15; }
+.brand-text strong {
+  display: block;
+  font-weight: 700;
+  color: var(--forest);
+  letter-spacing: 0.02em;
+}
+.brand-text span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--sage);
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--nearblack);
+  transition: color 0.15s ease;
+}
+
+.nav-links a:hover { color: var(--forest); }
+
+.nav-dropdown { position: relative; }
+.nav-dropdown summary {
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--nearblack);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+.nav-dropdown summary::-webkit-details-marker { display: none; }
+.nav-dropdown summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.15s ease;
+}
+.nav-dropdown[open] summary::after { transform: rotate(-135deg) translateY(2px); }
+.nav-dropdown summary:hover { color: var(--forest); }
+.nav-dropdown ul {
+  position: absolute;
+  top: calc(100% + 16px);
+  left: 0;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: var(--shadow-lift);
+  padding: 10px;
+  min-width: 220px;
+  list-style: none;
+  margin: 0;
+  z-index: 20;
+}
+.nav-dropdown ul li a {
+  display: block;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+.nav-dropdown ul li a:hover { background: var(--sage-tint); }
+
+.btn {
+  display: inline-block;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid var(--forest);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary { background: var(--forest); color: var(--offwhite); box-shadow: var(--shadow-soft); }
+.btn-primary:hover { background: #12290f; box-shadow: var(--shadow-lift); }
+.btn-outline { background: transparent; color: var(--forest); }
+.btn-outline:hover { background: var(--forest); color: var(--offwhite); }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: center;
+  padding: 56px 24px 90px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.hero-art {
+  background: radial-gradient(circle at 32% 28%, #234a23 0%, var(--forest) 62%);
+  border-radius: 32px;
+  aspect-ratio: 4 / 3.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: var(--shadow-lift);
+}
+.hero-art img { width: 55%; max-width: 260px; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.2)); }
+
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 1.6em; }
+
+.hero .lede { font-style: italic; color: var(--sage); font-size: 1.35em; }
+
+/* Page hero (interior pages) */
+.page-hero {
+  background: linear-gradient(160deg, var(--forest) 0%, #16311a 100%);
+  color: var(--offwhite);
+  padding: 76px 24px;
+  border-radius: 0 0 40px 40px;
+}
+.page-hero .wrap { max-width: var(--max-width); }
+.page-hero h1 { color: var(--offwhite); }
+.page-hero .eyebrow { color: var(--pane-3); }
+.page-hero p { color: var(--pane-3); max-width: 640px; }
+
+/* Sections */
+section { padding: 72px 24px; }
+.section-tight { padding: 44px 24px; }
+.section-soft { background: var(--sage-tint); }
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 30px;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
+
+.ministry-card {
+  border-radius: var(--radius);
+  padding: 30px;
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.ministry-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
+.ministry-card h3 { color: #fff; }
+.ministry-card a.btn { border-color: rgba(255,255,255,0.7); color: #fff; }
+.ministry-card a.btn:hover { background: rgba(255,255,255,0.18); }
+
+.mc-kids { background: linear-gradient(160deg, #05b380, var(--kids) 70%); }
+.mc-youth { background: linear-gradient(160deg, #f39a1c, var(--youth) 70%); }
+.mc-men { background: linear-gradient(160deg, #1c336f, var(--men) 70%); }
+.mc-women { background: linear-gradient(160deg, #79475b, var(--women) 70%); }
+
+.schedule-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: center;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 26px 30px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-soft);
+}
+.schedule-row .time {
+  font-weight: 700;
+  color: var(--forest);
+  min-width: 100px;
+}
+
+.stripe {
+  background: linear-gradient(135deg, var(--forest) 0%, #234a23 100%);
+  color: var(--offwhite);
+  text-align: center;
+}
+.stripe h2, .stripe h3 { color: var(--offwhite); }
+
+.callout {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+  border-top: 4px solid var(--sage);
+}
+
+.event-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.event-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-2px); }
+.event-card .date { color: var(--sage); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.06em; }
+
+footer {
+  background: var(--forest);
+  color: var(--pane-3);
+  padding: 64px 24px 32px;
+  border-radius: 40px 40px 0 0;
+}
+footer .wrap {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 36px;
+}
+footer h4 {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 1em;
+}
+footer a { color: var(--pane-3); text-decoration: none; transition: color 0.15s ease; }
+footer a:hover { color: #fff; }
+footer ul { list-style: none; padding: 0; margin: 0; }
+footer li { margin-bottom: 0.7em; }
+.footer-bottom {
+  max-width: var(--max-width);
+  margin: 44px auto 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.placeholder-note {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  font-weight: 600;
+  color: var(--nearblack);
+  border-left: 6px solid var(--youth);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Mobile nav drawer — pure CSS via a hidden checkbox, no JS needed */
+.nav-toggle-input { position: absolute; opacity: 0; pointer-events: none; }
+.nav-toggle { display: none; }
+.nav-backdrop { display: none; }
+.nav-close { display: none; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .grid-3, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+  footer .wrap { grid-template-columns: 1fr; }
+  .page-hero, footer { border-radius: 0; }
+
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  .nav-toggle span {
+    display: block;
+    height: 2px;
+    background: var(--forest);
+    border-radius: 2px;
+  }
+
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 58, 26, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 40;
+  }
+  #nav-toggle:checked ~ .nav-backdrop { opacity: 1; pointer-events: auto; }
+
+  .nav-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(82vw, 320px);
+    background: var(--cream);
+    box-shadow: var(--shadow-lift);
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+    z-index: 50;
+    padding: 32px 28px;
+    overflow-y: auto;
+  }
+  #nav-toggle:checked ~ .nav-drawer { transform: translateX(0); }
+
+  .nav-close {
+    display: block;
+    text-align: right;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--forest);
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .nav-links { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+  .nav-dropdown ul {
+    position: static;
+    box-shadow: none;
+    background: transparent;
+    padding: 6px 0 0 4px;
+    min-width: 0;
+  }
+  .nav-dropdown ul li a { padding: 6px 0; }
+}
+
+@media (max-width: 480px) {
+  .nav-links a, .nav-dropdown summary { font-size: 0.82rem; }
+}
