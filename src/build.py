@@ -16,11 +16,21 @@ LINKS = {
     "groups": f"{CC}/groups",
     "calendar": f"{CC}/calendar",
     "give": "https://app.easytithe.com/App/Giving/blaise",
+    "facebook": "https://www.facebook.com/BlaiseChurch",
+    "youtube": "https://www.youtube.com/@blaisebaptistchurch",
+    "directions": "https://www.google.com/maps/dir/?api=1&destination=Blaise+Baptist+Church%2C+134+Blaise+Church+Rd%2C+Mocksville%2C+NC+27028",
+    "map_embed": "https://www.google.com/maps?q=Blaise+Baptist+Church,+134+Blaise+Church+Rd,+Mocksville,+NC+27028&output=embed",
+    "bfm": "https://bfm.sbc.net/bfm2000/",
 }
 
 NAV_ITEMS = [
     ("index.html", "Home"),
-    ("about.html", "About"),
+]
+
+ABOUT_ITEMS = [
+    ("about.html", "About Us"),
+    ("beliefs.html", "Beliefs &amp; Core Values"),
+    ("baptism.html", "Baptism"),
 ]
 
 MINISTRY_ITEMS = [
@@ -70,11 +80,16 @@ def nav(active):
             for href, label in pairs
         )
 
-    ministry_active = any(href == active for href, _ in MINISTRY_ITEMS)
-    ministry_links = "\n".join(
-        f'<li><a href="{href}"{active_style if href == active else ""}>{label}</a></li>'
-        for href, label in MINISTRY_ITEMS
-    )
+    def dropdown(label, pairs):
+        is_active = any(href == active for href, _ in pairs)
+        return f"""<li>
+        <details class="nav-dropdown">
+          <summary{active_style if is_active else ""}>{label}</summary>
+          <ul>
+            {link_items(pairs)}
+          </ul>
+        </details>
+      </li>"""
 
     return f"""
 <nav class="site-nav">
@@ -91,14 +106,8 @@ def nav(active):
     <label for="nav-toggle" class="nav-close" aria-label="Close menu">&times;</label>
     <ul class="nav-links">
       {link_items(NAV_ITEMS)}
-      <li>
-        <details class="nav-dropdown">
-          <summary{active_style if ministry_active else ""}>Ministries</summary>
-          <ul>
-            {ministry_links}
-          </ul>
-        </details>
-      </li>
+      {dropdown("About", ABOUT_ITEMS)}
+      {dropdown("Ministries", MINISTRY_ITEMS)}
       {link_items(NAV_ITEMS_AFTER)}
       <li>{modal_link(LINKS['give'], 'Give', 'btn btn-outline')}</li>
     </ul>
@@ -120,6 +129,7 @@ FOOTER = f"""
       <h4>Visit</h4>
       <ul>
         <li>134 Blaise Church Rd<br>Mocksville, NC 27028</li>
+        <li><a href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a></li>
         <li><a href="tel:3367513639">(336) 751-3639</a></li>
         <li><a href="mailto:info@blaisebaptist.org">info@blaisebaptist.org</a></li>
       </ul>
@@ -136,7 +146,7 @@ FOOTER = f"""
   </div>
   <div class="footer-bottom wrap">
     <span>&copy; 2026 Blaise Baptist Church</span>
-    <span>Facebook &middot; YouTube</span>
+    <span><a href="{LINKS['facebook']}" target="_blank" rel="noopener">Facebook</a> &middot; <a href="{LINKS['youtube']}" target="_blank" rel="noopener">YouTube</a></span>
   </div>
 </footer>
 """
@@ -148,7 +158,7 @@ PAGE_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} | Blaise Baptist Church</title>
 <meta name="description" content="{description}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
+{head_extra}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script src="https://js.churchcenter.com/modal/v1"></script>
@@ -165,10 +175,11 @@ PAGE_TEMPLATE = """<!doctype html>
 """
 
 
-def render(path, title, description, content):
+def render(path, title, description, content, head_extra=""):
     html = PAGE_TEMPLATE.format(
         title=title,
         description=description,
+        head_extra=head_extra,
         nav=nav(path),
         content=content,
         footer=FOOTER,
@@ -185,7 +196,29 @@ def build():
     shutil.copytree(os.path.join(SRC, "assets"), os.path.join(DIST, "assets"))
     for path, title, description, content_fn in PAGES:
         render(path, title, description, content_fn())
-    print(f"Built {len(PAGES)} pages into {DIST}")
+    # Reachable by direct URL only: not in the nav, footer, or any page, and kept out of search.
+    for path, title, description, content_fn in UNLISTED_PAGES:
+        render(path, title, description, content_fn(), '<meta name="robots" content="noindex, nofollow">\n')
+    print(f"Built {len(PAGES) + len(UNLISTED_PAGES)} pages into {DIST}")
+
+
+def directions_block():
+    return f"""<div class="map-block">
+      <iframe class="map-embed" src="{LINKS['map_embed']}" title="Map to Blaise Baptist Church" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="map-info">
+        <h3>Blaise Baptist Church</h3>
+        <p>134 Blaise Church Rd<br>Mocksville, NC 27028</p>
+        <a class="btn btn-primary" href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a>
+      </div>
+    </div>"""
+
+
+def serve_callout(area):
+    return f"""<div class="callout" style="margin-top:40px;">
+      <h3>Want to serve with {area}?</h3>
+      <p>We'd love to have you on the team. Let us know you're interested and we'll follow up.</p>
+      {modal_link(LINKS['serving_form'], "I'm Interested in Serving")}
+    </div>"""
 
 
 # ---------------------------------------------------------------------------
@@ -202,7 +235,7 @@ def home():
     <p>Blaise Baptist is a church in Davie County where real people are known by name, Scripture is taught straight, and following Jesus is a community endeavor &mdash; not a solo project.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="about.html">Plan Your Visit</a>
-      <a class="btn btn-outline" href="https://www.facebook.com/blaisebaptist" target="_blank" rel="noopener">Watch Online</a>
+      <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online</a>
     </div>
   </div>
   <div class="hero-art">{LOGO_INVERSE}</div>
@@ -250,7 +283,6 @@ def about():
         ("Rev. Ken Furches", "Senior Pastor", "ken.furches@blaisebaptist.org"),
         ("Michael Hanna", "Youth Pastor", "michael.hanna@blaisebaptist.org"),
         ("Kristen Hollars", "Children's Outreach Director", "kristen.hollars@blaisebaptist.org"),
-        ("Jennifer Hanna", "Church Secretary", "jennifer.hanna@blaisebaptist.org"),
     ]
     staff_cards = "\n".join(
         f'<div class="card"><h3>{name}</h3><p style="margin-bottom:4px;">{role}</p><a href="mailto:{email}">{email}</a></div>'
@@ -274,11 +306,14 @@ def about():
 <section>
   <div class="wrap">
     <h2>Our Staff</h2>
-    <div class="grid-4">{staff_cards}</div>
+    <div class="grid-3">{staff_cards}</div>
   </div>
 </section>
 
 <section class="section-tight">
+  <div class="wrap">
+    <h2>Sunday Mornings</h2>
+  </div>
   <div class="wrap grid-2">
     <div class="schedule-row"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong></div></div>
     <div class="schedule-row"><span class="time">10:30 AM</span><div><strong>Worship</strong><br>Family Life Center</div></div>
@@ -292,11 +327,10 @@ def about():
   </div>
 </section>
 
-<section class="stripe">
+<section class="section-soft">
   <div class="wrap">
     <h2>Getting Here</h2>
-    <p>134 Blaise Church Rd, Mocksville, NC 27028</p>
-    <p>From I-40, take exit 170 onto Hwy 601 North. Turn at Blaise Church Road (beside the Citgo) &mdash; Blaise Church will be on your right.</p>
+    {directions_block()}
   </div>
 </section>
 """
@@ -319,6 +353,7 @@ def students():
     <p>Blaise Youth (Y4J &mdash; Youth 4 Jesus) is for 6th grade through high school seniors. We're focused on growing into vibrant, enthusiastic followers of Jesus Christ &mdash; studying the Bible, praying for each other, ministering to people, playing games, and going on mission trips from Davie County to South America.</p>
     <div class="schedule-row"><span class="time">Sundays</span><div><strong>Bible Fellowship</strong><br>9:30 AM</div></div>
     <div class="schedule-row"><span class="time">Wednesdays</span><div><strong>Youth Night</strong><br>6:30&ndash;7:45 PM</div></div>
+    {serve_callout("Blaise Youth")}
   </div>
 </section>
 """
@@ -349,6 +384,7 @@ def children():
       <p>Child Dedication is a chance to publicly give thanks for your child and commit, with the congregation, to raise them in the Lord.</p>
       {modal_link(LINKS['dedication_form'], "I'm Interested")}
     </div>
+    {serve_callout("Blaise Kids")}
   </div>
 </section>
 """
@@ -411,13 +447,14 @@ def childcare():
     <div class="placeholder-note">
       Registration is opening soon here &mdash; in the meantime, contact us at <a href="mailto:blaisechildcare@gmail.com">blaisechildcare@gmail.com</a> to register.
     </div>
+    {serve_callout("our childcare programs")}
   </div>
 </section>
 """
 
 
 def celebrate_recovery():
-    return """
+    return f"""
 <div class="page-hero">
   <div class="wrap">
     <span class="eyebrow">Hurts, Habits &amp; Hang-Ups</span>
@@ -434,6 +471,7 @@ def celebrate_recovery():
     <div class="schedule-row"><span class="time">7:00 PM</span><div>Worship / Large Group (personal testimony, music)</div></div>
     <div class="schedule-row"><span class="time">8:00 PM</span><div>Open Share Small Groups &mdash; Men's Addictions, Women's Addictions, Men's A&ndash;Z, Women's A&ndash;Z</div></div>
     <div class="schedule-row"><span class="time">9:00 PM</span><div>Solid Rock Cafe &mdash; coffee, desserts, fellowship, mentoring</div></div>
+    {serve_callout("Celebrate Recovery")}
   </div>
 </section>
 """
@@ -453,6 +491,11 @@ def missions():
     <h3>Want to be part of it?</h3>
     <p>Whether it's local outreach or an international trip, let us know you're interested and we'll follow up.</p>
     {modal_link(LINKS['missions_form'], "I'm Interested in Missions")}
+  </div>
+</section>
+<section style="padding-top:0;">
+  <div class="wrap">
+    {serve_callout("our missions team")}
   </div>
 </section>
 """
@@ -497,6 +540,7 @@ def contact():
       <h3>Visit or Reach Out</h3>
       <p>134 Blaise Church Rd<br>Mocksville, NC 27028</p>
       <p><a href="tel:3367513639">(336) 751-3639</a><br><a href="mailto:info@blaisebaptist.org">info@blaisebaptist.org</a></p>
+      <a class="btn btn-primary" href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a>
     </div>
     <div class="callout">
       <h3>Have a question?</h3>
@@ -510,9 +554,110 @@ def contact():
 """
 
 
+def beliefs():
+    statements = [
+        ("the Bible is the verbally and plenarily inspired Word of God, inerrant in its original manuscripts. The Bible is our supreme and final authority in faith and life.", "II Timothy 3:16; II Peter 1:20, 21"),
+        ("in one God, eternally existing in three persons; Father, Son, and Holy Spirit.", "Genesis 1:1, 26; Matthew 28:19; John 1:1, 3; 4:24; Acts 5:3, 4; Romans 1:20; Ephesians 4:5, 6; II Corinthians 13:14"),
+        ("that Jesus Christ was conceived by the Holy Spirit, and born of the Virgin Mary, and is true God and true man.", "Matthew 1:18&ndash;25; Luke 1:26&ndash;38; Romans 9:5; Titus 2:13"),
+        ("that man was created in the image of God, that he sinned and thereby incurred not only physical death but also that spiritual death which is separation from God, and that all human beings are born with a sinful nature, and become guilty sinners in thought, word, and deed.", "Genesis 1:26, 27; 3:1&ndash;24; Romans 3:25; 5:12&ndash;18; I John 1:8"),
+        ("that the Lord Jesus died for our sins according to the scriptures as a representative and substitutionary sacrifice; that He rose victorious from the grave on the third day; and that all who believe in Him are justified on the ground of His shed blood.", "Isaiah 53; Matthew 20:28; John 3:16; Romans 3:24&ndash;26; 5:1; I Corinthians 15:3; II Corinthians 5:21; Ephesians 1:7; I John 2:2; Matthew 28:6; Romans 10:9; I Corinthians 15:14"),
+        ("in the personal and imminent return of our Lord Jesus Christ.", "Acts 1:11; I Thessalonians 4:16, 17"),
+        ("that all who come by grace through faith to accept the Lord Jesus Christ are born again of the Holy Spirit and thereby become children of God.", "John 3:3, 5; 1:12, 13; James 1:18; I Peter 1:23; Ephesians 2:8, 9"),
+        ("in the bodily resurrection of the just and the unjust, the everlasting joy of the saved and the everlasting conscious punishment of the lost.", "John 5:28&ndash;29; I Corinthians 15; II Corinthians 5:10; Matthew 25:31&ndash;46; Revelation 20:4&ndash;6, 11&ndash;15"),
+        ("that all Christians are baptized by the Holy Spirit when they are born again. We believe that water baptism by immersion is the biblical testimony of the professed believer in the name of the Father, Son, and Holy Spirit.", "Acts 2:38&ndash;41, 47; Matthew 28:18&ndash;20; Acts 8:36&ndash;40; 10:47; 18:8; Romans 6:3, 4; I Corinthians 12:13"),
+        ("that those who partake of the Lord&rsquo;s Supper should be born-again believers, walking in fellowship with the Lord Jesus Christ.", "Acts 2:42&ndash;46; I Corinthians 11:23&ndash;29"),
+        ("that as Christians we are to meet together regularly for worship, ordinances, and the encouragement of each other.", "Hebrews 10:24, 25; Acts 2:42, 46, 47a"),
+    ]
+    items = "\n".join(
+        f'<li><p><strong>We believe</strong> {text}</p><span class="refs">{refs}</span></li>'
+        for text, refs in statements
+    )
+    return f"""
+<div class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">About Blaise</span>
+    <h1>Beliefs &amp; Core Values</h1>
+    <p>We are an autonomous Southern Baptist church, and our beliefs align with the Baptist Faith and Message.</p>
+  </div>
+</div>
+<section>
+  <div class="wrap">
+    <h2>Our Core Values</h2>
+    <div class="grid-3">
+      <div class="card"><h3>Rooted in Christ</h3><p style="margin:0;">Everything starts with Jesus and His Word.</p></div>
+      <div class="card"><h3>Growing Together</h3><p style="margin:0;">Following Jesus is a community endeavor, not a solo project.</p></div>
+      <div class="card"><h3>Reaching Others</h3><p style="margin:0;">From Davie County to the nations, we share the Gospel.</p></div>
+    </div>
+  </div>
+</section>
+<section class="section-soft">
+  <div class="wrap">
+    <h2>What We Believe</h2>
+    <ol class="beliefs">
+      {items}
+    </ol>
+    <p style="margin-top:32px;">Want to go deeper? Read the full statement of faith Southern Baptists share.</p>
+    <a class="btn btn-outline" href="{LINKS['bfm']}" target="_blank" rel="noopener">The Baptist Faith &amp; Message</a>
+  </div>
+</section>
+"""
+
+
+def baptism():
+    return f"""
+<div class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Next Steps</span>
+    <h1>Baptism</h1>
+    <p>A public profession of faith in Jesus Christ, and an outward expression of the inward change He has made in us.</p>
+  </div>
+</div>
+<section>
+  <div class="wrap grid-2">
+    <div>
+      <p>Here at Blaise Baptist Church we understand baptism to be a public profession of our faith in Jesus Christ and outward expression of the inward change that Christ has made in us.</p>
+      <p>Baptism by immersion is a one-time act of obedient identification with Jesus as Lord. It serves as an outward sign of our conscious confession of repentance and faith.</p>
+    </div>
+    <div class="callout">
+      <h3>Ready to take the next step?</h3>
+      <p>Fill out the baptism form and one of our pastors will follow up with you very soon.</p>
+      {modal_link(LINKS['baptism_form'], "I'm Interested in Baptism")}
+    </div>
+  </div>
+</section>
+"""
+
+
+def classifieds():
+    openings = [
+        ("Part-Time Church Admin", "Administrative &amp; Communications Assistant, about 25 hours per week.", "assets/jobs/part-time-church-admin.pdf"),
+        ("Part-Time Church Bookkeeper", "Financial record-keeping and support for the church office.", "assets/jobs/part-time-church-bookkeeper.pdf"),
+    ]
+    cards = "\n".join(
+        f'<div class="card"><h3>{title}</h3><p>{blurb}</p><a class="btn btn-primary" href="{pdf}" target="_blank" rel="noopener">Job Description (PDF)</a></div>'
+        for title, blurb, pdf in openings
+    )
+    return f"""
+<div class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Join Our Team</span>
+    <h1>Open Positions</h1>
+    <p>Please find the job description below for each available position. If you're interested, download the document and follow the instructions to submit your application. We look forward to hearing from you!</p>
+  </div>
+</div>
+<section>
+  <div class="wrap grid-2">
+    {cards}
+  </div>
+</section>
+"""
+
+
 PAGES = [
     ("index.html", "Home", "A place to belong. A faith worth living. Blaise Baptist Church, Mocksville, NC.", home),
     ("about.html", "About", "Staff, service times, and what to expect at Blaise Baptist Church.", about),
+    ("beliefs.html", "Beliefs & Core Values", "What Blaise Baptist Church believes.", beliefs),
+    ("baptism.html", "Baptism", "Baptism at Blaise Baptist Church.", baptism),
     ("students.html", "Students", "Blaise Youth (Y4J) for 6th grade through high school seniors.", students),
     ("children.html", "Children", "Blaise Kids ministry for birth through 5th grade.", children),
     ("small-groups.html", "Small Groups", "Find a small group at Blaise Baptist Church.", small_groups),
@@ -521,6 +666,10 @@ PAGES = [
     ("missions.html", "Missions", "Local and global missions at Blaise Baptist Church.", missions),
     ("events.html", "Events", "Upcoming events and the full Blaise Baptist Church calendar.", events),
     ("contact.html", "Contact", "Get in touch with Blaise Baptist Church.", contact),
+]
+
+UNLISTED_PAGES = [
+    ("classifieds.html", "Open Positions", "Job openings at Blaise Baptist Church.", classifieds),
 ]
 
 if __name__ == "__main__":
