@@ -244,6 +244,23 @@ a { color: inherit; }
 .page-hero .eyebrow { color: var(--pane-3); }
 .page-hero p { color: var(--pane-3); max-width: 640px; }
 
+/* The hero sits on a dark forest gradient, where the default forest fill and
+   forest outline both disappear into the background -- the outline button was
+   only visible on hover. Invert both variants against it. */
+.page-hero .hero-actions { justify-content: flex-start; margin-top: 24px; }
+.page-hero .btn-primary {
+  background: var(--offwhite);
+  color: var(--forest);
+  border-color: var(--offwhite);
+}
+.page-hero .btn-primary:hover { background: #fff; border-color: #fff; color: var(--forest); }
+.page-hero .btn-outline {
+  background: transparent;
+  color: var(--offwhite);
+  border-color: var(--offwhite);
+}
+.page-hero .btn-outline:hover { background: var(--offwhite); color: var(--forest); }
+
 /* Sections */
 section { padding: 72px 24px; }
 .section-tight { padding: 44px 24px; }
