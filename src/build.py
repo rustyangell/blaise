@@ -15,10 +15,6 @@ LINKS = {
     "missions_form": f"{CC}/people/forms/1236262",
     "groups": f"{CC}/groups",
     "calendar": f"{CC}/calendar",
-    "kairos": f"{CC}/registrations/events/3872538",
-    "bunco": f"{CC}/registrations/events/3877817",
-    "womens_night": f"{CC}/registrations/events/3879295",
-    "wed_meals": f"{CC}/registrations/events/3893710",
     "give": "https://app.easytithe.com/App/Giving/blaise",
 }
 
@@ -156,6 +152,7 @@ PAGE_TEMPLATE = """<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script src="https://js.churchcenter.com/modal/v1"></script>
+<script src="assets/events.js" defer></script>
 </head>
 <body>
 {nav}
@@ -229,10 +226,8 @@ def home():
     <span class="eyebrow">Upcoming</span>
     <h2>What's happening at Blaise</h2>
     <p>See the full calendar and sign up for anything below &mdash; everything's handled through Church Center.</p>
-    <div class="grid-3">
-      <div class="event-card"><span class="date">Nov 12&ndash;14</span><h3>Kairos Women's Retreat</h3><p>A weekend in I Thessalonians, right here at Blaise.</p>{plain_link(LINKS['kairos'], 'Get Info & Register')}</div>
-      <div class="event-card"><span class="date">Weekly</span><h3>Wednesday Night Meals</h3><p>Fellowship and a plated meal before Wednesday activities.</p>{plain_link(LINKS['wed_meals'], 'Get Info & Sign Up')}</div>
-      <div class="event-card"><span class="date">Oct 17</span><h3>Women's Night of Worship</h3><p>An evening around the fire pit, focused on the Lord.</p>{plain_link(LINKS['womens_night'], 'Get Info & Register')}</div>
+    <div class="grid-3" data-pco="home" data-limit="3">
+      <div class="event-card"><h3>See what's coming up</h3><p>Our full calendar and registrations live on Church Center.</p><a class="btn btn-primary" href="{LINKS['calendar']}" target="_blank" rel="noopener">Open the Calendar</a></div>
     </div>
     <p style="margin-top:24px;"><a class="btn btn-outline" href="events.html">See All Events &amp; the Full Calendar</a></p>
   </div>
@@ -475,12 +470,13 @@ def events():
 </div>
 <section>
   <div class="wrap">
-    <h2>Open Right Now</h2>
-    <div class="grid-2">
-      <div class="event-card"><span class="date">Nov 12&ndash;14</span><h3>Kairos &mdash; The Time Is Now Women's Retreat</h3><p>A weekend in I Thessalonians, at Blaise Baptist Church.</p>{plain_link(LINKS['kairos'], 'Get Info & Register')}</div>
-      <div class="event-card"><span class="date">Ongoing</span><h3>Bunco Game Night</h3><p>An evening of rolls, laughs, and connections. Bring a snack to share.</p>{plain_link(LINKS['bunco'], 'Get Info & Sign Up')}</div>
-      <div class="event-card"><span class="date">Oct 17, 6:30 PM</span><h3>Women's Night of Worship</h3><p>Gathering around the fire pit for music, fellowship, and worship.</p>{plain_link(LINKS['womens_night'], 'Get Info & Register')}</div>
-      <div class="event-card"><span class="date">Weekly, Wednesdays</span><h3>Wednesday Night Meals</h3><p>Plated meal or flex pickup before evening activities. Sign up by Monday.</p>{plain_link(LINKS['wed_meals'], 'Get Info & Sign Up')}</div>
+    <h2>Open for Registration</h2>
+    <div class="grid-2" data-pco="signups" data-empty="Nothing is open for registration right now &mdash; check back soon.">
+      <div class="event-card"><h3>Registrations</h3><p>See everything open for sign-up on Church Center.</p><a class="btn btn-primary" href="{CC}/registrations" target="_blank" rel="noopener">View Registrations</a></div>
+    </div>
+    <h2 style="margin-top:48px;">Coming Up</h2>
+    <div class="grid-3" data-pco="events" data-empty="No upcoming events posted yet.">
+      <div class="event-card"><h3>Full calendar</h3><p>Browse every upcoming event on Church Center.</p><a class="btn btn-primary" href="{LINKS['calendar']}" target="_blank" rel="noopener">Open the Calendar</a></div>
     </div>
   </div>
 </section>

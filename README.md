@@ -17,8 +17,11 @@ templates into `dist/`, which is what actually gets deployed.
 python3 src/build.py                # writes dist/
 ```
 
-To deploy, upload `dist/` to the Netlify project above (via the Netlify MCP tools' `deploy-site`
-operation, or `netlify deploy --prod --dir=dist` from the Netlify CLI if working outside this session).
+To deploy (the site is not Git-connected, so the function must be uploaded with it):
+
+```bash
+netlify deploy --prod --site 64f6e724-fa41-4cc5-bbf1-df1232a4876d --dir=dist --functions=netlify/functions
+```
 
 `dist/` is gitignored — it's fully regenerated from `src/` every time, never hand-edited.
 
@@ -76,3 +79,16 @@ at the top of `src/build.py`). Two different link behaviors, deliberately:
 See prior conversation history for the full page-by-page audit of the old Wix site (what existed, what
 was flagged for removal, what was missing). Not duplicated here — this README covers only what a fresh
 session needs to keep working on the code itself.
+
+## Live events from the Planning Center API
+
+`netlify/functions/events.mjs` serves `/api/events`: upcoming (90 days) Calendar events marked *Visible in
+Church Center*, plus every open, unarchived Registrations signup. It authenticates with a Personal Access
+Token stored as Netlify env vars `PCO_APP_ID` / `PCO_SECRET` (secret; set in the Netlify UI, never in the
+repo). The CDN caches the response for 15 minutes and serves the last good copy for a day if Planning
+Center is down.
+
+`src/assets/events.js` fills any `data-pco="signups" | "events" | "home"` container on the events and home
+pages. Those containers ship with a Church Center link as fallback content. Calendar events whose
+registration URL matches an open signup are shown once, as the signup. To hide an event from the site,
+set it to Hidden in Church Center; there is nothing to edit here.

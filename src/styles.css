@@ -485,3 +485,5 @@ footer li { margin-bottom: 0.7em; }
 @media (max-width: 480px) {
   .nav-links a, .nav-dropdown summary { font-size: 0.82rem; }
 }
+
+.event-card .event-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; margin-bottom: 12px; display: block; }
