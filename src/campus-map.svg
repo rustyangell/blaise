@@ -1,7 +1,7 @@
 <!-- Campus footprints traced from the Google map screenshot in reference/campus/ (checked against the satellite
      view), then rotated 90° clockwise to match the church's own campus map.webp: Blaise Church Rd (drawn straight) along the
      bottom, Family Life Center on the right. Each clickable shape has data-building = an id in buildings.json. -->
-<svg class="campus-svg" viewBox="-230 130 1560 1600" xmlns="http://www.w3.org/2000/svg">
+<svg class="campus-svg" viewBox="-230 130 1560 1600" data-mobile-viewbox="20 150 1070 1010" xmlns="http://www.w3.org/2000/svg">
   <g class="campus-ground" aria-hidden="true">
     <!-- Paths and lots placed from the annotated satellite screenshot (7.55.07 AM.heic) -->
     <path id="road-blaise" class="campus-road" d="M-300 1045 C0 1130 350 1250 646 1380 S900 1560 1000 1680 L1100 1800"/>
