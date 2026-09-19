@@ -40,7 +40,7 @@ MINISTRY_LOCATIONS = [
     ("Sunday Worship", "about.html", "family-life-center", "Sundays, 10:30 AM"),
     ("Sunday Bible Fellowship", None, "family-life-center", "Sundays, 9:30 AM"),
     ("Wednesday Meals", "events.html", "family-life-center", "Wednesdays"),
-    ("Men&rsquo;s &amp; Women&rsquo;s Wednesday Night Groups", "small-groups.html", "family-life-center", "Wednesday nights"),
+    ("Men&rsquo;s Wednesday Night Groups", "small-groups.html", "family-life-center", "Wednesday nights"),
     ("Bible Fellowship", None, "sanctuary", "Sundays, 9:30 AM"),
     ("Celebrate Recovery", "celebrate-recovery.html", "educational", "Tuesdays, 6:00 PM (starts here, then moves to the Sanctuary)"),
     ("Children&rsquo;s Ministry", "children.html", "educational", "Sundays &amp; Wednesdays"),
@@ -55,6 +55,7 @@ MINISTRY_LOCATIONS = [
     ("Celebrate Recovery", "celebrate-recovery.html", "sanctuary", "Tuesdays, 7:00 PM (after supper in the 300 building)"),
     ("Student Bible Fellowship", "students.html", "youth-underground", "Sundays, 9:30 AM"),
     ("Student Ministry", "students.html", "youth-underground", "Wednesday nights"),
+    ("Women&rsquo;s Ministry", "small-groups.html", "sanctuary", "Wednesday nights (starts here, then breaks out to classrooms)"),
 ]
 for _m in MINISTRY_LOCATIONS:
     if _m[2] not in BUILDINGS_BY_ID:
