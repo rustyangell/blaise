@@ -39,12 +39,12 @@ MINISTRY_LOCATIONS = [
     # (the one its "Find it on the map" link opens).
     ("Sunday Worship", "about.html", "family-life-center", "Sundays, 10:30 AM"),
     ("Sunday Bible Fellowship", None, "family-life-center", "Sundays, 9:30 AM"),
-    ("Wednesday Meals", "events.html", "family-life-center", "Wednesdays"),
-    ("Men&rsquo;s Wednesday Night Groups", "small-groups.html", "family-life-center", "Wednesday nights"),
+    ("Wednesday Meals", "events.html", "family-life-center", "Wednesdays, 5:00 PM"),
+    ("Men&rsquo;s Wednesday Night Groups", "small-groups.html", "family-life-center", "Wednesdays, 6:30&ndash;7:45 PM"),
     ("Bible Fellowship", None, "sanctuary", "Sundays, 9:30 AM"),
     ("Celebrate Recovery", "celebrate-recovery.html", "educational", "Tuesdays, 6:00 PM (starts here, then moves to the Sanctuary)"),
-    ("Children&rsquo;s Ministry", "children.html", "educational", "Sundays &amp; Wednesdays"),
-    ("Student Ministry", "students.html", "educational", "Sundays &amp; Wednesdays"),
+    ("Children&rsquo;s Ministry", "children.html", "educational", "Sundays, 9:30 AM &amp; Wednesdays, 6:30&ndash;7:45 PM"),
+    ("Student Ministry", "students.html", "educational", "Sundays, 9:30 AM &amp; Wednesdays, 6:30&ndash;7:45 PM"),
     ("Special Friends", "special-friends.html", "educational", ""),
     ("Bible Fellowship", None, "educational", "Sundays, 9:30 AM"),
     ("Bible Fellowship", None, "classrooms", "Sundays, 9:30 AM"),
@@ -54,8 +54,8 @@ MINISTRY_LOCATIONS = [
     # Secondary locations go last, after every page's primary row.
     ("Celebrate Recovery", "celebrate-recovery.html", "sanctuary", "Tuesdays, 7:00 PM (after supper in the 300 building)"),
     ("Student Bible Fellowship", "students.html", "youth-underground", "Sundays, 9:30 AM"),
-    ("Student Ministry", "students.html", "youth-underground", "Wednesday nights"),
-    ("Women&rsquo;s Ministry", "small-groups.html", "sanctuary", "Wednesday nights (starts here, then breaks out to classrooms)"),
+    ("Student Ministry", "students.html", "youth-underground", "Wednesdays, 6:30&ndash;7:45 PM"),
+    ("Women&rsquo;s Ministry", "small-groups.html", "sanctuary", "Wednesdays, 6:30&ndash;7:45 PM (starts here, then breaks out to classrooms)"),
 ]
 for _m in MINISTRY_LOCATIONS:
     if _m[2] not in BUILDINGS_BY_ID:
