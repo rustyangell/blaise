@@ -259,6 +259,9 @@ add redirects to `netlify.toml` first. The `/childcare` redirect already there i
   with a "Coming Soon" note so the ministry has a home, but the real content hasn't been written.
   The ministry is called **Good Life**. Replace the Coming Soon section in `senior_adults()` once
   schedule, contact, and description copy are available.
+- **Special Friends** (`special-friends.html`) is a placeholder in the same way — in the Ministries nav
+  with a "Coming Soon" note and a "Find it on the map" link to the 300 building. Replace the Coming Soon
+  section in `special_friends()` once schedule, contact, and description copy are available.
 - A new childcare logo is pending, along with adding it to the church's Canva brand kit.
 - Action photos would strengthen the ministry pages; none are available yet.
 - **Celebrate Recovery** could be promoted to top-level nav the way Childcare was — people often

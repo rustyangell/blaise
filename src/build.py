@@ -45,7 +45,7 @@ MINISTRY_LOCATIONS = [
     ("Celebrate Recovery", "celebrate-recovery.html", "educational", "Tuesdays, 6:00 PM (starts here, then moves to the Sanctuary)"),
     ("Children&rsquo;s Ministry", "children.html", "educational", "Sundays &amp; Wednesdays"),
     ("Student Ministry", "students.html", "educational", "Sundays &amp; Wednesdays"),
-    ("Special Friends", None, "educational", ""),
+    ("Special Friends", "special-friends.html", "educational", ""),
     ("Bible Fellowship", None, "educational", "Sundays, 9:30 AM"),
     ("Bible Fellowship", None, "classrooms", "Sundays, 9:30 AM"),
     ("Small Groups (various)", "small-groups.html", "classrooms", ""),
@@ -84,6 +84,7 @@ MINISTRY_ITEMS = [
     ("students.html", "Students"),
     ("children.html", "Children"),
     ("senior-adults.html", "Senior Adults"),
+    ("special-friends.html", "Special Friends"),
     ("small-groups.html", "Small Groups"),
     ("celebrate-recovery.html", "Celebrate Recovery"),
     ("missions.html", "Missions"),
@@ -526,6 +527,25 @@ def senior_adults():
 """
 
 
+def special_friends():
+    return f"""
+<div class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Special Friends</span>
+    <h1>Special Friends</h1>
+    <p>Our Special Friends ministry at Blaise Baptist Church.</p>
+  </div>
+</div>
+<section>
+  <div class="wrap">
+    <h2>Coming Soon</h2>
+    <p>This page will be updated soon with all of the details about our Special Friends ministry.</p>
+    {find_on_map("special-friends.html")}
+  </div>
+</section>
+"""
+
+
 def small_groups():
     return f"""
 <div class="page-hero">
@@ -826,6 +846,7 @@ PAGES = [
     ("students.html", "Students", "Blaise Youth (Y4J) for 6th grade through high school seniors.", students),
     ("children.html", "Children", "Blaise Kids ministry for birth through 5th grade.", children),
     ("senior-adults.html", "Senior Adults", "Good Life, the senior adult ministry at Blaise Baptist Church.", senior_adults),
+    ("special-friends.html", "Special Friends", "Special Friends ministry at Blaise Baptist Church.", special_friends),
     ("small-groups.html", "Small Groups", "Find a small group at Blaise Baptist Church.", small_groups),
     ("childcare.html", "Childcare", "Before and after school care and summer day camp for grades K-8 at Blaise Baptist Church in Mocksville, NC.", childcare),
     ("celebrate-recovery.html", "Celebrate Recovery", "A biblical recovery program for hurts, habits, and hang-ups.", celebrate_recovery),
