@@ -53,6 +53,8 @@ MINISTRY_LOCATIONS = [
     ("Bible Fellowship", None, "offices", "Sundays, 9:30 AM"),
     # Secondary locations go last, after every page's primary row.
     ("Celebrate Recovery", "celebrate-recovery.html", "sanctuary", "Tuesdays, 7:00 PM (after supper in the 300 building)"),
+    ("Student Bible Fellowship", "students.html", "youth-underground", "Sundays, 9:30 AM"),
+    ("Student Ministry", "students.html", "youth-underground", "Wednesday nights"),
 ]
 for _m in MINISTRY_LOCATIONS:
     if _m[2] not in BUILDINGS_BY_ID:
