@@ -291,7 +291,7 @@ def campus_svg(filename, label):
 
 def campus_map():
     svg = campus_svg("campus-map.svg", "Campus map. Select a building for details.")
-    inset = campus_svg("underground-inset.svg", "Inset: Youth Underground, lower level of the Educational Building.")
+    inset = campus_svg("underground-inset.svg", "Youth Underground, lower level of the Educational Building.")
     for b in BUILDINGS:
         if f'data-building="{b["id"]}"' not in svg:
             raise SystemExit(f"campus-map.svg has no shape for building {b['id']!r}")
@@ -313,7 +313,7 @@ def campus_map():
     <div class="campus-map">
       <div class="campus-canvas">
         {svg}
-        <figure class="campus-inset" id="campus-inset" hidden>{inset}<figcaption>Inset: lower level of the Educational Building (300)</figcaption></figure>
+        <figure class="campus-inset" id="campus-inset" hidden>{inset}<figcaption>Lower level of the Educational Building (300)</figcaption></figure>
         <div class="campus-tip" role="tooltip" hidden></div>
       </div>
       <aside class="campus-panel" id="campus-panel" aria-labelledby="campus-panel-title" hidden>

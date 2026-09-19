@@ -592,6 +592,16 @@ footer li { margin-bottom: 0.35em; }
 .campus-inset-svg .inset-entrance circle { fill: var(--youth); stroke: #fff; }
 .campus-inset-svg .inset-entrance path { fill: none; stroke: #fff; stroke-width: 4; stroke-linecap: round; }
 .inset-labels text { font-size: 17px; }
+.inset-labels .inset-rooms { font-size: 20px; }
+/* Underground: hover and selection look the same (floor plan box fills Youth Orange; entrance gets its ring). */
+.campus-inset-svg .campus-building.is-selected { fill: none; }
+.campus-inset-svg .inset-room { fill: var(--pane-1); stroke: var(--forest); stroke-width: 2; transition: fill 0.15s ease; }
+.campus-inset-svg .campus-building.is-selected .inset-room { fill: var(--pane-1); }
+@media (hover: hover) {
+  .campus-inset-svg .campus-building:hover { fill: none; }
+  .campus-inset-svg .campus-building:hover .inset-room { fill: var(--youth); }
+  .campus-building.campus-entrance:hover circle { stroke: var(--forest); stroke-width: 6; }
+}
 .campus-tip { position: absolute; z-index: 5; max-width: 260px; background: var(--forest); color: var(--offwhite); padding: 10px 12px; border-radius: var(--radius-sm); font-size: 0.85rem; line-height: 1.4; pointer-events: none; box-shadow: var(--shadow-lift); }
 .campus-tip strong { display: block; margin-bottom: 2px; }
 .campus-panel-number { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--youth); }

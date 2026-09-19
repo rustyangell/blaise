@@ -228,8 +228,9 @@ add redirects to `netlify.toml` first. The `/childcare` redirect already there i
   from Google map/satellite screenshots in `reference/campus/` (not in the repo) and rotated to match the
   church's own campus map. Only our own flat vector ships; no Google imagery goes into `dist/`.
   `build.py` inlines it and makes each shape a focusable button with an aria-label.
-- `src/underground-inset.svg` is the Youth Underground floor plan. It pops up only while the Underground
-  entrance marker is hovered/focused, or while Youth Underground is selected.
+- `src/underground-inset.svg` is the Youth Underground pop-up (a single solid box). It pops up only while
+  the Underground entrance marker is hovered/focused, or while Youth Underground is selected. Deep links on
+  phones highlight the building only: no panel, no pop-up.
 - `MINISTRY_LOCATIONS` in `build.py` says which building each ministry meets in. The map panel's ministry
   list and each page's "Find it on the map" link (`find_on_map(page)`) both come from it. A page's
   first row is its primary building. The build fails on an unknown building id.

@@ -1,5 +1,5 @@
 // Campus map on the About page. Hover or focus a building for its name; select it (click, tap, Enter/Space)
-// to open its panel. A building can have more than one shape (the Underground entrance and its inset).
+// to open its panel. A building can have more than one shape (the Underground entrance and its floor plan).
 // Deep link: /about?building=<id>#campus-map selects that building on load.
 (function () {
   var root = document.getElementById("campus-map");
@@ -83,7 +83,8 @@
   inset.addEventListener("pointerenter", function () { clearTimeout(insetTimer); });
   inset.addEventListener("pointerleave", hideInsetSoon);
 
-  function select(id) {
+  // highlightOnly: mark the building without opening its panel or the Underground pop-up (phone deep links).
+  function select(id, highlightOnly) {
     var b = data[id];
     if (!b) return false;
     shapes.forEach(function (node) {
@@ -92,6 +93,10 @@
       node.setAttribute("aria-pressed", on ? "true" : "false");
     });
     selectedId = id;
+    if (highlightOnly) {
+      inset.hidden = true;
+      return true;
+    }
     if (id === UNDERGROUND) showInset();
     else inset.hidden = true;
     number.textContent = "Building " + b.number;
@@ -179,7 +184,8 @@
   });
 
   var initial = new URLSearchParams(window.location.search).get("building");
-  if (initial && select(initial)) {
+  // On phones the panel is a bottom sheet that would cover the highlighted building, so just highlight it.
+  if (initial && select(initial, phone.matches)) {
     // The hash already scrolls here on load; repeat once layout settles (fonts, images above).
     requestAnimationFrame(function () { root.scrollIntoView({ block: "start" }); });
   }
