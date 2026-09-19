@@ -247,6 +247,12 @@ a { color: inherit; }
 /* The hero sits on a dark forest gradient, where the default forest fill and
    forest outline both disappear into the background -- the outline button was
    only visible on hover. Invert both variants against it. */
+/* "Celebrate Recovery" is too wide for one nav slot -- stack it so the header
+   stays a single row. In the mobile drawer the list is vertical, so the second
+   line is indented to read as a continuation rather than a separate link. */
+.nav-line2 { display: block; line-height: 1.05; }
+@media (max-width: 860px) { .nav-line2 { padding-left: 1.1em; } }
+
 .page-hero .hero-actions { justify-content: flex-start; margin-top: 24px; }
 .page-hero .btn-primary {
   background: var(--offwhite);
