@@ -21,6 +21,15 @@
   var insetTimer = null;
   var lastFocused = null;
 
+  // On phones the whole site is too small to read, so crop in on the buildings (data-mobile-viewbox).
+  var svg = root.querySelector(".campus-svg");
+  var fullView = svg.getAttribute("viewBox");
+  var mobileView = svg.dataset.mobileViewbox;
+  var phone = window.matchMedia("(max-width: 760px)");
+  function fitView() { svg.setAttribute("viewBox", phone.matches && mobileView ? mobileView : fullView); }
+  fitView();
+  if (phone.addEventListener) phone.addEventListener("change", fitView);
+
   function setUrl(id) {
     var url = new URL(window.location.href);
     if (id) url.searchParams.set("building", id);

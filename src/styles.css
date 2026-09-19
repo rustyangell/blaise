@@ -615,7 +615,7 @@ footer li { margin-bottom: 0.35em; }
 
 @media (max-width: 760px) {
   .campus-map, .has-selection .campus-map { grid-template-columns: 1fr; }
-  .campus-canvas { padding: 4px; }
+  .campus-canvas { padding: 4px; margin: 0 -16px; }
   /* Room to scroll the map clear of the open sheet */
   .has-selection .campus-canvas { margin-bottom: 50vh; }
   /* Bottom sheet */
