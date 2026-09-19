@@ -1,0 +1,45 @@
+<!-- Campus footprints traced from the Google map screenshot in reference/campus/ (checked against the satellite
+     view), then rotated 90° clockwise to match the church's own campus map.webp: Blaise Church Rd (drawn straight) along the
+     bottom, Family Life Center on the right. Each clickable shape has data-building = an id in buildings.json. -->
+<svg class="campus-svg" viewBox="-230 130 1560 1600" xmlns="http://www.w3.org/2000/svg">
+  <g class="campus-ground" aria-hidden="true">
+    <!-- Paths and lots placed from the annotated satellite screenshot (7.55.07 AM.heic) -->
+    <path id="road-blaise" class="campus-road" d="M-300 1045 C0 1130 350 1250 646 1380 S900 1560 1000 1680 L1100 1800"/>
+    <path class="campus-drive" d="M1330 292 L1090 332 L1090 830"/>
+    <path id="road-upward" d="M1090 332 L1330 292" fill="none"/>
+    <path class="campus-drive campus-lane" d="M905 1115 L985 1660"/>
+    <path class="campus-drive campus-lane" d="M850 1115 L805 1462"/>
+    <text class="campus-road-label"><textPath href="#road-blaise" startOffset="30%">Blaise Church Rd</textPath></text>
+    <text class="campus-road-label"><textPath href="#road-upward" startOffset="55%">Upward Ct.</textPath></text>
+    <text class="campus-flow" x="995" y="1400" text-anchor="start">↑ Enter</text>
+    <text class="campus-flow" x="790" y="1340" text-anchor="end">Exit ↓</text>
+    <polygon class="campus-lot" points="800,820 1140,820 1140,1115 800,1115"/>
+    <polygon class="campus-lot" points="484,860 770,860 770,1270 484,1270"/>
+    <polygon class="campus-lot" points="-158,146 -11,256 97,1033 -204,832"/>
+    <text class="campus-lot-label" x="970" y="975">P · Parking</text>
+    <text class="campus-lot-label" x="627" y="1070">P · Parking</text>
+    <text class="campus-lot-label" x="-75" y="590" transform="rotate(-82 -75 590)">P · Parking</text>
+    <rect class="campus-playground" x="390" y="552" width="162" height="90" rx="10"/>
+    <text class="campus-lot-label" x="471" y="603">Playground</text>
+  </g>
+  <polygon data-building="family-life-center" points="1025,384 1038,612 760,630 765,713 881,707 883,767 784,773 784,802 748,802 743,713 587,722 565,396 721,385 720,342 873,332 877,393"/>
+  <polygon data-building="educational" points="490,361 502,506 77,545 63,400"/>
+  <path data-building="modular-units" d="M310 271 L316 333 L228 343 L222 282 Z M205 283 L212 345 L120 355 L114 293 Z"/>
+  <polygon data-building="classrooms" points="433,649 443,759 280,774 270,663"/>
+  <polygon data-building="offices" points="495,784 503,880 282,903 272,806"/>
+  <polygon data-building="sanctuary" points="205,612 228,877 113,887 90,622"/>
+  <g data-building="youth-underground" class="campus-entrance">
+    <circle cx="300" cy="580" r="24"/>
+    <path d="M300 594 V566 M290 576 L300 565 L310 576"/>
+  </g>
+  <g class="campus-labels" aria-hidden="true">
+    <text x="820" y="520">600</text>
+    <text x="283" y="455">300</text>
+    <text x="267" y="310" font-size="22">500</text>
+    <text x="163" y="321" font-size="22">500</text>
+    <text x="357" y="713">200</text>
+    <text x="388" y="845">100</text>
+    <text x="159" y="752">400</text>
+    <text class="campus-entrance-label" x="300" y="628">Underground</text>
+  </g>
+</svg>

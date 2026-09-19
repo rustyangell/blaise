@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Static site builder for Blaise Baptist Church. Renders PAGES into dist/."""
-import os, re, shutil
+import html, json, os, re, shutil
 from urllib.parse import quote_plus
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,6 +27,49 @@ LINKS = {
     "bfm": "https://bfm.sbc.net/bfm2000/",
 }
 
+# Campus buildings: id, name, and short description. Single source of truth for the campus map.
+with open(os.path.join(SRC, "buildings.json")) as f:
+    BUILDINGS = json.load(f)
+BUILDINGS_BY_ID = {b["id"]: b for b in BUILDINGS}
+
+# Where each regular ministry meets, by building id. Ministry/event pages get their "Find it on the map"
+# link from here, and the campus map's panel builds each building's ministry list from the same rows.
+MINISTRY_LOCATIONS = [
+    # (ministry, page or None, building id, when). A page's first row is its primary building
+    # (the one its "Find it on the map" link opens).
+    ("Sunday Worship", "about.html", "family-life-center", "Sundays, 10:30 AM"),
+    ("Sunday Bible Fellowship", None, "family-life-center", "Sundays, 9:30 AM"),
+    ("Wednesday Meals", "events.html", "family-life-center", "Wednesdays"),
+    ("Men&rsquo;s &amp; Women&rsquo;s Wednesday Night Groups", "small-groups.html", "family-life-center", "Wednesday nights"),
+    ("Bible Fellowship", None, "sanctuary", "Sundays, 9:30 AM"),
+    ("Celebrate Recovery", "celebrate-recovery.html", "educational", "Tuesdays, 6:00 PM (starts here, then moves to the Sanctuary)"),
+    ("Children&rsquo;s Ministry", "children.html", "educational", "Sundays &amp; Wednesdays"),
+    ("Student Ministry", "students.html", "educational", "Sundays &amp; Wednesdays"),
+    ("Special Friends", "special-friends.html", "educational", ""),
+    ("Bible Fellowship", None, "educational", "Sundays, 9:30 AM"),
+    ("Bible Fellowship", None, "classrooms", "Sundays, 9:30 AM"),
+    ("Small Groups (various)", "small-groups.html", "classrooms", ""),
+    ("Church Offices", "contact.html", "offices", "Weekdays"),
+    ("Bible Fellowship", None, "offices", "Sundays, 9:30 AM"),
+    # Secondary locations go last, after every page's primary row.
+    ("Celebrate Recovery", "celebrate-recovery.html", "sanctuary", "Tuesdays, 7:00 PM (after supper in the 300 building)"),
+]
+for _m in MINISTRY_LOCATIONS:
+    if _m[2] not in BUILDINGS_BY_ID:
+        raise SystemExit(f"MINISTRY_LOCATIONS: unknown building id {_m[2]!r} for {_m[0]}")
+
+
+def map_url(building_id):
+    return f"/about?building={building_id}#campus-map"
+
+
+def find_on_map(page):
+    """"Find it on the map" link for the building this page's ministry meets in."""
+    building_id = next(m[2] for m in MINISTRY_LOCATIONS if m[1] == page)
+    name = BUILDINGS_BY_ID[building_id]["name"]
+    return f'<a class="map-link" href="{map_url(building_id)}">Find it on the map <span class="map-link-where">({name})</span></a>'
+
+
 NAV_ITEMS = [
     ("index.html", "Home"),
 ]
@@ -41,6 +84,7 @@ MINISTRY_ITEMS = [
     ("students.html", "Students"),
     ("children.html", "Children"),
     ("senior-adults.html", "Senior Adults"),
+    ("special-friends.html", "Special Friends"),
     ("small-groups.html", "Small Groups"),
     ("celebrate-recovery.html", "Celebrate Recovery"),
     ("missions.html", "Missions"),
@@ -222,6 +266,65 @@ def directions_block():
     </div>"""
 
 
+def campus_svg(filename, label):
+    """Inline one of the campus SVGs, making every data-building shape a focusable, labelled button."""
+    with open(os.path.join(SRC, filename)) as f:
+        svg = re.sub(r"<!--.*?-->\s*", "", f.read(), flags=re.S)
+    svg = re.sub(r'<svg class="([^"]+)"', lambda m: f'<svg class="{m.group(1)}" role="group" aria-label="{label}"', svg, count=1)
+
+    def button(m):
+        b = BUILDINGS_BY_ID.get(m.group(1))
+        if not b:
+            raise SystemExit(f"{filename}: unknown building id {m.group(1)!r}")
+        name = html.escape(f'{b["name"]} ({b["number"]})')
+        classes = " ".join(["campus-building"] + re.findall(r'class="([^"]*)"', m.group(2) or ""))
+        return f'data-building="{b["id"]}" class="{classes}" tabindex="0" role="button" aria-pressed="false" aria-label="{name}"'
+
+    return re.sub(r'data-building="([a-z-]+)"( class="[^"]*")?', button, svg)
+
+
+def campus_map():
+    svg = campus_svg("campus-map.svg", "Campus map. Select a building for details.")
+    inset = campus_svg("underground-inset.svg", "Inset: Youth Underground, lower level of the Educational Building.")
+    for b in BUILDINGS:
+        if f'data-building="{b["id"]}"' not in svg:
+            raise SystemExit(f"campus-map.svg has no shape for building {b['id']!r}")
+    data = {
+        b["id"]: {
+            "name": b["name"],
+            "number": b["number"],
+            "description": b["description"],
+            "hover": b["hover"],
+            "ministries": [{"name": html.unescape(n), "url": pg, "when": html.unescape(w)} for n, pg, bid, w in MINISTRY_LOCATIONS if bid == b["id"]],
+        }
+        for b in BUILDINGS
+    }
+    data_json = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    return f"""<section id="campus-map" class="campus-section">
+  <div class="wrap">
+    <h2>Campus Map</h2>
+    <p class="campus-intro">Select a building on the map to see its name, details, and the ministries that meet there.</p>
+    <div class="campus-map">
+      <div class="campus-canvas">
+        {svg}
+        <figure class="campus-inset" id="campus-inset" hidden>{inset}<figcaption>Inset: lower level of the Educational Building (300)</figcaption></figure>
+        <div class="campus-tip" role="tooltip" hidden></div>
+      </div>
+      <aside class="campus-panel" id="campus-panel" aria-labelledby="campus-panel-title" hidden>
+        <button type="button" class="campus-panel-close" aria-label="Close building details">&times;</button>
+        <span class="campus-panel-number"></span>
+        <h3 id="campus-panel-title"></h3>
+        <p class="campus-panel-desc"></p>
+        <h4>Regular ministries</h4>
+        <ul class="campus-panel-list"></ul>
+      </aside>
+    </div>
+  </div>
+  <script type="application/json" id="campus-data">{data_json}</script>
+  <script src="assets/campus-map.js" defer></script>
+</section>"""
+
+
 def serve_callout(area):
     return f"""<div class="callout" style="margin-top:40px;">
       <h3>Want to serve with {area}?</h3>
@@ -328,7 +431,7 @@ def about():
   </div>
   <div class="wrap grid-2">
     <div class="schedule-row pane-teal"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong></div></div>
-    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship</strong><br>Family Life Center</div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship</strong><br><a href="{map_url('family-life-center')}">Family Life Center</a></div></div>
   </div>
 </section>
 
@@ -338,6 +441,8 @@ def about():
     <div class="grid-3">{faq_html}</div>
   </div>
 </section>
+
+{campus_map()}
 
 <section class="section-soft">
   <div class="wrap">
@@ -365,6 +470,7 @@ def students():
     <p>Blaise Youth (Y4J &mdash; Youth 4 Jesus) is for 6th grade through high school seniors. We're focused on growing into vibrant, enthusiastic followers of Jesus Christ &mdash; studying the Bible, praying for each other, ministering to people, playing games, and going on mission trips from Davie County to South America.</p>
     <div class="schedule-row"><span class="time">Sundays</span><div><strong>Bible Fellowship</strong><br>9:30 AM</div></div>
     <div class="schedule-row"><span class="time">Wednesdays</span><div><strong>Youth Night</strong><br>6:30&ndash;7:45 PM</div></div>
+    {find_on_map("students.html")}
     {serve_callout("Blaise Youth")}
   </div>
 </section>
@@ -391,6 +497,7 @@ def children():
     <h2 style="margin-top:40px;">Wednesdays, 6:30&ndash;7:45 PM</h2>
     <div class="schedule-row"><span class="time">Mission Friends</span><div>Age 3 (potty trained) &ndash; Kindergarten</div></div>
     <div class="schedule-row"><span class="time">Mission Journey</span><div>1st&ndash;5th Grade</div></div>
+    {find_on_map("children.html")}
     <div class="callout" style="margin-top:32px;">
       <h3>Celebrating a Parent/Child Dedication?</h3>
       <p>Child Dedication is a chance to publicly give thanks for your child and commit, with the congregation, to raise them in the Lord.</p>
@@ -415,6 +522,25 @@ def senior_adults():
   <div class="wrap">
     <h2>Coming Soon</h2>
     <p>This page will be updated soon with all of the details about our senior adults ministry, which we call <strong>Good Life</strong>.</p>
+  </div>
+</section>
+"""
+
+
+def special_friends():
+    return f"""
+<div class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Special Friends</span>
+    <h1>Special Friends</h1>
+    <p>Our Special Friends ministry at Blaise Baptist Church.</p>
+  </div>
+</div>
+<section>
+  <div class="wrap">
+    <h2>Coming Soon</h2>
+    <p>This page will be updated soon with all of the details about our Special Friends ministry.</p>
+    {find_on_map("special-friends.html")}
   </div>
 </section>
 """
@@ -508,6 +634,7 @@ def celebrate_recovery():
     <div class="schedule-row"><span class="time">7:00 PM</span><div>Worship / Large Group (personal testimony, music)</div></div>
     <div class="schedule-row"><span class="time">8:00 PM</span><div>Open Share Small Groups &mdash; Men's Addictions, Women's Addictions, Men's A&ndash;Z, Women's A&ndash;Z</div></div>
     <div class="schedule-row"><span class="time">9:00 PM</span><div>Solid Rock Cafe &mdash; coffee, desserts, fellowship, mentoring</div></div>
+    {find_on_map("celebrate-recovery.html")}
     {serve_callout("Celebrate Recovery")}
   </div>
 </section>
@@ -578,6 +705,7 @@ def contact():
       <p>Call or email the church office and we'll get back to you.</p>
       <p><a href="tel:3367513639">(336) 751-3639</a><br><a href="mailto:info@blaisebaptist.org">info@blaisebaptist.org</a></p>
       <p>134 Blaise Church Rd<br>Mocksville, NC 27028</p>
+      <p>{find_on_map("contact.html")}</p>
       <a class="btn btn-outline" href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a>
     </div>
     <div class="callout">
@@ -718,6 +846,7 @@ PAGES = [
     ("students.html", "Students", "Blaise Youth (Y4J) for 6th grade through high school seniors.", students),
     ("children.html", "Children", "Blaise Kids ministry for birth through 5th grade.", children),
     ("senior-adults.html", "Senior Adults", "Good Life, the senior adult ministry at Blaise Baptist Church.", senior_adults),
+    ("special-friends.html", "Special Friends", "Special Friends ministry at Blaise Baptist Church.", special_friends),
     ("small-groups.html", "Small Groups", "Find a small group at Blaise Baptist Church.", small_groups),
     ("childcare.html", "Childcare", "Before and after school care and summer day camp for grades K-8 at Blaise Baptist Church in Mocksville, NC.", childcare),
     ("celebrate-recovery.html", "Celebrate Recovery", "A biblical recovery program for hurts, habits, and hang-ups.", celebrate_recovery),

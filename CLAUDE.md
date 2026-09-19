@@ -18,7 +18,7 @@ anything extra as a suggestion rather than shipping it.
 
 A change can build cleanly and still be wrong. Every time:
 
-1. `python3 src/build.py` — expect `Built 14 pages into …`.
+1. `python3 src/build.py` — expect `Built 15 pages into …`.
 2. **Look at the rendered page**, not just the diff. Headless render when there's no browser:
    `/opt/pw-browsers/chromium-*/chrome-linux/chrome --headless --no-sandbox --screenshot=out.png "file://$PWD/dist/<page>.html"`
 3. Grep `dist/` to prove the change landed and nothing stale survived — especially for renames.

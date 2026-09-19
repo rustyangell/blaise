@@ -220,6 +220,22 @@ add redirects to `netlify.toml` first. The `/childcare` redirect already there i
   status = 301
 ```
 
+## Campus map (About page)
+
+- `src/buildings.json` is the single source of truth for buildings (`id`, `number`, `name`, `description`
+  for the click panel, `hover` for the short hover popup).
+- `src/campus-map.svg` holds one shape per building (`data-building` = building id). Footprints were traced
+  from Google map/satellite screenshots in `reference/campus/` (not in the repo) and rotated to match the
+  church's own campus map. Only our own flat vector ships; no Google imagery goes into `dist/`.
+  `build.py` inlines it and makes each shape a focusable button with an aria-label.
+- `src/underground-inset.svg` is the Youth Underground floor plan. It pops up only while the Underground
+  entrance marker is hovered/focused, or while Youth Underground is selected.
+- `MINISTRY_LOCATIONS` in `build.py` says which building each ministry meets in. The map panel's ministry
+  list and each page's "Find it on the map" link (`find_on_map(page)`) both come from it. A page's
+  first row is its primary building. The build fails on an unknown building id.
+- Deep link: `/about?building=<id>#campus-map` selects that building and opens its panel
+  (`src/assets/campus-map.js`). On phones the panel is a bottom sheet.
+
 ## Known gaps / next steps
 
 **Childcare**
@@ -243,6 +259,9 @@ add redirects to `netlify.toml` first. The `/childcare` redirect already there i
   with a "Coming Soon" note so the ministry has a home, but the real content hasn't been written.
   The ministry is called **Good Life**. Replace the Coming Soon section in `senior_adults()` once
   schedule, contact, and description copy are available.
+- **Special Friends** (`special-friends.html`) is a placeholder in the same way — in the Ministries nav
+  with a "Coming Soon" note and a "Find it on the map" link to the 300 building. Replace the Coming Soon
+  section in `special_friends()` once schedule, contact, and description copy are available.
 - A new childcare logo is pending, along with adding it to the church's Canva brand kit.
 - Action photos would strengthen the ministry pages; none are available yet.
 - **Celebrate Recovery** could be promoted to top-level nav the way Childcare was — people often
