@@ -268,7 +268,7 @@ section { padding: 72px 24px; }
 
 .grid-3 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
 }
 .grid-4 {
@@ -281,6 +281,8 @@ section { padding: 72px 24px; }
   grid-template-columns: 1fr 1fr;
   gap: 28px;
 }
+
+.card a[href^="mailto:"] { overflow-wrap: anywhere; }
 
 .card {
   background: #fff;
@@ -554,3 +556,71 @@ footer li { margin-bottom: 0.35em; }
   /* Trim the photo's sides on phones so the building and logo read larger; the logo sits in the middle third. */
   .hero-photo img { height: 260px; object-fit: cover; object-position: center; }
 }
+
+/* Campus map (About page). Building shapes are inline SVG; see src/campus-map.svg + buildings.json. */
+.campus-section { scroll-margin-top: 16px; }
+.campus-map { position: relative; display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+.has-selection .campus-map { grid-template-columns: 1fr 320px; }
+.campus-canvas { position: relative; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-soft); padding: 12px; }
+.campus-svg { display: block; width: 100%; height: auto; max-height: 80vh; font-family: "Josefin Sans", sans-serif; }
+.campus-road { fill: none; stroke: var(--sage-tint); stroke-width: 46; stroke-linecap: round; }
+.campus-drive { fill: none; stroke: var(--sage-tint); stroke-width: 40; stroke-linecap: round; }
+.campus-road-label, .campus-lot-label { fill: var(--sage); font-size: 22px; font-weight: 600; letter-spacing: 0.04em; }
+.campus-road-label { fill: var(--forest); text-anchor: middle; dominant-baseline: central; font-size: 24px; }
+.campus-lot-label { text-anchor: middle; text-transform: uppercase; font-size: 18px; }
+.campus-lot { fill: var(--sage-tint); stroke: var(--pane-1); stroke-width: 2; stroke-dasharray: 10 8; }
+.campus-playground { fill: var(--kids-light); stroke: var(--kids); stroke-width: 2; }
+.campus-lane { stroke-width: 26; }
+.campus-flow { fill: var(--forest); font-size: 24px; font-weight: 700; }
+.campus-building { fill: var(--pane-1); stroke: var(--forest); stroke-width: 3; cursor: pointer; transition: fill 0.15s ease; outline: none; }
+@media (hover: hover) {
+  .campus-building:hover { fill: color-mix(in srgb, var(--forest) 45%, var(--pane-1)); }
+}
+.campus-building:focus-visible { stroke: var(--men); stroke-width: 7; }
+.campus-building.is-selected { fill: var(--youth); stroke: var(--forest); }
+/* The Underground marker always wears Youth Orange; selection adds a forest ring instead of a color change. */
+.campus-building.campus-entrance, .campus-building.campus-entrance:hover, .campus-building.campus-entrance.is-selected { fill: var(--youth); stroke: #fff; stroke-width: 3; }
+.campus-building.campus-entrance.is-selected circle, .campus-building.campus-entrance:focus-visible circle { stroke: var(--forest); stroke-width: 6; }
+.campus-entrance path { fill: none; stroke: #fff; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.campus-labels .campus-entrance-label { fill: var(--forest); font-size: 20px; }
+.campus-inset { position: absolute; z-index: 6; margin: 0; width: min(300px, 80%); background: #fff; padding: 8px; border-radius: var(--radius); box-shadow: var(--shadow-lift); }
+.campus-inset[hidden] { display: none; }
+.campus-inset figcaption { font-size: 0.85rem; color: var(--forest); opacity: 0.8; }
+.campus-inset-svg { display: block; width: 100%; height: auto; font-family: "Josefin Sans", sans-serif; }
+.campus-inset-svg .campus-building { stroke-width: 2; }
+.campus-inset-svg .inset-bg { fill: var(--offwhite); stroke: var(--women); stroke-width: 3; stroke-dasharray: 8 6; }
+.campus-inset-svg .inset-entrance circle { fill: var(--youth); stroke: #fff; }
+.campus-inset-svg .inset-entrance path { fill: none; stroke: #fff; stroke-width: 4; stroke-linecap: round; }
+.inset-labels text { font-size: 17px; }
+.campus-tip { position: absolute; z-index: 5; max-width: 260px; background: var(--forest); color: var(--offwhite); padding: 10px 12px; border-radius: var(--radius-sm); font-size: 0.85rem; line-height: 1.4; pointer-events: none; box-shadow: var(--shadow-lift); }
+.campus-tip strong { display: block; margin-bottom: 2px; }
+.campus-panel-number { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--youth); }
+.campus-labels text { fill: var(--forest); font-size: 26px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+.campus-building.is-selected ~ .campus-labels text { fill: var(--forest); }
+.campus-panel { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow-soft); padding: 24px; position: relative; border-top: 5px solid var(--youth); }
+.campus-panel h3 { margin: 0 32px 8px 0; }
+.campus-panel h4 { margin: 16px 0 6px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sage); }
+.campus-panel-desc { margin: 0; }
+.campus-panel-list { list-style: none; margin: 0; padding: 0; }
+.campus-panel-list li { padding: 6px 0; border-bottom: 1px solid var(--sage-tint); }
+.campus-panel-list li:last-child { border-bottom: 0; }
+.campus-panel-list a { font-weight: 600; color: var(--forest); }
+.campus-when { display: block; font-size: 0.85rem; color: var(--nearblack); opacity: 0.75; }
+.campus-none { opacity: 0.7; }
+.campus-panel-close { position: absolute; top: 10px; right: 12px; width: 36px; height: 36px; border: 0; background: transparent; font-size: 28px; line-height: 1; color: var(--forest); cursor: pointer; border-radius: 50%; }
+.campus-panel-close:hover, .campus-panel-close:focus-visible { background: var(--sage-tint); }
+.map-link { display: inline-block; margin-top: 16px; font-weight: 600; color: var(--forest); }
+.map-link::before { content: "\2192\00a0"; }
+.map-link-where { font-weight: 400; }
+
+@media (max-width: 760px) {
+  .campus-map, .has-selection .campus-map { grid-template-columns: 1fr; }
+  .campus-canvas { padding: 4px; }
+  /* Room to scroll the map clear of the open sheet */
+  .has-selection .campus-canvas { margin-bottom: 50vh; }
+  /* Bottom sheet */
+  .campus-panel { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; max-height: 60vh; overflow-y: auto; border-radius: 16px 16px 0 0; box-shadow: 0 -8px 32px rgba(26, 58, 26, 0.2); padding: 20px 16px calc(20px + env(safe-area-inset-bottom)); animation: campus-sheet-up 0.22s ease-out; }
+  .campus-panel::before { content: ""; display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--pane-1); margin: -8px auto 12px; }
+}
+@keyframes campus-sheet-up { from { transform: translateY(100%); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .campus-panel { animation: none; } }

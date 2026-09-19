@@ -1,0 +1,51 @@
+[
+  {
+    "id": "family-life-center",
+    "number": "600",
+    "name": "Family Life Center",
+    "description": "The Gymnatorium, where Sunday worship meets, plus the Welcome Center, classrooms 601–604, and the kitchen.",
+    "hover": "Sunday Morning Worship, plus classrooms 601–604 and the kitchen."
+  },
+  {
+    "id": "educational",
+    "number": "300",
+    "name": "Educational Building",
+    "description": "Fellowship Hall, a kitchen, the nursery reception desk, and rooms 301–308. Stairs lead down to the Underground (rooms 309–314).",
+    "hover": "Children’s and Student Ministries."
+  },
+  {
+    "id": "classrooms",
+    "number": "200",
+    "name": "Classroom Building",
+    "description": "Rooms 201–208, beside the playground.",
+    "hover": "Rooms 201–208, beside the playground."
+  },
+  {
+    "id": "offices",
+    "number": "100",
+    "name": "Church Offices",
+    "description": "Pastors’ and finance offices, the multi-purpose area, and the church library. Closest building to Blaise Church Road.",
+    "hover": "Staff offices, the multi-purpose area, and the church library."
+  },
+  {
+    "id": "sanctuary",
+    "number": "400",
+    "name": "Sanctuary",
+    "description": "The sanctuary, with baptistry, music office, and music library.",
+    "hover": "The traditional sanctuary."
+  },
+  {
+    "id": "modular-units",
+    "number": "500",
+    "name": "Modular Units",
+    "description": "Rooms 501–504, behind the Educational Building.",
+    "hover": "Rooms 501–504, behind the Educational Building."
+  },
+  {
+    "id": "youth-underground",
+    "number": "300 lower level",
+    "name": "Youth Underground",
+    "description": "Lower level of the Educational Building: rooms 309 (Loft) and 310–314. Enter by the stairs on the playground side of the Educational Building.",
+    "hover": "Lower level of the Educational Building: rooms 309 (Loft) and 310–314. Enter by the stairs on the playground side of the Educational Building."
+  }
+]

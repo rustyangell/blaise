@@ -220,6 +220,22 @@ add redirects to `netlify.toml` first. The `/childcare` redirect already there i
   status = 301
 ```
 
+## Campus map (About page)
+
+- `src/buildings.json` is the single source of truth for buildings (`id`, `number`, `name`, `description`
+  for the click panel, `hover` for the short hover popup).
+- `src/campus-map.svg` holds one shape per building (`data-building` = building id). Footprints were traced
+  from Google map/satellite screenshots in `reference/campus/` (not in the repo) and rotated to match the
+  church's own campus map. Only our own flat vector ships; no Google imagery goes into `dist/`.
+  `build.py` inlines it and makes each shape a focusable button with an aria-label.
+- `src/underground-inset.svg` is the Youth Underground floor plan. It pops up only while the Underground
+  entrance marker is hovered/focused, or while Youth Underground is selected.
+- `MINISTRY_LOCATIONS` in `build.py` says which building each ministry meets in. The map panel's ministry
+  list and each page's "Find it on the map" link (`find_on_map(page)`) both come from it. A page's
+  first row is its primary building. The build fails on an unknown building id.
+- Deep link: `/about?building=<id>#campus-map` selects that building and opens its panel
+  (`src/assets/campus-map.js`). On phones the panel is a bottom sheet.
+
 ## Known gaps / next steps
 
 **Childcare**
