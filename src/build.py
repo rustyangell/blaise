@@ -42,13 +42,14 @@ MINISTRY_ITEMS = [
     ("children.html", "Children"),
     ("senior-adults.html", "Senior Adults"),
     ("small-groups.html", "Small Groups"),
-    ("celebrate-recovery.html", "Celebrate Recovery"),
     ("missions.html", "Missions"),
 ]
 
 NAV_ITEMS_AFTER = [
-    # Top level, not under Ministries: parents often come to the site for this alone.
+    # Top level, not under Ministries: people often come to the site for these
+    # specifically rather than browsing ministries.
     ("childcare.html", "Childcare"),
+    ("celebrate-recovery.html", 'Celebrate<span class="nav-line2">Recovery</span>'),
     ("events.html", "Events"),
     ("contact.html", "Contact"),
 ]
