@@ -221,6 +221,7 @@ PAGE_TEMPLATE = """<!doctype html>
 <link rel="stylesheet" href="styles.css">
 <script src="https://js.churchcenter.com/modal/v1"></script>
 <script src="assets/events.js" defer></script>
+<script src="assets/live.js" defer></script>
 <script src="assets/nav.js" defer></script>
 </head>
 <body>
@@ -351,7 +352,7 @@ def home():
   </div>
 </section>
 
-<div class="hero-photo">
+<div class="hero-photo" data-live-hero data-youtube="{LINKS['youtube']}">
   <img src="assets/hero-church.webp" srcset="assets/hero-church-900.webp 900w, assets/hero-church.webp 2000w" sizes="100vw" width="2000" height="741" alt="The Blaise Baptist Church building">
 </div>
 
