@@ -657,10 +657,12 @@ def missions():
   </div>
 </div>
 <section>
-  <div class="wrap callout">
-    <h3>Want to be part of it?</h3>
-    <p>Whether it's local outreach or an international trip, let us know you're interested and we'll follow up.</p>
-    {modal_link(LINKS['missions_form'], "I'm Interested in Missions")}
+  <div class="wrap">
+    <div class="callout">
+      <h3>Want to be part of it?</h3>
+      <p>Whether it's local outreach or an international trip, let us know you're interested and we'll follow up.</p>
+      {modal_link(LINKS['missions_form'], "I'm Interested in Missions")}
+    </div>
   </div>
 </section>
 <section style="padding-top:0;">
