@@ -566,6 +566,23 @@ footer li { margin-bottom: 0.35em; }
   .hero-photo img { height: 260px; object-fit: cover; object-position: center; }
 }
 
+/* Live stream takeover: while the church is live on YouTube, assets/live.js replaces the hero
+   photo's contents with the player. The dark band is the same colour either way. */
+.hero-live { padding: 24px; }
+.hero-live-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+.hero-live iframe { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border: 0; border-radius: var(--radius); background: #000; }
+.live-badge {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px;
+  color: var(--offwhite); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem;
+}
+.live-dot { width: 10px; height: 10px; border-radius: 50%; background: #E03131; box-shadow: 0 0 0 4px rgba(224, 49, 49, 0.25); }
+.hero-live-actions { margin: 16px 0 0; }
+.hero-live .btn-outline { background: transparent; color: var(--offwhite); border-color: var(--offwhite); }
+.hero-live .btn-outline:hover { background: var(--offwhite); color: var(--forest); }
+@media (max-width: 600px) {
+  .hero-live { padding: 16px; }
+}
+
 /* Campus map (About page). Building shapes are inline SVG; see src/campus-map.svg + buildings.json. */
 .campus-section { scroll-margin-top: 16px; }
 .campus-map { position: relative; display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
