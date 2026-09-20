@@ -41,9 +41,12 @@ export default async () => {
     const found = await currentLive();
     return Response.json(found || { live: false }, {
       headers: {
-        "Cache-Control": "public, max-age=30",
-        // Fresh for a minute at the edge; a stale answer keeps serving while it revalidates.
-        "Netlify-CDN-Cache-Control": "public, durable, s-maxage=60, stale-while-revalidate=300",
+        "Cache-Control": "public, max-age=15",
+        // Short windows on purpose: a stale answer here is a hero that says "Live Now" after the
+        // service has ended, or the photo still showing after it starts. 30s at the edge plus a
+        // 30s stale window caps that at about a minute; the poll in assets/live.js does the rest.
+        // Quota stays comfortable: ~2,880 origin checks/day x 2 units = 5,760 of 10,000.
+        "Netlify-CDN-Cache-Control": "public, durable, s-maxage=30, stale-while-revalidate=30",
       },
     });
   } catch (err) {

@@ -6,7 +6,7 @@
   var hero = document.querySelector("[data-live-hero]");
   if (!hero) return;
 
-  var POLL_MS = 60000;
+  var POLL_MS = 30000;
   var watchUrl = hero.getAttribute("data-youtube") || "https://www.youtube.com/";
   var photo = hero.innerHTML; // the not-live state, restored when the stream ends
   var showing = null;
@@ -52,4 +52,15 @@
   setInterval(function () {
     if (!document.hidden) check();
   }, POLL_MS);
+
+  // Coming back to a backgrounded tab: check straight away rather than waiting out the interval.
+  // Without this, someone who switched away during the service returns to a hero still claiming
+  // "Live Now" until the next tick — the bug that made a manual refresh feel necessary.
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) check();
+  });
+  // Same story for the back/forward cache, which restores the old DOM wholesale.
+  window.addEventListener("pageshow", function (e) {
+    if (e.persisted) check();
+  });
 })();
