@@ -56,8 +56,7 @@ p { margin: 0 0 1em; max-width: 62ch; text-wrap: pretty; }
 /* Centered blocks: keep the measure-limited text centered under its heading
    and let the browser even out the last line instead of orphaning a word. */
 [style*="text-align:center"] > p,
-.stripe p,
-.callout[style*="text-align:center"] p { margin-inline: auto; text-wrap: balance; }
+.stripe p { margin-inline: auto; text-wrap: balance; }
 
 a { color: inherit; }
 
@@ -235,6 +234,10 @@ a { color: inherit; }
 .btn-primary:hover { background: #12290f; box-shadow: var(--shadow-lift); }
 .btn-outline { background: transparent; color: var(--forest); }
 .btn-outline:hover { background: var(--forest); color: var(--offwhite); }
+/* The nav's Give button is also a .nav-links a, whose hover colour is more
+   specific than .btn-outline:hover — without this the label turns forest on
+   forest and disappears. */
+.nav-links a.btn-outline:hover { color: var(--offwhite); }
 
 /* Hero */
 .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }

@@ -569,12 +569,12 @@ def small_groups():
       <div class="ministry-card mc-youth">{ICON_YOUTH}<h3>Students</h3><p>Wednesday nights, 6:30&ndash;7:45</p></div>
       <div class="ministry-card mc-kids">{ICON_CHILDREN}<h3>Families</h3><p>Parents of Youth &amp; more</p></div>
     </div>
-    <div class="callout" style="margin-top:32px;text-align:center;">
+    <div class="callout" style="margin-top:32px;">
       <h3>See every group &amp; find one that fits</h3>
       <p>Our full group directory &mdash; men's, women's, college &amp; young adult, Bible studies, and ministry teams &mdash; lives on Church Center.</p>
       <a class="btn btn-primary" href="{LINKS['groups']}" target="_blank" rel="noopener">Browse All Groups</a>
     </div>
-    <div class="callout" style="margin-top:24px;text-align:center;">
+    <div class="callout" style="margin-top:24px;">
       <h3>Interested in leading a group?</h3>
       <p>Let us know &mdash; at your home or on the Blaise campus.</p>
       {modal_link(LINKS['serving_form'], "I'm Interested in Leading")}
@@ -657,7 +657,7 @@ def missions():
   </div>
 </div>
 <section>
-  <div class="wrap callout" style="text-align:center;">
+  <div class="wrap callout">
     <h3>Want to be part of it?</h3>
     <p>Whether it's local outreach or an international trip, let us know you're interested and we'll follow up.</p>
     {modal_link(LINKS['missions_form'], "I'm Interested in Missions")}
