@@ -392,7 +392,6 @@ def home():
       <p style="margin:0;">Before &amp; after school care and summer day camp in a Christian environment.</p>
     </div>
     <div class="hero-actions" style="margin:0;">
-      {plain_link(LINKS['childcare_registration'], "Enroll Your Child")}
       <a class="btn btn-outline" href="childcare.html">Learn More</a>
     </div>
   </div>
