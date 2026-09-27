@@ -362,7 +362,7 @@ def home():
   </div>
   <div class="wrap grid-2">
     <div class="schedule-row pane-teal"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong><br>Classes for every age</div></div>
-    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Family Life Center &mdash; streamed live on Facebook &amp; YouTube starting at 10:20am</div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Family Life Center &mdash; coffee in the lobby beforehand, also streamed live on Facebook &amp; YouTube</div></div>
   </div>
   <div class="wrap">
     <div class="hero-actions">
