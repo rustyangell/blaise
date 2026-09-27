@@ -123,6 +123,10 @@ a { color: inherit; }
 .icon-badge-lg { padding: 22px; margin-bottom: 0; }
 .icon-badge-lg img { width: 56px; height: 56px; }
 
+/* Celebrate Recovery's own logo is a white wordmark, so it drops straight
+   onto the page-hero's dark gradient with no badge needed. */
+.page-hero-logo { display: block; width: 220px; height: auto; margin-bottom: 20px; }
+
 .hero-icon-row {
   display: flex;
   align-items: flex-start;
