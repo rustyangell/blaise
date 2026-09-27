@@ -183,6 +183,14 @@
     }
   });
 
+  // Clicking anywhere outside a building shape, the inset, or the panel dismisses the current selection.
+  document.addEventListener("pointerdown", function (e) {
+    if (!selectedId) return;
+    var target = e.target;
+    if ((target.closest && target.closest(".campus-building")) || inset.contains(target) || panel.contains(target)) return;
+    close();
+  });
+
   var initial = new URLSearchParams(window.location.search).get("building");
   // On phones the panel is a bottom sheet that would cover the highlighted building, so just highlight it.
   if (initial && select(initial, phone.matches)) {
