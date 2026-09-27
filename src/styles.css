@@ -576,7 +576,7 @@ footer li { margin-bottom: 0.35em; }
   color: var(--offwhite); font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.85rem;
 }
 .live-dot { width: 10px; height: 10px; border-radius: 50%; background: #E03131; box-shadow: 0 0 0 4px rgba(224, 49, 49, 0.25); }
-.hero-live-actions { margin: 16px 0 0; }
+.hero-live-actions { margin: 16px auto 0; }
 .hero-live .btn-outline { background: transparent; color: var(--offwhite); border-color: var(--offwhite); }
 .hero-live .btn-outline:hover { background: var(--offwhite); color: var(--forest); }
 @media (max-width: 600px) {
