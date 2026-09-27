@@ -666,11 +666,6 @@ def missions():
     </div>
   </div>
 </section>
-<section style="padding-top:0;">
-  <div class="wrap">
-    {serve_callout("our missions team")}
-  </div>
-</section>
 """
 
 
