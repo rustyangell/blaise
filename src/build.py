@@ -537,16 +537,44 @@ def special_friends():
     return f"""
 <div class="page-hero">
   <div class="wrap">
-    <span class="eyebrow">Special Friends</span>
+    <span class="eyebrow">Adults with Special Needs</span>
     <h1>Special Friends</h1>
-    <p>Our Special Friends ministry at Blaise Baptist Church.</p>
+    <p>Every one of God's children is &ldquo;fearfully and wonderfully made.&rdquo; Our Special Friends ministry welcomes adults with physical and mental handicaps to worship, learn, and belong.</p>
   </div>
 </div>
 <section>
   <div class="wrap">
-    <h2>Coming Soon</h2>
-    <p>This page will be updated soon with all of the details about our Special Friends ministry.</p>
+    <p>Blaise's Special Friends Ministry is open to special needs adults here in Mocksville and across Davie County. There's a place for you on Sunday mornings and again on Wednesday nights.</p>
+    <h2 style="margin-top:32px;">When We Meet</h2>
+    <div class="schedule-row"><span class="time">Sundays</span><div><strong>Special Friends Class</strong><br>9:30 AM &middot; 100 Building</div></div>
+    <div class="schedule-row pane-gold"><span class="time">Wednesdays</span><div><strong>Special Friends Night</strong><br>6:30 PM &middot; 600 Building, Family Life Center</div></div>
     {find_on_map("special-friends.html")}
+  </div>
+</section>
+<section class="section-soft">
+  <div class="wrap">
+    <h2>What Wednesday Nights Look Like</h2>
+    <p>Our Wednesday program is full and varied, so there's always something to enjoy.</p>
+    <div class="grid-3">
+      <div class="card pane-sage"><h3>Bible Lessons</h3></div>
+      <div class="card pane-gold"><h3>Music</h3></div>
+      <div class="card pane-teal"><h3>Small Group Activities</h3></div>
+      <div class="card pane-blue"><h3>Games</h3></div>
+      <div class="card pane-mauve"><h3>Crafts</h3></div>
+      <div class="card pane-gold"><h3>Seasonal &amp; Holiday Events</h3></div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap grid-2">
+    <div class="card">
+      <h3>Who Comes</h3>
+      <p>Our students come from Impact of the Piedmont Agency, from group homes, and from their own families' homes.</p>
+    </div>
+    <div class="card">
+      <h3>Who Helps</h3>
+      <p>Fifteen Blaise volunteers are available to help our students.</p>
+    </div>
   </div>
 </section>
 """
