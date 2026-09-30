@@ -578,7 +578,7 @@ def special_friends():
 <section class="section-soft">
   <div class="wrap">
     <h2>What Wednesday Nights Look Like</h2>
-    <p>Our Wednesday program is full and varied, so there's always something to enjoy.</p>
+    <p>Our Wednesday program is full and varied, so there's always something to enjoy. Plenty of Blaise volunteers join us every week, so each Special Friend has a companion beside them and a great experience.</p>
     <div class="grid-3 sf-tiles">
       <div class="card sf-tile">{sf_icon("book", "pane-sage")}<h3>Bible Lessons</h3></div>
       <div class="card sf-tile">{sf_icon("music", "pane-gold")}<h3>Music</h3></div>
@@ -590,17 +590,13 @@ def special_friends():
   </div>
 </section>
 <section>
-  <div class="wrap grid-2">
+  <div class="wrap">
     <div class="card sf-tile">
       {sf_icon("home", "pane-teal")}
       <h3>Who Comes</h3>
       <p>Our students come from Impact of the Piedmont Agency, from group homes, and from their own families' homes.</p>
     </div>
-    <div class="card sf-tile">
-      {sf_icon("hands", "pane-mauve")}
-      <h3>Who Helps</h3>
-      <p><span class="sf-stat">15</span> Blaise volunteers are available to help our students.</p>
-    </div>
+    {serve_callout("Special Friends")}
   </div>
 </section>
 """
