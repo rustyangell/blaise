@@ -114,6 +114,27 @@ ICON_YOUTH_LG = icon_badge("assets/icon-youth.png", "Blaise Youth", "icon-badge-
 ICON_CHILDREN_LG = icon_badge("assets/icon-children.png", "Blaise Kids", "icon-badge-lg")
 
 
+SF_ICON_PATHS = {
+    "heart": '<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/>',
+    "sun": '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    "moon": '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+    "book": '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>',
+    "music": '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+    "users": '<circle cx="9" cy="8" r="3.5"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 21v-1a6 6 0 0 0-4-5.6"/>',
+    "dice": '<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.2"/><circle cx="16" cy="8" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="8" cy="16" r="1.2"/><circle cx="16" cy="16" r="1.2"/>',
+    "palette": '<path d="M12 22a10 10 0 1 1 10-10c0 3-2.5 4-4.5 4H15a2 2 0 0 0-1.5 3.3c.7.9.3 2.7-1.5 2.7z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7" r="1.2"/><circle cx="15.5" cy="7.5" r="1.2"/>',
+    "sparkles": '<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8zM5 2l.6 1.4L7 4l-1.4.6L5 6l-.6-1.4L3 4l1.4-.6z"/>',
+    "home": '<path d="M3 11l9-8 9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
+    "hands": '<path d="M11 14l-2.5 2.5a2 2 0 0 1-2.8-2.8L10 9.4M13 10l3.6-3.6a2 2 0 0 1 2.8 2.8L13 15.6a3 3 0 0 1-4.2 0"/><path d="M2 12l4-4M22 12l-4-4"/>',
+}
+
+
+def sf_icon(name, pane="pane-sage", extra_class=""):
+    return (f'<span class="sf-icon {pane} {extra_class}" aria-hidden="true">'
+            f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+            f'stroke-linecap="round" stroke-linejoin="round">{SF_ICON_PATHS[name]}</svg></span>')
+
+
 def modal_link(url, label, classes="btn btn-primary"):
     return f'<a href="{url}" target="_blank" rel="noopener" data-open-in-church-center-modal="true" class="{classes}">{label}</a>'
 
@@ -536,18 +557,21 @@ def senior_adults():
 def special_friends():
     return f"""
 <div class="page-hero">
-  <div class="wrap">
-    <span class="eyebrow">Adults with Special Needs</span>
-    <h1>Special Friends</h1>
-    <p>Every one of God's children is &ldquo;fearfully and wonderfully made.&rdquo; Our Special Friends ministry welcomes adults with physical and mental handicaps to worship, learn, and belong.</p>
+  <div class="wrap hero-icon-row">
+    {sf_icon("heart", "pane-gold", "sf-icon-hero")}
+    <div>
+      <span class="eyebrow">Adults with Special Needs</span>
+      <h1>Special Friends</h1>
+      <p>Every one of God's children is &ldquo;fearfully and wonderfully made.&rdquo; Our Special Friends ministry welcomes adults with physical and mental handicaps to worship, learn, and belong.</p>
+    </div>
   </div>
 </div>
 <section>
   <div class="wrap">
     <p>Blaise's Special Friends Ministry is open to special needs adults here in Mocksville and across Davie County. There's a place for you on Sunday mornings and again on Wednesday nights.</p>
     <h2 style="margin-top:32px;">When We Meet</h2>
-    <div class="schedule-row"><span class="time">Sundays</span><div><strong>Special Friends Class</strong><br>9:30 AM &middot; 100 Building</div></div>
-    <div class="schedule-row pane-gold"><span class="time">Wednesdays</span><div><strong>Special Friends Night</strong><br>6:30 PM &middot; 600 Building, Family Life Center</div></div>
+    <div class="schedule-row pane-gold">{sf_icon("sun", "pane-gold")}<span class="time">Sundays</span><div><strong>Special Friends Class</strong><br>9:30 AM &middot; 100 Building</div></div>
+    <div class="schedule-row pane-blue">{sf_icon("moon", "pane-blue")}<span class="time">Wednesdays</span><div><strong>Special Friends Night</strong><br>6:30 PM &middot; 600 Building, Family Life Center</div></div>
     {find_on_map("special-friends.html")}
   </div>
 </section>
@@ -555,25 +579,27 @@ def special_friends():
   <div class="wrap">
     <h2>What Wednesday Nights Look Like</h2>
     <p>Our Wednesday program is full and varied, so there's always something to enjoy.</p>
-    <div class="grid-3">
-      <div class="card pane-sage"><h3>Bible Lessons</h3></div>
-      <div class="card pane-gold"><h3>Music</h3></div>
-      <div class="card pane-teal"><h3>Small Group Activities</h3></div>
-      <div class="card pane-blue"><h3>Games</h3></div>
-      <div class="card pane-mauve"><h3>Crafts</h3></div>
-      <div class="card pane-gold"><h3>Seasonal &amp; Holiday Events</h3></div>
+    <div class="grid-3 sf-tiles">
+      <div class="card sf-tile">{sf_icon("book", "pane-sage")}<h3>Bible Lessons</h3></div>
+      <div class="card sf-tile">{sf_icon("music", "pane-gold")}<h3>Music</h3></div>
+      <div class="card sf-tile">{sf_icon("users", "pane-blue")}<h3>Small Group Activities</h3></div>
+      <div class="card sf-tile">{sf_icon("dice", "pane-mauve")}<h3>Games</h3></div>
+      <div class="card sf-tile">{sf_icon("palette", "pane-teal")}<h3>Crafts</h3></div>
+      <div class="card sf-tile">{sf_icon("sparkles", "pane-gold")}<h3>Seasonal &amp; Holiday Events</h3></div>
     </div>
   </div>
 </section>
 <section>
   <div class="wrap grid-2">
-    <div class="card">
+    <div class="card sf-tile">
+      {sf_icon("home", "pane-teal")}
       <h3>Who Comes</h3>
       <p>Our students come from Impact of the Piedmont Agency, from group homes, and from their own families' homes.</p>
     </div>
-    <div class="card">
+    <div class="card sf-tile">
+      {sf_icon("hands", "pane-mauve")}
       <h3>Who Helps</h3>
-      <p>Fifteen Blaise volunteers are available to help our students.</p>
+      <p><span class="sf-stat">15</span> Blaise volunteers are available to help our students.</p>
     </div>
   </div>
 </section>
