@@ -664,3 +664,28 @@ footer li { margin-bottom: 0.35em; }
 }
 @keyframes campus-sheet-up { from { transform: translateY(100%); } to { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .campus-panel { animation: none; } }
+
+/* Special Friends: line icons on soft pane-colored circles. */
+.sf-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--pane, var(--pane-1)) 55%, #fff);
+  color: var(--forest);
+}
+.sf-icon svg { width: 28px; height: 28px; display: block; }
+.sf-icon-hero { width: 96px; height: 96px; box-shadow: var(--shadow-soft); }
+.sf-icon-hero svg { width: 48px; height: 48px; }
+.sf-tile .sf-icon { margin-bottom: 16px; }
+.sf-tiles .sf-tile { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.sf-tiles .sf-tile h3 { margin: 0; }
+.sf-stat { font-size: 1.6em; font-weight: 700; color: var(--forest); line-height: 1; }
+.schedule-row .sf-icon { width: 64px; height: 64px; }
+@media (max-width: 860px) {
+  .schedule-row .sf-icon { width: 48px; height: 48px; }
+  .schedule-row .sf-icon svg { width: 24px; height: 24px; }
+}
