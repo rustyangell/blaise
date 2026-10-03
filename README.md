@@ -152,6 +152,12 @@ and home pages. Those containers ship with a Church Center link as fallback cont
 whose registration URL matches an open signup are shown once, as the signup. To hide an event from
 the site, set it to Hidden in Church Center; there is nothing to edit here.
 
+**Missions page.** `missions.html` shows an "Upcoming Mission Sign-Ups" section fed by
+`data-pco="signups" data-category="Missions"`. A signup appears there when it is open, unarchived,
+and its **Registrations category is `Missions`** (set on the signup in Planning Center Registrations,
+not a Calendar tag). The section is hidden entirely when nothing matches. The card shows the
+signup's logo and a plain-text excerpt of its description when they exist.
+
 ## Brand system
 
 Source: `Brand Guide One-Pager.pdf` in the client's branding folder. Tokens are duplicated as CSS

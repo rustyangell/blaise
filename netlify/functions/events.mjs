@@ -60,17 +60,37 @@ async function calendarEvents() {
   return [...byEvent.values()];
 }
 
+// Registrations descriptions are HTML; cards want a short plain-text blurb.
+function plainText(html, max = 200) {
+  if (!html) return null;
+  const text = html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&#39;|&rsquo;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!text) return null;
+  return text.length > max ? text.slice(0, max).replace(/\s+\S*$/, "") + "…" : text;
+}
+
 async function signups() {
-  const body = await pco("/registrations/v2/signups?filter=unarchived&include=next_signup_time&per_page=100");
+  const body = await pco("/registrations/v2/signups?filter=unarchived&include=next_signup_time,categories&per_page=100");
   const included = indexIncluded(body.included);
   return body.data
     .filter((s) => s.attributes.open && !s.attributes.archived)
     .map((s) => {
       const ref = s.relationships?.next_signup_time?.data;
       const t = ref && included.get(`SignupTime:${ref.id}`)?.attributes;
+      const categories = (s.relationships?.categories?.data || [])
+        .map((c) => included.get(`Category:${c.id}`)?.attributes?.name)
+        .filter(Boolean);
       return {
         id: s.id,
         name: s.attributes.name,
+        categories,
+        summary: plainText(s.attributes.description),
         starts_at: t?.starts_at || null,
         ends_at: t?.ends_at || null,
         all_day: !!t?.all_day,

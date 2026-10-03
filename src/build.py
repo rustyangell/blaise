@@ -707,6 +707,12 @@ def missions():
     <p>Blaise supports missions right here in Davie County and around the world &mdash; our students have traveled as far as Peru to share the Gospel.</p>
   </div>
 </div>
+<section data-reveal hidden>
+  <div class="wrap">
+    <h2>Upcoming Mission Sign-Ups</h2>
+    <div class="grid-2" data-pco="signups" data-category="Missions" data-show-description></div>
+  </div>
+</section>
 <section>
   <div class="wrap">
     <div class="callout">
