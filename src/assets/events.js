@@ -1,5 +1,8 @@
 // Renders live Planning Center events into any [data-pco] container.
 //   data-pco="signups" : open registrations
+//     data-category="Missions" limits it to signups in that Registrations category
+//     data-show-description adds the signup's description to each card
+//     data-reveal on a wrapper: it stays hidden until at least one card renders
 //   data-pco="events"  : upcoming public calendar events
 //   data-pco="home"    : a short mix for the home page (data-limit, default 3)
 // Containers hold fallback markup (a link to Church Center) until data arrives.
@@ -34,11 +37,12 @@
       fmt(item.starts_at, { hour: "numeric", minute: "2-digit" }));
   }
 
-  function card(item, isSignup) {
+  function card(item, isSignup, showDescription) {
     var href = isSignup ? item.url : item.register_url || item.url;
     var label = isSignup || item.register_url ? "Get Info &amp; Register" : "Details";
+    var closes = item.close_at ? "Registration closes " + esc(fmt(item.close_at, { month: "short", day: "numeric" })) : "";
     var sub = isSignup
-      ? item.close_at ? "Registration closes " + esc(fmt(item.close_at, { month: "short", day: "numeric" })) : ""
+      ? showDescription && item.summary ? esc(item.summary) : closes
       : esc(item.summary || item.location || "");
     return '<div class="event-card">' +
       (item.image ? '<img class="event-img" src="' + esc(item.image) + '" alt="" loading="lazy">' : "") +
@@ -61,7 +65,13 @@
         var kind = node.getAttribute("data-pco");
         var html = "";
         if (kind === "signups") {
-          html = data.signups.map(function (s) { return card(s, true); }).join("");
+          var category = (node.getAttribute("data-category") || "").toLowerCase();
+          var showDescription = node.hasAttribute("data-show-description");
+          html = data.signups
+            .filter(function (s) {
+              return !category || (s.categories || []).some(function (c) { return c.toLowerCase() === category; });
+            })
+            .map(function (s) { return card(s, true, showDescription); }).join("");
         } else if (kind === "events") {
           html = events.map(function (e) { return card(e, false); }).join("");
         } else if (kind === "home") {
@@ -71,7 +81,11 @@
             .concat(events.filter(function (e) { return !e.featured && e.recurrence; }).map(function (e) { return card(e, false); }));
           html = mix.slice(0, limit).join("");
         }
-        if (html) node.innerHTML = html;
+        if (html) {
+          node.innerHTML = html;
+          var reveal = node.closest("[data-reveal]");
+          if (reveal) reveal.hidden = false;
+        }
         else if (node.hasAttribute("data-empty")) node.innerHTML = '<p>' + esc(node.getAttribute("data-empty")) + "</p>";
       });
     })
