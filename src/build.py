@@ -480,6 +480,16 @@ def about():
 """
 
 
+def ministry_upcoming(category, heading):
+    """Upcoming sign-ups and events in one Church Center category (hidden when there are none)."""
+    return (
+        '<section data-reveal hidden>\n  <div class="wrap">\n'
+        f'    <h2>{heading}</h2>\n'
+        f'    <div class="grid-2" data-pco="category" data-category="{category}" data-show-description></div>\n'
+        '  </div>\n</section>'
+    )
+
+
 def students():
     return f"""
 <div class="page-hero" style="background:var(--youth);">
@@ -501,6 +511,7 @@ def students():
     {serve_callout("Blaise Youth")}
   </div>
 </section>
+{ministry_upcoming("Youth Ministry", "Coming Up for Students")}
 """
 
 
@@ -575,6 +586,7 @@ def special_friends():
     {find_on_map("special-friends.html")}
   </div>
 </section>
+{ministry_upcoming("Special Friends", "Coming Up for Special Friends")}
 <section class="section-soft">
   <div class="wrap">
     <h2>What Wednesday Nights Look Like</h2>
@@ -707,12 +719,7 @@ def missions():
     <p>Blaise supports missions right here in Davie County and around the world &mdash; our students have traveled as far as Peru to share the Gospel.</p>
   </div>
 </div>
-<section data-reveal hidden>
-  <div class="wrap">
-    <h2>Upcoming Missions</h2>
-    <div class="grid-2" data-pco="missions" data-show-description></div>
-  </div>
-</section>
+{ministry_upcoming("Missions", "Upcoming Missions")}
 <section>
   <div class="wrap">
     <div class="callout">

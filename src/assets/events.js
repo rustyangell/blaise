@@ -4,9 +4,9 @@
 //     data-show-description adds the signup's description to each card
 //     data-reveal on a wrapper: it stays hidden until at least one card renders
 //   data-pco="events"  : upcoming public calendar events
-//   data-pco="missions": everything categorized Missions in Church Center: open signups (Registrations
-//                        category) plus calendar events (Calendar tag), soonest first. Add
-//                        data-show-description to include each item's blurb.
+//   data-pco="category": everything in one Church Center category, e.g. data-category="Missions":
+//                        open signups (Registrations category) plus calendar events (Calendar tag),
+//                        soonest first. Add data-show-description to include each item's blurb.
 //   data-pco="home"    : a short mix for the home page (data-limit, default 3)
 // Containers hold fallback markup (a link to Church Center) until data arrives.
 (function () {
@@ -18,6 +18,11 @@
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
+  }
+
+  // Category names are typed by hand in Church Center: ignore case and curly vs straight apostrophes.
+  function norm(s) {
+    return String(s || "").toLowerCase().replace(/[\u2018\u2019]/g, "'").trim();
   }
 
   function fmt(iso, opts) {
@@ -75,15 +80,15 @@
               return !category || (s.categories || []).some(function (c) { return c.toLowerCase() === category; });
             })
             .map(function (s) { return card(s, true, showDescription); }).join("");
-        } else if (kind === "missions") {
+        } else if (kind === "category") {
           var showDesc = node.hasAttribute("data-show-description");
-          var mSignups = data.signups.filter(function (s) {
-            return (s.categories || []).some(function (c) { return c.toLowerCase() === "missions"; });
-          });
+          var want = norm(node.getAttribute("data-category"));
+          var inCategory = function (x) { return (x.categories || []).some(function (c) { return norm(c) === want; }); };
+          var mSignups = data.signups.filter(inCategory);
           var taken = {};
           mSignups.forEach(function (s) { taken[s.url] = true; });
           // A calendar event that is just the mirror of a signup would show twice.
-          var mEvents = (data.missions || []).filter(function (e) { return !(e.register_url && (signupIds[e.register_url] || taken[e.register_url])); });
+          var mEvents = (data.categorized || []).filter(inCategory).filter(function (e) { return !(e.register_url && (signupIds[e.register_url] || taken[e.register_url])); });
           var items = mSignups.map(function (s) { return { t: s.starts_at, html: card(s, true, showDesc) }; })
             .concat(mEvents.map(function (e) { return { t: e.starts_at, html: card(e, false, showDesc) }; }));
           items.sort(function (a, b) { return (a.t || "9999").localeCompare(b.t || "9999"); });
