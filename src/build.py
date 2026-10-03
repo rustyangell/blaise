@@ -709,8 +709,8 @@ def missions():
 </div>
 <section data-reveal hidden>
   <div class="wrap">
-    <h2>Upcoming Mission Sign-Ups</h2>
-    <div class="grid-2" data-pco="signups" data-category="Missions" data-show-description></div>
+    <h2>Upcoming Missions</h2>
+    <div class="grid-2" data-pco="missions" data-show-description></div>
   </div>
 </section>
 <section>

@@ -7,6 +7,12 @@ const API = "https://api.planningcenteronline.com";
 const CC = "https://blaisebaptist.churchcenter.com";
 const HORIZON_DAYS = 90;
 const MAX_PAGES = 5;
+// Anything tagged "Missions" in Calendar is shown further out than ordinary events, since trips
+// are planned and promoted months ahead. Walking that far costs more pages, so it has a time cap.
+const MISSIONS_TAG = "missions";
+const MISSIONS_HORIZON_DAYS = 365;
+const MISSIONS_MAX_PAGES = 20;
+const MISSIONS_TIME_BUDGET_MS = 7000;
 
 async function pco(path) {
   const auth = Buffer.from(`${process.env.PCO_APP_ID}:${process.env.PCO_SECRET}`).toString("base64");
@@ -24,26 +30,34 @@ function indexIncluded(included = []) {
 }
 
 async function calendarEvents() {
-  const horizon = Date.now() + HORIZON_DAYS * 864e5;
+  const started = Date.now();
+  const horizon = started + HORIZON_DAYS * 864e5;
+  const missionsHorizon = started + MISSIONS_HORIZON_DAYS * 864e5;
   const byEvent = new Map(); // one card per parent event: its next occurrence
-  let url = "/calendar/v2/event_instances?filter=future&order=starts_at&include=event&per_page=100";
-  for (let page = 0; url && page < MAX_PAGES; page++) {
+  const missions = new Map(); // same, for events tagged Missions (longer horizon)
+  let url = "/calendar/v2/event_instances?filter=future&order=starts_at&include=event,tags&per_page=100";
+  for (let page = 0; url && page < MISSIONS_MAX_PAGES; page++) {
     const body = await pco(url);
     const included = indexIncluded(body.included);
     let pastHorizon = false;
     for (const inst of body.data) {
       const a = inst.attributes;
-      if (Date.parse(a.starts_at) > horizon) { pastHorizon = true; break; }
+      const start = Date.parse(a.starts_at);
+      if (start > missionsHorizon) { pastHorizon = true; break; }
       const eventRef = inst.relationships?.event?.data;
       const event = eventRef && included.get(`Event:${eventRef.id}`);
       if (!event) continue;
       const e = event.attributes;
       if (!e.visible_in_church_center || e.link_only) continue;
-      if (byEvent.has(event.id)) continue;
-      byEvent.set(event.id, {
+      const categories = (inst.relationships?.tags?.data || [])
+        .map((t) => included.get(`Tag:${t.id}`)?.attributes?.name)
+        .filter(Boolean);
+      const isMissions = categories.some((c) => c.toLowerCase() === MISSIONS_TAG);
+      const card = {
         id: event.id,
         name: a.name || e.name,
         summary: e.summary || null,
+        categories,
         starts_at: a.starts_at,
         ends_at: a.ends_at,
         all_day: !!a.all_day_event,
@@ -53,11 +67,17 @@ async function calendarEvents() {
         image: e.image_url || null,
         url: a.church_center_url || `${CC}/calendar/event/${inst.id}`,
         register_url: e.registration_url || null,
-      });
+      };
+      if (start <= horizon && !byEvent.has(event.id)) byEvent.set(event.id, card);
+      if (isMissions && !missions.has(event.id)) missions.set(event.id, card);
     }
-    url = pastHorizon ? null : body.links?.next;
+    if (pastHorizon) break;
+    // Past the ordinary horizon we are only looking for Missions events: stop when out of time or pages.
+    const pastOrdinary = body.data.length && Date.parse(body.data[body.data.length - 1].attributes.starts_at) > horizon;
+    if (pastOrdinary && (page + 1 >= MISSIONS_MAX_PAGES || Date.now() - started > MISSIONS_TIME_BUDGET_MS)) break;
+    url = body.links?.next;
   }
-  return [...byEvent.values()];
+  return { events: [...byEvent.values()], missions: [...missions.values()] };
 }
 
 // Registrations descriptions are HTML; cards want a short plain-text blurb.
@@ -109,12 +129,12 @@ export default async () => {
     return Response.json({ error: "Planning Center credentials not configured" }, { status: 500 });
   }
   try {
-    const [events, open] = await Promise.all([calendarEvents(), signups()]);
+    const [{ events, missions }, open] = await Promise.all([calendarEvents(), signups()]);
     // Fall back to the linked calendar event's image for signups without a logo.
-    const imageByUrl = new Map(events.filter((e) => e.register_url).map((e) => [e.register_url, e.image]));
+    const imageByUrl = new Map([...events, ...missions].filter((e) => e.register_url).map((e) => [e.register_url, e.image]));
     for (const s of open) s.image = s.image || imageByUrl.get(s.url) || null;
     return Response.json(
-      { updated: new Date().toISOString(), signups: open, events },
+      { updated: new Date().toISOString(), signups: open, events, missions },
       {
         headers: {
           "Cache-Control": "public, max-age=60",
