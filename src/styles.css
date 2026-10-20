@@ -317,6 +317,10 @@ section { padding: 72px 24px; }
 .ministry-card a.btn { border-color: rgba(255,255,255,0.7); color: #fff; }
 .ministry-card a.btn:hover { background: rgba(255,255,255,0.18); }
 
+a.ministry-card { display: block; text-decoration: none; color: #fff; }
+a.ministry-card p { color: inherit; }
+.jump-target { scroll-margin-top: 16px; }
+
 .mc-kids { background: linear-gradient(160deg, #05b380, var(--kids) 70%); }
 .mc-youth { background: linear-gradient(160deg, #f39a1c, var(--youth) 70%); }
 .mc-men { background: linear-gradient(160deg, #1c336f, var(--men) 70%); }

@@ -490,6 +490,21 @@ def ministry_upcoming(category, heading):
     )
 
 
+def ministry_block(anchor, heading, blurb, link_url, link_label, category):
+    """A permanent, jump-linkable block for one ministry on Small Groups: copy, a link into Church
+    Center's groups, and an events list that only appears when something is tagged to it."""
+    return (
+        f'<section id="{anchor}" class="jump-target">\n  <div class="wrap">\n'
+        f'    <h2>{heading}</h2>\n'
+        f'    <p>{blurb}</p>\n'
+        f'    <p><a class="btn btn-primary" href="{link_url}" target="_blank" rel="noopener">{link_label}</a></p>\n'
+        '    <div data-reveal hidden style="margin-top:32px;">\n'
+        '      <h3>Coming Up</h3>\n'
+        f'      <div class="grid-2" data-pco="category" data-category="{category}" data-show-description></div>\n'
+        '    </div>\n  </div>\n</section>'
+    )
+
+
 def students():
     return f"""
 <div class="page-hero" style="background:var(--youth);">
@@ -633,8 +648,8 @@ def small_groups():
 <section>
   <div class="wrap">
     <div class="grid-4">
-      <div class="ministry-card mc-women">{ICON_WOMEN}<h3>Women</h3><p>Bible studies &amp; ministry teams</p></div>
-      <div class="ministry-card mc-men">{ICON_MEN}<h3>Men</h3><p>Man Church &amp; discipleship groups</p></div>
+      <a class="ministry-card mc-women" href="#women">{ICON_WOMEN}<h3>Women</h3><p>Bible studies &amp; ministry teams</p></a>
+      <a class="ministry-card mc-men" href="#men">{ICON_MEN}<h3>Men</h3><p>Man Church &amp; discipleship groups</p></a>
       <div class="ministry-card mc-youth">{ICON_YOUTH}<h3>Students</h3><p>Wednesday nights, 6:30&ndash;7:45</p></div>
       <div class="ministry-card mc-kids">{ICON_CHILDREN}<h3>Families</h3><p>Parents of Youth &amp; more</p></div>
     </div>
@@ -650,8 +665,8 @@ def small_groups():
     </div>
   </div>
 </section>
-{ministry_upcoming("Women's Ministry", "Coming Up for Women")}
-{ministry_upcoming("Men's Ministry", "Coming Up for Men")}
+{ministry_block("women", "Women's Ministry", "Women's Bible studies and ministry teams gather Wednesday nights, 6:30&ndash;7:45 PM. Everyone starts in the Sanctuary, then breaks out to classrooms.", LINKS['groups'], "Browse Groups", "Women's Ministry")}
+{ministry_block("men", "Men's Ministry", "Our Man Church small groups help men pursue a masculinity centered in Christ rather than a shifting culture. These weekly gatherings give men a place to grow together, rooting their identity in the new life made possible through faith in Jesus. Men's Wednesday night groups meet 6:30&ndash;7:45 PM in the Family Life Center.", f"{CC}/groups/man-church-small-groups", "Browse Man Church Groups", "Men's Ministry")}
 """
 
 

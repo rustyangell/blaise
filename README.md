@@ -163,7 +163,7 @@ that get this treatment; add a name there to extend it), and the function stops 
 about 7 seconds, so a very crowded calendar could trim the far end. A calendar event whose
 registration link matches a signup in the category is shown once, as the signup. A section is hidden
 entirely when nothing matches. Cards show the image and a plain-text excerpt of the description when
-they exist. Men's and Women's Ministry have no page of their own yet, so their sections (`Coming Up for Women` / `Coming Up for Men`) sit at the bottom of the Small Groups page.
+they exist. Men's and Women's Ministry have no page of their own yet, so they live as jump-linked blocks (`#women`, `#men`, built by `ministry_block()`) at the bottom of the Small Groups page, reached from the Women and Men cards at the top. Each block always shows its copy and a Church Center link; only its "Coming Up" list hides when empty. Update the Women's link to a tag-filtered Church Center URL once the `Adult, Women` / `Adult, Men` group tags exist.
 Other Church Center objects (groups, sermons) are not included.
 
 ## Brand system
