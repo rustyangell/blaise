@@ -19,6 +19,8 @@ LINKS = {
     "childcare_registration": "https://schools.procareconnect.com/register/shining-son",
     "groups": f"{CC}/groups",
     # Church Center group directory filtered to tags Adults + Female (open-to-join groups only).
+    # Men's groups all live in the Man Church group type, so its page is the full men's list (all enrollment states).
+    "men_groups": f"{CC}/groups/man-church-small-groups?enrollment=open_signup%2Crequest_to_join%2Cclosed&filter=enrollment",
     "women_groups": f"{CC}/groups/bible-study-small-groups?enrollment=open_signup%2Crequest_to_join&filter=enrollment%2Ctag&tag_id=2043415%2C1514712",
     "calendar": f"{CC}/calendar",
     "give": "https://app.easytithe.com/App/Giving/blaise",
@@ -668,7 +670,7 @@ def small_groups():
   </div>
 </section>
 {ministry_block("women", "Women's Ministry", "Women's Bible studies and ministry teams gather Wednesday nights, 6:30&ndash;7:45 PM. Everyone starts in the Sanctuary, then breaks out to classrooms.", LINKS['women_groups'], "Browse Women's Groups", "Women's Ministry")}
-{ministry_block("men", "Men's Ministry", "Our Man Church small groups help men pursue a masculinity centered in Christ rather than a shifting culture. These weekly gatherings give men a place to grow together, rooting their identity in the new life made possible through faith in Jesus. Men's Wednesday night groups meet 6:30&ndash;7:45 PM in the Family Life Center.", f"{CC}/groups/man-church-small-groups", "Browse Man Church Groups", "Men's Ministry")}
+{ministry_block("men", "Men's Ministry", "Our Man Church small groups help men pursue a masculinity centered in Christ rather than a shifting culture. These weekly gatherings give men a place to grow together, rooting their identity in the new life made possible through faith in Jesus. Men's Wednesday night groups meet 6:30&ndash;7:45 PM in the Family Life Center.", LINKS['men_groups'], "Browse Man Church Groups", "Men's Ministry")}
 """
 
 
