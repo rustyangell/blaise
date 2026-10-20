@@ -18,6 +18,8 @@ LINKS = {
     # call-to-action reads from this one constant.
     "childcare_registration": "https://schools.procareconnect.com/register/shining-son",
     "groups": f"{CC}/groups",
+    # Church Center group directory filtered to tags Adults + Female (open-to-join groups only).
+    "women_groups": f"{CC}/groups/bible-study-small-groups?enrollment=open_signup%2Crequest_to_join&filter=enrollment%2Ctag&tag_id=2043415%2C1514712",
     "calendar": f"{CC}/calendar",
     "give": "https://app.easytithe.com/App/Giving/blaise",
     "facebook": "https://www.facebook.com/BlaiseChurch",
@@ -497,7 +499,7 @@ def ministry_block(anchor, heading, blurb, link_url, link_label, category):
         f'<section id="{anchor}" class="jump-target">\n  <div class="wrap">\n'
         f'    <h2>{heading}</h2>\n'
         f'    <p>{blurb}</p>\n'
-        f'    <p><a class="btn btn-primary" href="{link_url}" target="_blank" rel="noopener">{link_label}</a></p>\n'
+        f'    <p><a class="btn btn-primary" href="{link_url.replace("&", "&amp;")}" target="_blank" rel="noopener">{link_label}</a></p>\n'
         '    <div data-reveal hidden style="margin-top:32px;">\n'
         '      <h3>Coming Up</h3>\n'
         f'      <div class="grid-2" data-pco="category" data-category="{category}" data-show-description></div>\n'
@@ -665,7 +667,7 @@ def small_groups():
     </div>
   </div>
 </section>
-{ministry_block("women", "Women's Ministry", "Women's Bible studies and ministry teams gather Wednesday nights, 6:30&ndash;7:45 PM. Everyone starts in the Sanctuary, then breaks out to classrooms.", LINKS['groups'], "Browse Groups", "Women's Ministry")}
+{ministry_block("women", "Women's Ministry", "Women's Bible studies and ministry teams gather Wednesday nights, 6:30&ndash;7:45 PM. Everyone starts in the Sanctuary, then breaks out to classrooms.", LINKS['women_groups'], "Browse Women's Groups", "Women's Ministry")}
 {ministry_block("men", "Men's Ministry", "Our Man Church small groups help men pursue a masculinity centered in Christ rather than a shifting culture. These weekly gatherings give men a place to grow together, rooting their identity in the new life made possible through faith in Jesus. Men's Wednesday night groups meet 6:30&ndash;7:45 PM in the Family Life Center.", f"{CC}/groups/man-church-small-groups", "Browse Man Church Groups", "Men's Ministry")}
 """
 
