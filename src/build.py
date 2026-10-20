@@ -19,8 +19,8 @@ LINKS = {
     "childcare_registration": "https://schools.procareconnect.com/register/shining-son",
     "groups": f"{CC}/groups",
     # Church Center group directory filtered to tags Adults + Female (open-to-join groups only).
-    # Men's groups all live in the Man Church group type, so its page is the full men's list (all enrollment states).
-    "men_groups": f"{CC}/groups/man-church-small-groups?enrollment=open_signup%2Crequest_to_join%2Cclosed&filter=enrollment",
+    # Men's groups all live in the Man Church group type, so its page is the full men's list (open/request-to-join only).
+    "men_groups": f"{CC}/groups/man-church-small-groups?enrollment=open_signup%2Crequest_to_join&filter=enrollment",
     "women_groups": f"{CC}/groups/bible-study-small-groups?enrollment=open_signup%2Crequest_to_join&filter=enrollment%2Ctag&tag_id=2043415%2C1514712",
     "calendar": f"{CC}/calendar",
     "give": "https://app.easytithe.com/App/Giving/blaise",
