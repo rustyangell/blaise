@@ -10,7 +10,15 @@ const MAX_PAGES = 5;
 // Calendar events carrying a ministry-area tag are shown further out than ordinary events, since
 // trips and retreats are planned and promoted months ahead. Each ministry page filters this list
 // by its own tag. Walking that far costs more pages, so it has a time cap.
-const MINISTRY_TAGS = ["missions", "special friends", "youth ministry", "men's ministry", "women's ministry"];
+const MINISTRY_TAGS = [
+  "missions",
+  "special friends",
+  "youth ministry",
+  "men's ministry",
+  "women's ministry",
+  "children's ministry",
+  "senior adults / good life",
+];
 const MINISTRY_HORIZON_DAYS = 365;
 const MINISTRY_MAX_PAGES = 20;
 const MINISTRY_TIME_BUDGET_MS = 7000;

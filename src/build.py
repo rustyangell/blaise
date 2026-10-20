@@ -563,6 +563,7 @@ def children():
     {serve_callout("Blaise Kids")}
   </div>
 </section>
+{ministry_upcoming("Children's Ministry", "Coming Up for Kids")}
 """
 
 
@@ -588,6 +589,7 @@ def senior_adults():
     </div>
   </div>
 </section>
+{ministry_upcoming("Senior Adults / Good Life", "Coming Up for Good Life")}
 """
 
 

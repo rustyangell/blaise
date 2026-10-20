@@ -152,11 +152,12 @@ and home pages. Those containers ship with a Church Center link as fallback cont
 whose registration URL matches an open signup are shown once, as the signup. To hide an event from
 the site, set it to Hidden in Church Center; there is nothing to edit here.
 
-**Ministry sections (Missions, Students, Special Friends, Small Groups).** Each of these pages ends with an
+**Ministry sections (Missions, Students, Children, Senior Adults, Special Friends, Small Groups).** Each of these pages ends with an
 "upcoming" section fed by `data-pco="category" data-category="<name>"` (see `ministry_upcoming()` in
 `build.py`). It combines two things, soonest first: open signups whose **Registrations category** is
 that name, and Calendar events (visible in Church Center) whose **Calendar tag** is that name. The
-names are `Missions`, `Youth Ministry` (Students page), `Special Friends`, `Men's Ministry` and
+names are `Missions`, `Youth Ministry` (Students page), `Children's Ministry` (Children page),
+`Senior Adults / Good Life` (Senior Adults page), `Special Friends`, `Men's Ministry` and
 `Women's Ministry`; matching ignores case and curly vs straight apostrophes. Tagged calendar events
 are looked up 365 days out instead of the usual 90 (`MINISTRY_TAGS` in `events.mjs` lists the tags
 that get this treatment; add a name there to extend it), and the function stops walking pages after
