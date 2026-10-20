@@ -553,13 +553,20 @@ def senior_adults():
   <div class="wrap">
     <span class="eyebrow">Senior Adults</span>
     <h1>Good Life</h1>
-    <p>Our senior adult ministry at Blaise Baptist Church.</p>
+    <p>Growing in faith &middot; Building friendships &middot; Sharing God's love</p>
   </div>
 </div>
 <section>
   <div class="wrap">
-    <h2>Coming Soon</h2>
-    <p>This page will be updated soon with all of the details about our senior adults ministry, which we call <strong>Good Life</strong>.</p>
+    <p>Good Life is a special time for senior adults in Mocksville and across Davie County to come together for Christian fellowship, friendship, fun, and encouragement. We believe life is better when we share it with others, and we love creating opportunities to laugh together, make new friends, grow in our faith, and serve our community.</p>
+    <p>Throughout the year, we enjoy a variety of activities and gatherings, including fellowship meals, special celebrations, day trips and outings, and opportunities to serve others in Jesus' name.</p>
+    <p>But Good Life is about more than activities. It's about people &mdash; caring for one another, encouraging one another, and enjoying the blessings God gives us each day.</p>
+    <div class="callout" style="margin-top:32px;">
+      <h3>Come Join Us!</h3>
+      <p>For information about our next gathering or upcoming activities, contact the church office or check our church calendar.</p>
+      <a class="btn btn-primary" href="contact.html">Contact Us</a>
+      <a class="btn btn-outline" href="{LINKS['calendar']}" target="_blank" rel="noopener">Open the Calendar</a>
+    </div>
   </div>
 </section>
 """
