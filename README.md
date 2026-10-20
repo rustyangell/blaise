@@ -152,7 +152,7 @@ and home pages. Those containers ship with a Church Center link as fallback cont
 whose registration URL matches an open signup are shown once, as the signup. To hide an event from
 the site, set it to Hidden in Church Center; there is nothing to edit here.
 
-**Ministry sections (Missions, Students, Special Friends).** Each of these pages ends with an
+**Ministry sections (Missions, Students, Special Friends, Small Groups).** Each of these pages ends with an
 "upcoming" section fed by `data-pco="category" data-category="<name>"` (see `ministry_upcoming()` in
 `build.py`). It combines two things, soonest first: open signups whose **Registrations category** is
 that name, and Calendar events (visible in Church Center) whose **Calendar tag** is that name. The
@@ -163,7 +163,7 @@ that get this treatment; add a name there to extend it), and the function stops 
 about 7 seconds, so a very crowded calendar could trim the far end. A calendar event whose
 registration link matches a signup in the category is shown once, as the signup. A section is hidden
 entirely when nothing matches. Cards show the image and a plain-text excerpt of the description when
-they exist. Men's and Women's Ministry have no page of their own yet, so nothing displays those.
+they exist. Men's and Women's Ministry have no page of their own yet, so their sections (`Coming Up for Women` / `Coming Up for Men`) sit at the bottom of the Small Groups page.
 Other Church Center objects (groups, sermons) are not included.
 
 ## Brand system

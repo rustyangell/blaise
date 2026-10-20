@@ -650,6 +650,8 @@ def small_groups():
     </div>
   </div>
 </section>
+{ministry_upcoming("Women's Ministry", "Coming Up for Women")}
+{ministry_upcoming("Men's Ministry", "Coming Up for Men")}
 """
 
 
