@@ -152,11 +152,20 @@ and home pages. Those containers ship with a Church Center link as fallback cont
 whose registration URL matches an open signup are shown once, as the signup. To hide an event from
 the site, set it to Hidden in Church Center; there is nothing to edit here.
 
-**Missions page.** `missions.html` shows an "Upcoming Mission Sign-Ups" section fed by
-`data-pco="signups" data-category="Missions"`. A signup appears there when it is open, unarchived,
-and its **Registrations category is `Missions`** (set on the signup in Planning Center Registrations,
-not a Calendar tag). The section is hidden entirely when nothing matches. The card shows the
-signup's logo and a plain-text excerpt of its description when they exist.
+**Ministry sections (Missions, Students, Children, Senior Adults, Special Friends, Small Groups).** Each of these pages ends with an
+"upcoming" section fed by `data-pco="category" data-category="<name>"` (see `ministry_upcoming()` in
+`build.py`). It combines two things, soonest first: open signups whose **Registrations category** is
+that name, and Calendar events (visible in Church Center) whose **Calendar tag** is that name. The
+names are `Missions`, `Youth Ministry` (Students page), `Children's Ministry` (Children page),
+`Senior Adults / Good Life` (Senior Adults page), `Special Friends`, `Men's Ministry` and
+`Women's Ministry`; matching ignores case and curly vs straight apostrophes. Tagged calendar events
+are looked up 365 days out instead of the usual 90 (`MINISTRY_TAGS` in `events.mjs` lists the tags
+that get this treatment; add a name there to extend it), and the function stops walking pages after
+about 7 seconds, so a very crowded calendar could trim the far end. A calendar event whose
+registration link matches a signup in the category is shown once, as the signup. A section is hidden
+entirely when nothing matches. Cards show the image and a plain-text excerpt of the description when
+they exist. Men's and Women's Ministry have no page of their own yet, so they live as jump-linked blocks (`#women`, `#men`, built by `ministry_block()`) at the bottom of the Small Groups page, reached from the Women and Men cards at the top. Each block always shows its copy and a Church Center link; only its "Coming Up" list hides when empty. The Women's button uses a Church Center URL filtered to the `Adults` + `Female` group tags (`LINKS['women_groups']`); Men's points at the whole Man Church group type (`LINKS['men_groups']`), because every men's group lives in that type and Church Center tag filters only work within one group type. Note the two buttons differ on enrollment: Women's shows only open/request-to-join groups, Men's shows closed groups too. If tag ids change in Planning Center Groups, re-copy the URL from a filtered Church Center page.
+Other Church Center objects (groups, sermons) are not included.
 
 ## Brand system
 

@@ -18,6 +18,10 @@ LINKS = {
     # call-to-action reads from this one constant.
     "childcare_registration": "https://schools.procareconnect.com/register/shining-son",
     "groups": f"{CC}/groups",
+    # Church Center group directory filtered to tags Adults + Female (open-to-join groups only).
+    # Men's groups all live in the Man Church group type, so its page is the full men's list (all enrollment states).
+    "men_groups": f"{CC}/groups/man-church-small-groups?enrollment=open_signup%2Crequest_to_join%2Cclosed&filter=enrollment",
+    "women_groups": f"{CC}/groups/bible-study-small-groups?enrollment=open_signup%2Crequest_to_join&filter=enrollment%2Ctag&tag_id=2043415%2C1514712",
     "calendar": f"{CC}/calendar",
     "give": "https://app.easytithe.com/App/Giving/blaise",
     "facebook": "https://www.facebook.com/BlaiseChurch",
@@ -480,6 +484,31 @@ def about():
 """
 
 
+def ministry_upcoming(category, heading):
+    """Upcoming sign-ups and events in one Church Center category (hidden when there are none)."""
+    return (
+        '<section data-reveal hidden>\n  <div class="wrap">\n'
+        f'    <h2>{heading}</h2>\n'
+        f'    <div class="grid-2" data-pco="category" data-category="{category}" data-show-description></div>\n'
+        '  </div>\n</section>'
+    )
+
+
+def ministry_block(anchor, heading, blurb, link_url, link_label, category):
+    """A permanent, jump-linkable block for one ministry on Small Groups: copy, a link into Church
+    Center's groups, and an events list that only appears when something is tagged to it."""
+    return (
+        f'<section id="{anchor}" class="jump-target">\n  <div class="wrap">\n'
+        f'    <h2>{heading}</h2>\n'
+        f'    <p>{blurb}</p>\n'
+        f'    <p><a class="btn btn-primary" href="{link_url.replace("&", "&amp;")}" target="_blank" rel="noopener">{link_label}</a></p>\n'
+        '    <div data-reveal hidden style="margin-top:32px;">\n'
+        '      <h3>Coming Up</h3>\n'
+        f'      <div class="grid-2" data-pco="category" data-category="{category}" data-show-description></div>\n'
+        '    </div>\n  </div>\n</section>'
+    )
+
+
 def students():
     return f"""
 <div class="page-hero" style="background:var(--youth);">
@@ -501,6 +530,7 @@ def students():
     {serve_callout("Blaise Youth")}
   </div>
 </section>
+{ministry_upcoming("Youth Ministry", "Coming Up for Students")}
 """
 
 
@@ -533,6 +563,7 @@ def children():
     {serve_callout("Blaise Kids")}
   </div>
 </section>
+{ministry_upcoming("Children's Ministry", "Coming Up for Kids")}
 """
 
 
@@ -558,6 +589,7 @@ def senior_adults():
     </div>
   </div>
 </section>
+{ministry_upcoming("Senior Adults / Good Life", "Coming Up for Good Life")}
 """
 
 
@@ -582,6 +614,7 @@ def special_friends():
     {find_on_map("special-friends.html")}
   </div>
 </section>
+{ministry_upcoming("Special Friends", "Coming Up for Special Friends")}
 <section class="section-soft">
   <div class="wrap">
     <h2>What Wednesday Nights Look Like</h2>
@@ -621,8 +654,8 @@ def small_groups():
 <section>
   <div class="wrap">
     <div class="grid-4">
-      <div class="ministry-card mc-women">{ICON_WOMEN}<h3>Women</h3><p>Bible studies &amp; ministry teams</p></div>
-      <div class="ministry-card mc-men">{ICON_MEN}<h3>Men</h3><p>Man Church &amp; discipleship groups</p></div>
+      <a class="ministry-card mc-women" href="#women">{ICON_WOMEN}<h3>Women</h3><p>Bible studies &amp; ministry teams</p></a>
+      <a class="ministry-card mc-men" href="#men">{ICON_MEN}<h3>Men</h3><p>Man Church &amp; discipleship groups</p></a>
       <div class="ministry-card mc-youth">{ICON_YOUTH}<h3>Students</h3><p>Wednesday nights, 6:30&ndash;7:45</p></div>
       <div class="ministry-card mc-kids">{ICON_CHILDREN}<h3>Families</h3><p>Parents of Youth &amp; more</p></div>
     </div>
@@ -638,6 +671,8 @@ def small_groups():
     </div>
   </div>
 </section>
+{ministry_block("women", "Women's Ministry", "Women's Bible studies and ministry teams gather Wednesday nights, 6:30&ndash;7:45 PM. Everyone starts in the Sanctuary, then breaks out to classrooms.", LINKS['women_groups'], "Browse Women's Groups", "Women's Ministry")}
+{ministry_block("men", "Men's Ministry", "Our Man Church small groups help men pursue a masculinity centered in Christ rather than a shifting culture. These weekly gatherings give men a place to grow together, rooting their identity in the new life made possible through faith in Jesus. Men's Wednesday night groups meet 6:30&ndash;7:45 PM in the Family Life Center.", LINKS['men_groups'], "Browse Man Church Groups", "Men's Ministry")}
 """
 
 
@@ -714,12 +749,7 @@ def missions():
     <p>Blaise supports missions right here in Davie County and around the world &mdash; our students have traveled as far as Peru to share the Gospel.</p>
   </div>
 </div>
-<section data-reveal hidden>
-  <div class="wrap">
-    <h2>Upcoming Mission Sign-Ups</h2>
-    <div class="grid-2" data-pco="signups" data-category="Missions" data-show-description></div>
-  </div>
-</section>
+{ministry_upcoming("Missions", "Upcoming Missions")}
 <section>
   <div class="wrap">
     <div class="callout">
