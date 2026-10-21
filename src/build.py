@@ -196,7 +196,7 @@ def nav(active):
       {dropdown("About", ABOUT_ITEMS)}
       {dropdown("Ministries", MINISTRY_ITEMS)}
       {link_items(NAV_ITEMS_AFTER)}
-      <li>{modal_link(LINKS['give'], 'Give', 'btn btn-outline')}</li>
+      <li>{plain_link(LINKS['give'], 'Give', 'btn btn-outline')}</li>
     </ul>
     <!-- Phone menu only: what people most often open the menu to find. -->
     <div class="nav-drawer-contact">
