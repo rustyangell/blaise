@@ -665,7 +665,7 @@ def students():
 </div>
 <section>
   <div class="wrap wrap-narrow">
-    <p>Our student ministry, Blaise Youth, is for middle and high schoolers &mdash; 6th grade through seniors. We're focused on growing into vibrant, enthusiastic followers of Jesus Christ &mdash; studying the Bible, praying for each other, ministering to people, playing games, and going on mission trips all over the world.</p>
+    <p>Our student ministry, Blaise Youth, is for middle and high schoolers &mdash; 6th grade through seniors. We're focused on growing into vibrant, enthusiastic followers of Jesus Christ &mdash; studying the Bible, praying for each other, ministering to people, playing games, and joining church-wide mission trips all over the world.</p>
     <div class="schedule-row"><span class="time">Sundays</span><div><strong>Bible Fellowship</strong><br>9:30 AM</div></div>
     <div class="schedule-row"><span class="time">Wednesdays</span><div><strong>Student Night</strong><br>6:30&ndash;7:45 PM</div></div>
     {find_on_map("students.html")}
