@@ -24,7 +24,7 @@ LINKS = {
     "women_groups": f"{CC}/groups/bible-study-small-groups?enrollment=open_signup%2Crequest_to_join&filter=enrollment%2Ctag&tag_id=2043415%2C1514712",
     "calendar": f"{CC}/calendar",
     # A new meal signup is created every week; the category page always lists the current one.
-    "wednesday_meals": f"{CC}/registrations/categories/110362",
+    "wednesday_meals": f"{CC}/registrations/events/category/110362",
     "give": "https://app.easytithe.com/App/Giving/blaise",
     "facebook": "https://www.facebook.com/BlaiseChurch",
     "youtube": "https://www.youtube.com/@blaisebaptistchurch",
