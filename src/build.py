@@ -41,7 +41,7 @@ BUILDINGS_BY_ID = {b["id"]: b for b in BUILDINGS}
 MINISTRY_LOCATIONS = [
     # (ministry, page or None, building id, when). A page's first row is its primary building
     # (the one its "Find it on the map" link opens).
-    ("Sunday Worship", "about.html", "family-life-center", "Sundays, 10:30 AM"),
+    ("Worship Service", "about.html", "family-life-center", "Sundays, 10:30 AM"),
     ("Sunday Bible Fellowship", None, "family-life-center", "Sundays, 9:30 AM"),
     ("Wednesday Meals", "events.html", "family-life-center", "Wednesdays, 5:00 PM"),
     ("Men&rsquo;s Wednesday Night Groups", "small-groups.html", "family-life-center", "Wednesdays, 6:30&ndash;7:45 PM"),
@@ -217,10 +217,10 @@ FOOTER = f"""
     <div>
       <h4>Connect</h4>
       <ul>
-        <li><a href="events.html">Events &amp; Calendar</a></li>
+        <li><a href="events.html">Events</a></li>
         <li><a href="small-groups.html">Small Groups</a></li>
         <li><a href="{LINKS['give']}" target="_blank" rel="noopener">Give</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </div>
@@ -462,7 +462,7 @@ def about():
   </div>
   <div class="wrap grid-2">
     <div class="schedule-row pane-teal"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong></div></div>
-    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship</strong><br><a href="{map_url('family-life-center')}">Family Life Center</a></div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br><a href="{map_url('family-life-center')}">Family Life Center</a></div></div>
   </div>
 </section>
 
@@ -515,17 +515,17 @@ def students():
   <div class="wrap hero-icon-row">
     {ICON_YOUTH_LG}
     <div>
-      <span class="eyebrow" style="color:#fff;">Middle &amp; High School</span>
-      <h1 style="color:#fff;">Blaise Youth</h1>
+      <span class="eyebrow" style="color:#fff;">Grades 6&ndash;12</span>
+      <h1 style="color:#fff;">Students</h1>
       <p style="color:#fff;">Built for the real terrain of the teen years &mdash; a community that challenges students to keep climbing toward Christ.</p>
     </div>
   </div>
 </div>
 <section>
   <div class="wrap">
-    <p>Blaise Youth (Y4J &mdash; Youth 4 Jesus) is for 6th grade through high school seniors. We're focused on growing into vibrant, enthusiastic followers of Jesus Christ &mdash; studying the Bible, praying for each other, ministering to people, playing games, and going on mission trips from Davie County to South America.</p>
+    <p>Our student ministry, Blaise Youth, is for middle and high schoolers &mdash; 6th grade through seniors. We're focused on growing into vibrant, enthusiastic followers of Jesus Christ &mdash; studying the Bible, praying for each other, ministering to people, playing games, and going on mission trips from Davie County to South America.</p>
     <div class="schedule-row"><span class="time">Sundays</span><div><strong>Bible Fellowship</strong><br>9:30 AM</div></div>
-    <div class="schedule-row"><span class="time">Wednesdays</span><div><strong>Youth Night</strong><br>6:30&ndash;7:45 PM</div></div>
+    <div class="schedule-row"><span class="time">Wednesdays</span><div><strong>Student Night</strong><br>6:30&ndash;7:45 PM</div></div>
     {find_on_map("students.html")}
     {serve_callout("Blaise Youth")}
   </div>
@@ -541,19 +541,19 @@ def children():
     {ICON_CHILDREN_LG}
     <div>
       <span class="eyebrow" style="color:#fff;">Birth &ndash; 5th Grade</span>
-      <h1 style="color:#fff;">Blaise Kids</h1>
-      <p style="color:#fff;">A safe, joyful place where children are rooted in faith from the earliest age.</p>
+      <h1 style="color:#fff;">Children</h1>
+      <p style="color:#fff;">Blaise Kids is a safe, joyful place where children are rooted in faith from the earliest age.</p>
     </div>
   </div>
 </div>
 <section>
   <div class="wrap">
     <h2>Sundays</h2>
-    <div class="schedule-row"><span class="time">9:30&ndash;10:30</span><div><strong>Bible Fellowship Classes</strong><br>Nursery (infant&ndash;3yrs) &middot; Pre-K&ndash;2nd Grade &middot; 3rd&ndash;5th Grade</div></div>
-    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Hour</strong><br>Nursery, plus Children's Church for ages 4&ndash;1st grade</div></div>
+    <div class="schedule-row"><span class="time">9:30 AM</span><div><strong>Bible Fellowship Classes</strong><br>Nursery (birth&ndash;age 3) &middot; Pre-K&ndash;2nd Grade &middot; 3rd&ndash;5th Grade</div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Nursery, plus Children's Church for Pre-K (age 4) through 1st grade</div></div>
     <h2 style="margin-top:40px;">Wednesdays, 6:30&ndash;7:45 PM</h2>
-    <div class="schedule-row"><span class="time">Mission Friends</span><div>Age 3 (potty trained) &ndash; Kindergarten</div></div>
-    <div class="schedule-row"><span class="time">Mission Journey</span><div>1st&ndash;5th Grade</div></div>
+    <div class="schedule-row"><span class="time">Mission Friends</span><div>Age 3 (potty trained) through Kindergarten</div></div>
+    <div class="schedule-row"><span class="time">Mission Journey</span><div>1st&ndash;5th grade</div></div>
     {find_on_map("children.html")}
     <div class="callout" style="margin-top:32px;">
       <h3>Celebrating a Parent/Child Dedication?</h3>
@@ -656,7 +656,7 @@ def small_groups():
     <div class="grid-4">
       <a class="ministry-card mc-women" href="#women">{ICON_WOMEN}<h3>Women</h3><p>Bible studies &amp; ministry teams</p></a>
       <a class="ministry-card mc-men" href="#men">{ICON_MEN}<h3>Men</h3><p>Man Church &amp; discipleship groups</p></a>
-      <div class="ministry-card mc-youth">{ICON_YOUTH}<h3>Students</h3><p>Wednesday nights, 6:30&ndash;7:45</p></div>
+      <div class="ministry-card mc-youth">{ICON_YOUTH}<h3>Students</h3><p>Wednesday nights, 6:30&ndash;7:45 PM</p></div>
       <div class="ministry-card mc-kids">{ICON_CHILDREN}<h3>Families</h3><p>Parents of Youth &amp; more</p></div>
     </div>
     <div class="callout" style="margin-top:32px;">
@@ -942,8 +942,8 @@ PAGES = [
     ("about.html", "About", "Staff, service times, and what to expect at Blaise Baptist Church.", about),
     ("beliefs.html", "Beliefs & Core Values", "What Blaise Baptist Church believes.", beliefs),
     ("baptism.html", "Baptism", "Baptism at Blaise Baptist Church.", baptism),
-    ("students.html", "Students", "Blaise Youth (Y4J) for 6th grade through high school seniors.", students),
-    ("children.html", "Children", "Blaise Kids ministry for birth through 5th grade.", children),
+    ("students.html", "Students", "Student ministry for grades 6-12 at Blaise Baptist Church in Mocksville, NC.", students),
+    ("children.html", "Children", "Children's ministry for birth through 5th grade at Blaise Baptist Church in Mocksville, NC.", children),
     ("senior-adults.html", "Senior Adults", "Good Life, the senior adult ministry at Blaise Baptist Church.", senior_adults),
     ("special-friends.html", "Special Friends", "Special Friends ministry at Blaise Baptist Church.", special_friends),
     ("small-groups.html", "Small Groups", "Find a small group at Blaise Baptist Church.", small_groups),
