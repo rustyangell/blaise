@@ -35,8 +35,6 @@ LINKS = {
     "directions": "https://www.google.com/maps/dir/?api=1&destination=Blaise+Baptist+Church%2C+134+Blaise+Church+Rd%2C+Mocksville%2C+NC+27028",
     "map_embed": "https://www.google.com/maps?q=Blaise+Baptist+Church,+134+Blaise+Church+Rd,+Mocksville,+NC+27028&output=embed",
     "bfm": "https://bfm.sbc.net/bfm2000/",
-    # The LOOP, the weekly church email (Constant Contact signup).
-    "newsletter": "https://lp.constantcontactpages.com/su/EA2V4O5",
     # RightNow Media: the church's free Bible-study video library; this invite link joins Blaise's account.
     "rightnow": "https://app.rightnowmedia.org/en/join/BlaiseBC",
 }
@@ -241,7 +239,6 @@ FOOTER = f"""
       <ul>
         <li><a href="events.html">Events</a></li>
         <li><a href="watch.html">Watch Online</a></li>
-        <li><a href="{LINKS['newsletter']}" target="_blank" rel="noopener">Get the Weekly Email</a></li>
         <li><a href="small-groups.html">Small Groups</a></li>
         <li><a href="{LINKS['give']}" target="_blank" rel="noopener">Give</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -478,7 +475,6 @@ def home():
 def about():
     staff = [
         ("Rev. Ken Furches", "Senior Pastor", "ken.furches@blaisebaptist.org"),
-        ("Michael Hanna", "Youth Director", "michael.hanna@blaisebaptist.org"),
         ("Kristen Hollars", "Children's Outreach Director", "kristen.hollars@blaisebaptist.org"),
     ]
     staff_cards = "\n".join(
@@ -945,11 +941,7 @@ def events():
     <div class="grid-3" data-pco="events" data-empty="No upcoming events posted yet.">
       <div class="event-card"><h3>Full calendar</h3><p>Browse every upcoming event on Church Center.</p><a class="btn btn-primary" href="{LINKS['calendar']}" target="_blank" rel="noopener">Open the Calendar</a></div>
     </div>
-    <div class="callout" style="margin-top:48px;">
-      <h3>Get The LOOP, our weekly email</h3>
-      <p>What&rsquo;s happening at Blaise this week, sent straight to your inbox. Sign up once and you&rsquo;re set.</p>
-      <a class="btn btn-primary" href="{LINKS['newsletter']}" target="_blank" rel="noopener">Sign Up for The LOOP</a>
-    </div>
+
   </div>
 </section>
 """
