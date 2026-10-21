@@ -228,8 +228,9 @@ church email goes dark. That is the most likely way this goes wrong.
 
 ### Before the cutover
 
-Old Wix URLs are indexed and bookmarked, and will 404 the moment the domain moves. Audit them and
-add redirects to `netlify.toml` first. The `/childcare` redirect already there is the pattern:
+Old Wix URLs are indexed and bookmarked, and would 404 the moment the domain moves. **Done:** every
+page in the Wix `pages-sitemap.xml` (October 2026) has a 301 in `netlify.toml`. If Wix pages are added
+before cutover, add them the same way:
 
 ```toml
 [[redirects]]
