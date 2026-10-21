@@ -717,11 +717,13 @@ def childcare():
 def celebrate_recovery():
     return f"""
 <div class="page-hero">
-  <div class="wrap">
+  <div class="wrap hero-split">
+    <div>
+      <span class="eyebrow">Hurts, Habits &amp; Hang-Ups</span>
+      <h1>Celebrate Recovery</h1>
+      <p>If you have a desire to see broken people transformed by the power of Christ, come check out CR &mdash; a biblical and balanced program that helps us overcome our hurts, hang-ups, and habits.</p>
+    </div>
     <img src="assets/celebrate-recovery-logo.svg" alt="Celebrate Recovery" class="page-hero-logo">
-    <span class="eyebrow">Hurts, Habits &amp; Hang-Ups</span>
-    <h1>Celebrate Recovery</h1>
-    <p>If you have a desire to see broken people transformed by the power of Christ, come check out CR &mdash; a biblical and balanced program that helps us overcome our hurts, hang-ups, and habits.</p>
   </div>
 </div>
 <section>
