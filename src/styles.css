@@ -737,3 +737,25 @@ footer li { margin-bottom: 0.35em; }
   .nav-drawer-contact a { text-decoration: none; color: var(--nearblack); line-height: 1.35; }
   .nav-drawer-contact strong { display: block; color: var(--forest); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; }
 }
+
+/* Readability: menu, buttons, and footer in normal case at full body size.
+   All-caps with wide letter-spacing at ~14px was hard going for older eyes. */
+.nav-links a, .nav-dropdown summary {
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 1.02rem;
+}
+.nav-dropdown ul li a { font-size: 1.02rem; }
+.btn {
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 1rem;
+}
+.brand-text span { font-size: 0.82rem; }
+footer { font-size: 1rem; }
+footer h4 { font-size: 0.88rem; }
+.footer-bottom { font-size: 0.9rem; }
+@media (max-width: 860px) {
+  .nav-links a, .nav-dropdown summary { font-size: 1.15rem; }
+  .nav-dropdown ul li a { font-size: 1.08rem; padding: 8px 0; }
+}
