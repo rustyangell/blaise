@@ -5,6 +5,7 @@
 //     data-reveal on a wrapper: it stays hidden until at least one card renders
 //   data-pco="events"  : upcoming public calendar events
 //   data-pco="category": everything in one Church Center category, e.g. data-category="Missions":
+//                        active announcements (Publishing announcement category) first, then
 //                        open signups (Registrations category) plus calendar events (Calendar tag),
 //                        soonest first. Add data-show-description to include each item's blurb.
 //   data-pco="home"    : a short mix for the home page (data-limit, default 3)
@@ -61,6 +62,16 @@
       "</div>";
   }
 
+  function announcementCard(a) {
+    return '<div class="event-card">' +
+      (a.image ? '<img class="event-img" src="' + esc(a.image) + '" alt="" loading="lazy">' : "") +
+      '<span class="date">Announcement</span>' +
+      "<h3>" + esc(a.name) + "</h3>" +
+      (a.summary ? "<p>" + esc(a.summary) + "</p>" : "") +
+      '<a class="btn btn-primary" href="' + esc(a.url) + '" target="_blank" rel="noopener">Learn More</a>' +
+      "</div>";
+  }
+
   fetch("/api/events")
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (data) {
@@ -92,7 +103,10 @@
           var items = mSignups.map(function (s) { return { t: s.starts_at, html: card(s, true, showDesc) }; })
             .concat(mEvents.map(function (e) { return { t: e.starts_at, html: card(e, false, showDesc) }; }));
           items.sort(function (a, b) { return (a.t || "9999").localeCompare(b.t || "9999"); });
-          html = items.map(function (i) { return i.html; }).join("");
+          // Announcements have no date of their own: they lead, featured ones first.
+          var news = (data.announcements || []).filter(inCategory)
+            .sort(function (a, b) { return (b.featured ? 1 : 0) - (a.featured ? 1 : 0); });
+          html = news.map(announcementCard).join("") + items.map(function (i) { return i.html; }).join("");
         } else if (kind === "events") {
           html = events.map(function (e) { return card(e, false); }).join("");
         } else if (kind === "home") {

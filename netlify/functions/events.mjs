@@ -1,4 +1,4 @@
-// Serves upcoming public events + open signups from Planning Center as JSON.
+// Serves upcoming public events, open signups, and active announcements from Planning Center as JSON.
 // Credentials come from Netlify env vars PCO_APP_ID / PCO_SECRET (a Personal Access Token);
 // they never reach the browser. The CDN caches the response, so Planning Center is hit
 // at most every few minutes regardless of traffic.
@@ -135,17 +135,52 @@ async function signups() {
     .sort((a, b) => (a.starts_at || "9999").localeCompare(b.starts_at || "9999"));
 }
 
+// Active Church Center announcements (Publishing), with their announcement-category names so
+// ministry pages can pick theirs. Publishing is a separate Planning Center product: if the token
+// can't read it, return none rather than taking events and signups down with it.
+async function announcements() {
+  try {
+    const [cats, body] = await Promise.all([
+      pco("/publishing/v2/announcement_categories?per_page=100"),
+      pco("/publishing/v2/announcements?filter=active&include=announcements_announcement_categories&order=-featured&per_page=100"),
+    ]);
+    const catName = new Map(cats.data.map((c) => [c.id, c.attributes.name]));
+    const included = indexIncluded(body.included);
+    return body.data
+      .filter((a) => !a.attributes.archived)
+      .map((a) => {
+        const at = a.attributes;
+        const categories = (a.relationships?.announcements_announcement_categories?.data || [])
+          .map((j) => included.get(`AnnouncementsAnnouncementCategory:${j.id}`)?.relationships?.announcement_category?.data?.id)
+          .map((id) => catName.get(id))
+          .filter(Boolean);
+        return {
+          id: a.id,
+          name: at.title,
+          summary: plainText(at.summary),
+          image: at.image || null,
+          featured: !!at.featured,
+          categories,
+          url: at.link || at.church_center_url || `${CC}/announcements/${a.id}`,
+        };
+      });
+  } catch (err) {
+    console.error("announcements:", err.message);
+    return [];
+  }
+}
+
 export default async () => {
   if (!process.env.PCO_APP_ID || !process.env.PCO_SECRET) {
     return Response.json({ error: "Planning Center credentials not configured" }, { status: 500 });
   }
   try {
-    const [{ events, categorized }, open] = await Promise.all([calendarEvents(), signups()]);
+    const [{ events, categorized }, open, news] = await Promise.all([calendarEvents(), signups(), announcements()]);
     // Fall back to the linked calendar event's image for signups without a logo.
     const imageByUrl = new Map([...events, ...categorized].filter((e) => e.register_url).map((e) => [e.register_url, e.image]));
     for (const s of open) s.image = s.image || imageByUrl.get(s.url) || null;
     return Response.json(
-      { updated: new Date().toISOString(), signups: open, events, categorized },
+      { updated: new Date().toISOString(), signups: open, events, categorized, announcements: news },
       {
         headers: {
           "Cache-Control": "public, max-age=60",
