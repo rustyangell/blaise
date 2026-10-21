@@ -35,6 +35,10 @@ LINKS = {
     "directions": "https://www.google.com/maps/dir/?api=1&destination=Blaise+Baptist+Church%2C+134+Blaise+Church+Rd%2C+Mocksville%2C+NC+27028",
     "map_embed": "https://www.google.com/maps?q=Blaise+Baptist+Church,+134+Blaise+Church+Rd,+Mocksville,+NC+27028&output=embed",
     "bfm": "https://bfm.sbc.net/bfm2000/",
+    # The LOOP, the weekly church email (Constant Contact signup).
+    "newsletter": "https://lp.constantcontactpages.com/su/EA2V4O5",
+    # RightNow Media: the church's free Bible-study video library; this invite link joins Blaise's account.
+    "rightnow": "https://app.rightnowmedia.org/en/join/BlaiseBC",
 }
 
 # Campus buildings: id, name, and short description. Single source of truth for the campus map.
@@ -237,6 +241,7 @@ FOOTER = f"""
       <ul>
         <li><a href="events.html">Events</a></li>
         <li><a href="watch.html">Watch Online</a></li>
+        <li><a href="{LINKS['newsletter']}" target="_blank" rel="noopener">Get the Weekly Email</a></li>
         <li><a href="small-groups.html">Small Groups</a></li>
         <li><a href="{LINKS['give']}" target="_blank" rel="noopener">Give</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -624,7 +629,10 @@ def watch():
 
 <section class="section-soft">
   <div class="wrap">
-    <div class="callout">
+    <h2>Keep Growing During the Week</h2>
+    <p>Blaise members and friends get free access to RightNow Media, a streaming library of thousands of Bible studies and videos for adults, students, and kids. Watch on your phone, computer, or TV.</p>
+    <p><a class="btn btn-primary" href="{LINKS['rightnow']}" target="_blank" rel="noopener">Get Free Access to RightNow Media</a></p>
+    <div class="callout" style="margin-top:40px;">
       <h3>We&rsquo;d love to see you in person</h3>
       <p>Bible Fellowship classes at 9:30 AM, worship at 10:30 AM in the Family Life Center, 134 Blaise Church Rd, Mocksville.</p>
       <a class="btn btn-primary" href="visit.html">Plan Your Visit</a>
@@ -936,6 +944,11 @@ def events():
     <h2 style="margin-top:48px;">Coming Up</h2>
     <div class="grid-3" data-pco="events" data-empty="No upcoming events posted yet.">
       <div class="event-card"><h3>Full calendar</h3><p>Browse every upcoming event on Church Center.</p><a class="btn btn-primary" href="{LINKS['calendar']}" target="_blank" rel="noopener">Open the Calendar</a></div>
+    </div>
+    <div class="callout" style="margin-top:48px;">
+      <h3>Get The LOOP, our weekly email</h3>
+      <p>What&rsquo;s happening at Blaise this week, sent straight to your inbox. Sign up once and you&rsquo;re set.</p>
+      <a class="btn btn-primary" href="{LINKS['newsletter']}" target="_blank" rel="noopener">Sign Up for The LOOP</a>
     </div>
   </div>
 </section>
