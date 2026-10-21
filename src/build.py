@@ -86,14 +86,17 @@ NAV_ITEMS = [
 
 ABOUT_ITEMS = [
     ("visit.html", "Plan Your Visit"),
-    ("about.html", "About Us"),
-    ("beliefs.html", "Beliefs &amp; Core Values"),
+    ("about.html", "Who We Are"),
+    ("beliefs.html", "Beliefs"),
     ("baptism.html", "Baptism"),
 ]
 
+# Life-stage order. Men and Women have no pages of their own; they jump to their sections on Small Groups.
 MINISTRY_ITEMS = [
-    ("students.html", "Students"),
     ("children.html", "Children"),
+    ("students.html", "Students"),
+    ("small-groups.html#men", "Men"),
+    ("small-groups.html#women", "Women"),
     ("senior-adults.html", "Senior Adults"),
     ("special-friends.html", "Special Friends"),
     ("small-groups.html", "Small Groups"),
