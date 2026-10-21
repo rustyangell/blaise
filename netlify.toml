@@ -8,3 +8,72 @@
   from = "/childcare"
   to = "/childcare.html"
   status = 301
+
+# Old Wix page addresses, so bookmarks and Google results keep working after
+# blaisebaptist.org moves to Netlify. Source: the Wix pages-sitemap.xml.
+# Same-name pages (/about, /contact, ...) are listed too so they don't depend on
+# Netlify's extension-less URL handling.
+[[redirects]]
+  from = "/about"
+  to = "/about.html"
+  status = 301
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 301
+[[redirects]]
+  from = "/baptism"
+  to = "/baptism.html"
+  status = 301
+[[redirects]]
+  from = "/classifieds"
+  to = "/classifieds.html"
+  status = 301
+[[redirects]]
+  from = "/about-5"            # Wix "Children"
+  to = "/children.html"
+  status = 301
+[[redirects]]
+  from = "/general-5"          # Wix "Beliefs & Core Values"
+  to = "/beliefs.html"
+  status = 301
+[[redirects]]
+  from = "/activities"         # Wix "Small Groups"
+  to = "/small-groups.html"
+  status = 301
+[[redirects]]
+  from = "/registration"       # Wix "Students"
+  to = "/students.html"
+  status = 301
+[[redirects]]
+  from = "/camp-info"          # Wix "Childcare"
+  to = "/childcare.html"
+  status = 301
+[[redirects]]
+  from = "/get-involved"       # Wix "Celebrate Recovery"
+  to = "/celebrate-recovery.html"
+  status = 301
+[[redirects]]
+  from = "/sermons"
+  to = "/watch.html"
+  status = 301
+[[redirects]]
+  from = "/general-clean"      # Wix "ServeNC"
+  to = "/missions.html"
+  status = 301
+[[redirects]]
+  from = "/newmemberclass"     # Wix "Get 2 Know Blaise" (member class)
+  to = "/about.html"
+  status = 301
+[[redirects]]
+  from = "/friendsgiving"      # Wix ladies' Friendsgiving sign-up
+  to = "/small-groups.html#women"
+  status = 301
+[[redirects]]
+  from = "/bulletins"
+  to = "/events.html"
+  status = 301
+[[redirects]]
+  from = "/upward"             # Upward is no longer offered
+  to = "/children.html"
+  status = 301
