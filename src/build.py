@@ -143,6 +143,12 @@ def sf_icon(name, pane="pane-sage", extra_class=""):
             f'stroke-linecap="round" stroke-linejoin="round">{SF_ICON_PATHS[name]}</svg></span>')
 
 
+def svg_badge(name, color):
+    """An icon-badge (white tile) holding one of the line icons, drawn in a ministry color."""
+    return (f'<span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="{color}" '
+            f'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{SF_ICON_PATHS[name]}</svg></span>')
+
+
 def modal_link(url, label, classes="btn btn-primary"):
     return f'<a href="{url}" target="_blank" rel="noopener" data-open-in-church-center-modal="true" class="{classes}">{label}</a>'
 
@@ -410,6 +416,20 @@ def home():
   <div class="wrap grid-2">
     <div class="schedule-row pane-teal"><span class="time">5:00 PM</span><div><strong>Wednesday Meal</strong><br>Family Life Center (600). Sign up each week on Church Center. Suggested donation $5 per person, $20 max per family.<br>{plain_link(LINKS['wednesday_meals'], "Sign Up for This Week&rsquo;s Meal", "btn btn-primary btn-in-row")}</div></div>
     <div class="schedule-row pane-gold"><span class="time">6:30 PM</span><div><strong>Something for Everyone</strong><br><a href="children.html">Children</a> &middot; <a href="students.html">Students</a> &middot; <a href="small-groups.html#women">Women</a> &middot; <a href="small-groups.html#men">Men</a> &middot; <a href="special-friends.html">Special Friends</a><br>Until 7:45 PM</div></div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <span class="eyebrow">Find Your Place</span>
+    <h2>Something for every age</h2>
+    <div class="grid-4">
+      <a class="ministry-card mc-kids" href="children.html">{ICON_CHILDREN}<h3>Children</h3><p>Birth through 5th grade, Sundays and Wednesdays</p></a>
+      <a class="ministry-card mc-youth" href="students.html">{ICON_YOUTH}<h3>Students</h3><p>Grades 6&ndash;12, Sundays and Wednesdays</p></a>
+      <a class="ministry-card mc-men" href="small-groups.html">{svg_badge("users", "var(--men)")}<h3>Adults</h3><p>Small groups, plus men&rsquo;s and women&rsquo;s ministry</p></a>
+      <a class="ministry-card mc-women" href="senior-adults.html">{svg_badge("sun", "var(--women)")}<h3>Senior Adults</h3><p>Good Life lunch, third Thursday of each month</p></a>
+    </div>
+    <p style="margin-top:24px;">Also at Blaise: <a href="special-friends.html">Special Friends</a> for adults with special needs &middot; <a href="celebrate-recovery.html">Celebrate Recovery</a> on Tuesday nights &middot; <a href="missions.html">Missions</a>, from Davie County to the world</p>
   </div>
 </section>
 

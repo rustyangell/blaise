@@ -703,3 +703,4 @@ footer li { margin-bottom: 0.35em; }
 
 /* A sign-up button sitting inside a schedule row (e.g. the Wednesday meal). */
 .schedule-row .btn-in-row { margin-top: 14px; }
+.icon-badge svg { width: 40px; height: 40px; display: block; }
