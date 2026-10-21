@@ -721,3 +721,19 @@ footer li { margin-bottom: 0.35em; }
   .mc-half .icon-badge img { width: 40px; height: 40px; }
   .mc-half h3 { margin: 0 0 0.5em; }
 }
+
+/* Phone menu: call, directions, and watch live under the links. Hidden on desktop,
+   where the header already has room and the footer carries the same details. */
+.nav-drawer-contact { display: none; }
+@media (max-width: 860px) {
+  .nav-drawer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(26, 58, 26, 0.15);
+  }
+  .nav-drawer-contact a { text-decoration: none; color: var(--nearblack); line-height: 1.35; }
+  .nav-drawer-contact strong { display: block; color: var(--forest); font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; }
+}
