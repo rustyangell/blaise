@@ -59,7 +59,7 @@ it alone.
 - `nav(active)`, `render()` — the shared chrome.
 
 **One page function returns one page's HTML** as an f-string. `render()` wraps it in
-`PAGE_TEMPLATE` with the shared nav and footer. That is why editing `nav()` updates all 16 pages
+`PAGE_TEMPLATE` with the shared nav and footer. That is why editing `nav()` updates all 17 pages
 at once, and why there is no per-page HTML file to keep in sync.
 
 ## Making a change, end to end
@@ -67,7 +67,7 @@ at once, and why there is no per-page HTML file to keep in sync.
 ```bash
 git checkout -b some-descriptive-branch
 # edit src/build.py or src/styles.css
-python3 src/build.py                    # writes dist/, prints "Built 16 pages into ..."
+python3 src/build.py                    # writes dist/, prints "Built 17 pages into ..."
 python3 -m http.server -d dist 8000     # then open http://localhost:8000
 ```
 
@@ -89,7 +89,7 @@ netlify deploy --prod --site 64f6e724-fa41-4cc5-bbf1-df1232a4876d --dir=dist --f
 
 A change can build cleanly and still be wrong. This checklist is where that gets caught.
 
-- [ ] **Build it.** `python3 src/build.py` should print `Built 16 pages into …`.
+- [ ] **Build it.** `python3 src/build.py` should print `Built 17 pages into …`.
 - [ ] **Actually look at the page.** Read the rendered result, not just the diff. A hero button
       once shipped invisible because it was dark-on-dark; the diff looked perfect. With no browser
       to hand, render it headless:

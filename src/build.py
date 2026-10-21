@@ -28,6 +28,10 @@ LINKS = {
     "give": "https://app.easytithe.com/App/Giving/blaise",
     "facebook": "https://www.facebook.com/BlaiseChurch",
     "youtube": "https://www.youtube.com/@blaisebaptistchurch",
+    "youtube_streams": "https://www.youtube.com/@blaisebaptistchurch/streams",
+    # The channel's uploads playlist (UC... -> UU...). Embedding it always shows the newest video:
+    # the live broadcast during a service, last Sunday's service the rest of the week.
+    "youtube_latest_embed": "https://www.youtube.com/embed/videoseries?list=UUKEb9j6ULL2sKGwiOt_sYzQ",
     "directions": "https://www.google.com/maps/dir/?api=1&destination=Blaise+Baptist+Church%2C+134+Blaise+Church+Rd%2C+Mocksville%2C+NC+27028",
     "map_embed": "https://www.google.com/maps?q=Blaise+Baptist+Church,+134+Blaise+Church+Rd,+Mocksville,+NC+27028&output=embed",
     "bfm": "https://bfm.sbc.net/bfm2000/",
@@ -202,7 +206,7 @@ def nav(active):
     <div class="nav-drawer-contact">
       <a href="tel:3367513639"><strong>Call</strong> (336) 751-3639</a>
       <a href="{LINKS['directions']}" target="_blank" rel="noopener"><strong>Directions</strong> 134 Blaise Church Rd, Mocksville</a>
-      <a href="{LINKS['youtube']}" target="_blank" rel="noopener"><strong>Watch</strong> Sundays live on YouTube</a>
+      <a href="watch.html"><strong>Watch</strong> Sundays live, or catch up on past services</a>
     </div>
   </div>
 </nav>
@@ -232,6 +236,7 @@ FOOTER = f"""
       <h4>Connect</h4>
       <ul>
         <li><a href="events.html">Events</a></li>
+        <li><a href="watch.html">Watch Online</a></li>
         <li><a href="small-groups.html">Small Groups</a></li>
         <li><a href="{LINKS['give']}" target="_blank" rel="noopener">Give</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -406,7 +411,7 @@ def home():
   <div class="wrap">
     <div class="hero-actions">
       <a class="btn btn-primary" href="visit.html">Plan Your Visit</a>
-      <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online</a>
+      <a class="btn btn-outline" href="watch.html">Watch Online</a>
     </div>
   </div>
 </section>
@@ -530,7 +535,7 @@ def visit():
     <p>Here's what to expect on your first Sunday at Blaise in Mocksville &mdash; where to park, where to go, and what happens with your kids.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a>
-      <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online First</a>
+      <a class="btn btn-outline" href="watch.html">Watch Online First</a>
     </div>
   </div>
 </div>
@@ -586,6 +591,43 @@ def visit():
       <h3>Let us know you're coming</h3>
       <p>Fill out our Connection Form and we'll be looking for you. Questions before Sunday? Call the church office at <a href="tel:3367513639">(336) 751-3639</a>.</p>
       {modal_link(LINKS['connection_form'], 'Fill Out the Connection Form')}
+    </div>
+  </div>
+</section>
+"""
+
+
+def watch():
+    return f"""
+<div class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Watch Online</span>
+    <h1>Worship with us from anywhere.</h1>
+    <p>Sunday worship streams live at 10:30 AM. Can&rsquo;t make it, or want to hear a message again? Every service is posted afterward.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{LINKS['youtube']}" target="_blank" rel="noopener">Open on YouTube</a>
+      <a class="btn btn-outline" href="{LINKS['facebook']}" target="_blank" rel="noopener">Watch on Facebook</a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Latest Service</h2>
+    <p>During Sunday worship this shows the live stream. The rest of the week it&rsquo;s last Sunday&rsquo;s full service. Use the timeline under the video to skip ahead to the message.</p>
+    <div class="video-frame">
+      <iframe src="{LINKS['youtube_latest_embed']}" title="Latest Blaise Baptist Church service" loading="lazy" allow="encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <p style="margin-top:24px;"><a class="btn btn-outline" href="{LINKS['youtube_streams']}" target="_blank" rel="noopener">See All Past Services</a></p>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <div class="callout">
+      <h3>We&rsquo;d love to see you in person</h3>
+      <p>Bible Fellowship classes at 9:30 AM, worship at 10:30 AM in the Family Life Center, 134 Blaise Church Rd, Mocksville.</p>
+      <a class="btn btn-primary" href="visit.html">Plan Your Visit</a>
     </div>
   </div>
 </section>
@@ -1051,6 +1093,7 @@ def classifieds():
 PAGES = [
     ("index.html", "Home", "A place to belong. A faith worth living. Blaise Baptist Church, Mocksville, NC.", home),
     ("visit.html", "Plan Your Visit", "What to expect on your first Sunday at Blaise Baptist Church in Mocksville, NC: service times, parking, kids check-in, and directions.", visit),
+    ("watch.html", "Watch Online", "Watch Blaise Baptist Church worship live on Sundays at 10:30 AM, or catch up on past services.", watch),
     ("about.html", "About", "Staff, service times, and a campus map for Blaise Baptist Church.", about),
     ("beliefs.html", "Beliefs & Core Values", "What Blaise Baptist Church believes.", beliefs),
     ("baptism.html", "Baptism", "Baptism at Blaise Baptist Church.", baptism),
