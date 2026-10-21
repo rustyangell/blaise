@@ -161,7 +161,8 @@ async function announcements() {
           image: at.image || null,
           featured: !!at.featured,
           categories,
-          url: at.link || at.church_center_url || `${CC}/announcements/${a.id}`,
+          // Links to other Church Center objects come back as paths ("/calendar/event/…").
+          url: at.link ? (at.link.startsWith("/") ? CC + at.link : at.link) : at.church_center_url || `${CC}/announcements/${a.id}`,
         };
       });
   } catch (err) {
