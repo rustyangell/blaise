@@ -424,7 +424,7 @@ def home():
         <a class="ministry-card mc-men mc-half" href="small-groups.html#men">{ICON_MEN}<div><h3>Men</h3><p>Small groups and events</p></div></a>
         <a class="ministry-card mc-women mc-half" href="small-groups.html#women">{ICON_WOMEN}<div><h3>Women</h3><p>Small groups and events</p></div></a>
       </div>
-      <a class="ministry-card mc-seniors" href="senior-adults.html">{icon_badge("assets/mark-panes.png", "")}<h3>Senior Adults</h3><p>Good Life lunch, third Thursday of each month</p></a>
+      <a class="ministry-card mc-seniors" href="senior-adults.html">{icon_badge("assets/mark-panes.png", "")}<h3>Senior Adults</h3><p>Good Life: fellowship meals, day trips, and serving together</p></a>
     </div>
     <p style="margin-top:24px;">Also at Blaise: <a href="special-friends.html">Special Friends</a> for adults with special needs &middot; <a href="celebrate-recovery.html">Celebrate Recovery</a> on Tuesday nights &middot; <a href="missions.html">Missions</a>, from Davie County to the world</p>
   </div>
