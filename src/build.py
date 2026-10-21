@@ -83,6 +83,7 @@ NAV_ITEMS = [
 ]
 
 ABOUT_ITEMS = [
+    ("visit.html", "Plan Your Visit"),
     ("about.html", "About Us"),
     ("beliefs.html", "Beliefs &amp; Core Values"),
     ("baptism.html", "Baptism"),
@@ -209,6 +210,7 @@ FOOTER = f"""
     <div>
       <h4>Visit</h4>
       <ul>
+        <li><a href="visit.html">Plan Your Visit</a></li>
         <li>134 Blaise Church Rd<br>Mocksville, NC 27028</li>
         <li><a href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a></li>
         <li><a href="tel:3367513639">(336) 751-3639</a></li>
@@ -392,7 +394,7 @@ def home():
   </div>
   <div class="wrap">
     <div class="hero-actions">
-      <a class="btn btn-primary" href="about.html">Plan Your Visit</a>
+      <a class="btn btn-primary" href="visit.html">Plan Your Visit</a>
       <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online</a>
     </div>
   </div>
@@ -435,12 +437,6 @@ def about():
         f'<div class="card"><h3>{name}</h3><p style="margin-bottom:4px;">{role}</p><a href="mailto:{email}">{email}</a></div>'
         for name, role, email in staff
     )
-    faqs = [
-        ("What should I wear?", "Casual and comfortable. For many that's business casual, for some a suit, for others jeans and a t-shirt. What matters most is the attitude of your heart."),
-        ("What's the worship style?", "A praise team leads a mix of hymns, praise songs, and contemporary music &mdash; instrumentation varies, but the focus is always on exalting Jesus."),
-        ("What Bible translation do you use?", "No single required version. Our Bible Fellowship teachers use KJV, NKJV, ESV, CSB, or NIV, whichever they prefer."),
-    ]
-    faq_html = "\n".join(f'<div class="card"><h3>{q}</h3><p style="margin:0;">{a}</p></div>' for q, a in faqs)
     return f"""
 <div class="page-hero">
   <div class="wrap">
@@ -467,19 +463,92 @@ def about():
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <h2>Frequently Asked Questions</h2>
-    <div class="grid-3">{faq_html}</div>
-  </div>
-</section>
-
 {campus_map()}
 
 <section class="section-soft">
   <div class="wrap">
     <h2>Getting Here</h2>
     {directions_block()}
+  </div>
+</section>
+"""
+
+
+VISIT_FAQS = [
+    ("What should I wear?", "Casual and comfortable. For many that's business casual, for some a suit, for others jeans and a t-shirt. What matters most is the attitude of your heart."),
+    ("What's the worship style?", "A praise team leads a mix of hymns, praise songs, and contemporary music &mdash; instrumentation varies, but the focus is always on exalting Jesus."),
+    ("What Bible translation do you use?", "No single required version. Our Bible Fellowship teachers use KJV, NKJV, ESV, CSB, or NIV, whichever they prefer."),
+]
+
+
+def visit():
+    faq_html = "\n".join(f'<div class="card"><h3>{q}</h3><p style="margin:0;">{a}</p></div>' for q, a in VISIT_FAQS)
+    flc = map_url("family-life-center")
+    return f"""
+<div class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Plan Your Visit</span>
+    <h1>We'd love to meet you.</h1>
+    <p>Here's what to expect on your first Sunday at Blaise in Mocksville &mdash; where to park, where to go, and what happens with your kids.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a>
+      <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online First</a>
+    </div>
+  </div>
+</div>
+
+<section class="section-tight section-soft">
+  <div class="wrap">
+    <h2>Sunday Mornings</h2>
+  </div>
+  <div class="wrap grid-2">
+    <div class="schedule-row pane-teal"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong><br>Small classes for every age, kids and students included</div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Family Life Center &mdash; coffee in the lobby beforehand</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>When You Arrive</h2>
+    <div class="grid-3">
+      <div class="card"><span class="eyebrow">Step 1</span><h3>Park out front</h3><p style="margin:0;">Visitor parking is right in front of the main building, the Family Life Center (600). <a href="{flc}">See it on the campus map</a>.</p></div>
+      <div class="card"><span class="eyebrow">Step 2</span><h3>Come into the lobby</h3><p style="margin:0;">Greeters will meet you at the door and welcome you into the lobby. Grab a cup of coffee before worship.</p></div>
+      <div class="card"><span class="eyebrow">Step 3</span><h3>Check in your kids</h3><p style="margin:0;">Children's check-in is just inside the lobby. A volunteer will help get your kids where they need to be.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2>For Your Kids</h2>
+    <div class="schedule-row"><span class="time">Nursery</span><div><strong>Birth&ndash;age 3</strong><br>During Bible Fellowship and the Worship Service</div></div>
+    <div class="schedule-row"><span class="time">Children</span><div><strong>Pre-K&ndash;5th grade</strong><br>Bible Fellowship classes at 9:30 AM, plus Children's Church for Pre-K (age 4) through 1st grade during the Worship Service</div></div>
+    <div class="schedule-row"><span class="time">Students</span><div><strong>Grades 6&ndash;12</strong><br>Student Bible Fellowship at 9:30 AM</div></div>
+    <p style="margin-top:24px;"><a class="btn btn-outline" href="children.html">More About Children</a> <a class="btn btn-outline" href="students.html">More About Students</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Common Questions</h2>
+    <div class="grid-3">{faq_html}</div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2>Getting Here</h2>
+    {directions_block()}
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="callout">
+      <h3>Let us know you're coming</h3>
+      <p>Fill out our Connection Form and we'll be looking for you. Questions before Sunday? Call the church office at <a href="tel:3367513639">(336) 751-3639</a>.</p>
+      {modal_link(LINKS['connection_form'], 'Fill Out the Connection Form')}
+    </div>
   </div>
 </section>
 """
@@ -943,7 +1012,8 @@ def classifieds():
 
 PAGES = [
     ("index.html", "Home", "A place to belong. A faith worth living. Blaise Baptist Church, Mocksville, NC.", home),
-    ("about.html", "About", "Staff, service times, and what to expect at Blaise Baptist Church.", about),
+    ("visit.html", "Plan Your Visit", "What to expect on your first Sunday at Blaise Baptist Church in Mocksville, NC: service times, parking, kids check-in, and directions.", visit),
+    ("about.html", "About", "Staff, service times, and a campus map for Blaise Baptist Church.", about),
     ("beliefs.html", "Beliefs & Core Values", "What Blaise Baptist Church believes.", beliefs),
     ("baptism.html", "Baptism", "Baptism at Blaise Baptist Church.", baptism),
     ("students.html", "Students", "Student ministry for grades 6-12 at Blaise Baptist Church in Mocksville, NC.", students),
