@@ -125,7 +125,13 @@ a { color: inherit; }
 
 /* Celebrate Recovery's own logo is a white wordmark, so it drops straight
    onto the page-hero's dark gradient with no badge needed. */
-.page-hero-logo { display: block; width: 220px; height: auto; margin-bottom: 20px; }
+.page-hero-logo { display: block; width: 260px; height: auto; flex-shrink: 0; }
+/* Text left, logo right on desktop; on phones the logo stacks above the text. */
+.hero-split { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
+@media (max-width: 860px) {
+  .hero-split { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .hero-split .page-hero-logo { order: -1; width: 200px; }
+}
 
 .hero-icon-row {
   display: flex;
@@ -250,7 +256,7 @@ a { color: inherit; }
 .page-hero {
   background: linear-gradient(160deg, var(--forest) 0%, #16311a 100%);
   color: var(--offwhite);
-  padding: 76px 24px;
+  padding: 60px 24px;
 }
 .page-hero .wrap { max-width: var(--max-width); }
 .page-hero h1 { color: var(--offwhite); }
@@ -275,7 +281,9 @@ a { color: inherit; }
 .page-hero .btn-outline:hover { background: var(--offwhite); color: var(--forest); }
 
 /* Sections */
-section { padding: 72px 24px; }
+section { padding: 56px 24px; }
+/* Two plain sections in a row (e.g. a "Coming Up" block after the intro) share one gap, not two. */
+section:not([class]) + section:not([class]) { padding-top: 0; }
 .section-tight { padding: 44px 24px; }
 .section-soft { background: var(--sage-tint); }
 
