@@ -884,7 +884,7 @@ def missions():
   <div class="wrap">
     <span class="eyebrow">Local &amp; Global</span>
     <h1>Missions</h1>
-    <p>Blaise supports missions right here in Davie County and around the world &mdash; our students have traveled as far as Peru to share the Gospel.</p>
+    <p>Blaise shares the Gospel and serves people right here in Davie County, across the country, and around the world.</p>
   </div>
 </div>
 <section>
