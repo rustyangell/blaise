@@ -104,7 +104,12 @@
             .concat(mEvents.map(function (e) { return { t: e.starts_at, html: card(e, false, showDesc) }; }));
           items.sort(function (a, b) { return (a.t || "9999").localeCompare(b.t || "9999"); });
           // Announcements have no date of their own: they lead, featured ones first.
+          // An announcement promoting an event or signup already in this list would show twice.
+          var shownEvent = {}, shownSignup = {};
+          mEvents.forEach(function (e) { shownEvent[e.id] = true; });
+          mSignups.forEach(function (x) { shownSignup[x.id] = true; });
           var news = (data.announcements || []).filter(inCategory)
+            .filter(function (a) { return !(a.event_id && shownEvent[a.event_id]) && !(a.signup_id && shownSignup[a.signup_id]); })
             .sort(function (a, b) { return (b.featured ? 1 : 0) - (a.featured ? 1 : 0); });
           html = news.map(announcementCard).join("") + items.map(function (i) { return i.html; }).join("");
         } else if (kind === "events") {

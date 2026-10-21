@@ -161,6 +161,10 @@ async function announcements() {
           image: at.image || null,
           featured: !!at.featured,
           categories,
+          // When the announcement just promotes a calendar event or signup, record which one so a
+          // page that already shows that item doesn't show it twice.
+          event_id: at.link?.match(/\/calendar\/event\/(?:latest\/)?(\d+)/)?.[1] || null,
+          signup_id: at.link?.match(/\/registrations\/events\/(\d+)/)?.[1] || null,
           // Links to other Church Center objects come back as paths ("/calendar/event/…").
           url: at.link ? (at.link.startsWith("/") ? CC + at.link : at.link) : at.church_center_url || `${CC}/announcements/${a.id}`,
         };
