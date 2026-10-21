@@ -143,12 +143,6 @@ def sf_icon(name, pane="pane-sage", extra_class=""):
             f'stroke-linecap="round" stroke-linejoin="round">{SF_ICON_PATHS[name]}</svg></span>')
 
 
-def svg_badge(name, color):
-    """An icon-badge (white tile) holding one of the line icons, drawn in a ministry color."""
-    return (f'<span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="{color}" '
-            f'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{SF_ICON_PATHS[name]}</svg></span>')
-
-
 def modal_link(url, label, classes="btn btn-primary"):
     return f'<a href="{url}" target="_blank" rel="noopener" data-open-in-church-center-modal="true" class="{classes}">{label}</a>'
 
@@ -426,8 +420,11 @@ def home():
     <div class="grid-4">
       <a class="ministry-card mc-kids" href="children.html">{ICON_CHILDREN}<h3>Children</h3><p>Birth through 5th grade, Sundays and Wednesdays</p></a>
       <a class="ministry-card mc-youth" href="students.html">{ICON_YOUTH}<h3>Students</h3><p>Grades 6&ndash;12, Sundays and Wednesdays</p></a>
-      <a class="ministry-card mc-men" href="small-groups.html">{svg_badge("users", "var(--men)")}<h3>Adults</h3><p>Small groups, plus men&rsquo;s and women&rsquo;s ministry</p></a>
-      <a class="ministry-card mc-women" href="senior-adults.html">{svg_badge("sun", "var(--women)")}<h3>Senior Adults</h3><p>Good Life lunch, third Thursday of each month</p></a>
+      <div class="mc-stack">
+        <a class="ministry-card mc-men mc-half" href="small-groups.html#men">{ICON_MEN}<div><h3>Men</h3><p>Small groups and events</p></div></a>
+        <a class="ministry-card mc-women mc-half" href="small-groups.html#women">{ICON_WOMEN}<div><h3>Women</h3><p>Small groups and events</p></div></a>
+      </div>
+      <a class="ministry-card mc-seniors" href="senior-adults.html">{icon_badge("assets/mark-panes.png", "")}<h3>Senior Adults</h3><p>Good Life lunch, third Thursday of each month</p></a>
     </div>
     <p style="margin-top:24px;">Also at Blaise: <a href="special-friends.html">Special Friends</a> for adults with special needs &middot; <a href="celebrate-recovery.html">Celebrate Recovery</a> on Tuesday nights &middot; <a href="missions.html">Missions</a>, from Davie County to the world</p>
   </div>

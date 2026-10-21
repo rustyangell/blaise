@@ -703,4 +703,21 @@ footer li { margin-bottom: 0.35em; }
 
 /* A sign-up button sitting inside a schedule row (e.g. the Wednesday meal). */
 .schedule-row .btn-in-row { margin-top: 14px; }
-.icon-badge svg { width: 40px; height: 40px; display: block; }
+
+/* Home "Find Your Place": Men and Women share one column as two half-height tiles;
+   Senior Adults gets the church's forest green so it can't be read as the women's tile. */
+.mc-seniors { background: linear-gradient(160deg, #2c5a3c, var(--forest) 70%); }
+.mc-stack { display: flex; flex-direction: column; gap: 14px; }
+.mc-stack .mc-half { flex: 1; display: flex; gap: 14px; align-items: center; padding: 18px 20px; }
+.mc-half .icon-badge { padding: 8px; margin: 0; flex-shrink: 0; }
+.mc-half .icon-badge img { width: 32px; height: 32px; }
+.mc-half h3 { margin: 0 0 2px; }
+.mc-half p { margin: 0; }
+@media (max-width: 860px) {
+  /* On phones the halves become ordinary full tiles, stacked like the rest. */
+  .mc-stack { gap: 24px; }
+  .mc-stack .mc-half { display: block; padding: 30px; }
+  .mc-half .icon-badge { padding: 14px; margin-bottom: 14px; }
+  .mc-half .icon-badge img { width: 40px; height: 40px; }
+  .mc-half h3 { margin: 0 0 0.5em; }
+}
