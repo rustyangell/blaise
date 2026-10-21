@@ -41,7 +41,7 @@ BUILDINGS_BY_ID = {b["id"]: b for b in BUILDINGS}
 MINISTRY_LOCATIONS = [
     # (ministry, page or None, building id, when). A page's first row is its primary building
     # (the one its "Find it on the map" link opens).
-    ("Sunday Worship", "about.html", "family-life-center", "Sundays, 10:30 AM"),
+    ("Worship Service", "about.html", "family-life-center", "Sundays, 10:30 AM"),
     ("Sunday Bible Fellowship", None, "family-life-center", "Sundays, 9:30 AM"),
     ("Wednesday Meals", "events.html", "family-life-center", "Wednesdays, 5:00 PM"),
     ("Men&rsquo;s Wednesday Night Groups", "small-groups.html", "family-life-center", "Wednesdays, 6:30&ndash;7:45 PM"),
@@ -55,6 +55,7 @@ MINISTRY_LOCATIONS = [
     ("Small Groups (various)", "small-groups.html", "classrooms", ""),
     ("Church Offices", "contact.html", "offices", "Weekdays"),
     ("Bible Fellowship", None, "offices", "Sundays, 9:30 AM"),
+    ("Good Life Lunch", "senior-adults.html", "educational", "Third Thursday of each month, 11:00 AM (Fellowship Hall)"),
     # Secondary locations go last, after every page's primary row.
     ("Celebrate Recovery", "celebrate-recovery.html", "sanctuary", "Tuesdays, 7:00 PM (after supper in the 300 building)"),
     ("Student Bible Fellowship", "students.html", "youth-underground", "Sundays, 9:30 AM"),
@@ -82,6 +83,7 @@ NAV_ITEMS = [
 ]
 
 ABOUT_ITEMS = [
+    ("visit.html", "Plan Your Visit"),
     ("about.html", "About Us"),
     ("beliefs.html", "Beliefs &amp; Core Values"),
     ("baptism.html", "Baptism"),
@@ -208,6 +210,7 @@ FOOTER = f"""
     <div>
       <h4>Visit</h4>
       <ul>
+        <li><a href="visit.html">Plan Your Visit</a></li>
         <li>134 Blaise Church Rd<br>Mocksville, NC 27028</li>
         <li><a href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a></li>
         <li><a href="tel:3367513639">(336) 751-3639</a></li>
@@ -217,10 +220,10 @@ FOOTER = f"""
     <div>
       <h4>Connect</h4>
       <ul>
-        <li><a href="events.html">Events &amp; Calendar</a></li>
+        <li><a href="events.html">Events</a></li>
         <li><a href="small-groups.html">Small Groups</a></li>
         <li><a href="{LINKS['give']}" target="_blank" rel="noopener">Give</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
   </div>
@@ -391,7 +394,7 @@ def home():
   </div>
   <div class="wrap">
     <div class="hero-actions">
-      <a class="btn btn-primary" href="about.html">Plan Your Visit</a>
+      <a class="btn btn-primary" href="visit.html">Plan Your Visit</a>
       <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online</a>
     </div>
   </div>
@@ -434,12 +437,6 @@ def about():
         f'<div class="card"><h3>{name}</h3><p style="margin-bottom:4px;">{role}</p><a href="mailto:{email}">{email}</a></div>'
         for name, role, email in staff
     )
-    faqs = [
-        ("What should I wear?", "Casual and comfortable. For many that's business casual, for some a suit, for others jeans and a t-shirt. What matters most is the attitude of your heart."),
-        ("What's the worship style?", "A praise team leads a mix of hymns, praise songs, and contemporary music &mdash; instrumentation varies, but the focus is always on exalting Jesus."),
-        ("What Bible translation do you use?", "No single required version. Our Bible Fellowship teachers use KJV, NKJV, ESV, CSB, or NIV, whichever they prefer."),
-    ]
-    faq_html = "\n".join(f'<div class="card"><h3>{q}</h3><p style="margin:0;">{a}</p></div>' for q, a in faqs)
     return f"""
 <div class="page-hero">
   <div class="wrap">
@@ -462,14 +459,7 @@ def about():
   </div>
   <div class="wrap grid-2">
     <div class="schedule-row pane-teal"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong></div></div>
-    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship</strong><br><a href="{map_url('family-life-center')}">Family Life Center</a></div></div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2>Frequently Asked Questions</h2>
-    <div class="grid-3">{faq_html}</div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br><a href="{map_url('family-life-center')}">Family Life Center</a></div></div>
   </div>
 </section>
 
@@ -479,6 +469,86 @@ def about():
   <div class="wrap">
     <h2>Getting Here</h2>
     {directions_block()}
+  </div>
+</section>
+"""
+
+
+VISIT_FAQS = [
+    ("What should I wear?", "Casual and comfortable. For many that's business casual, for some a suit, for others jeans and a t-shirt. What matters most is the attitude of your heart."),
+    ("What's the worship style?", "A praise team leads a mix of hymns, praise songs, and contemporary music &mdash; instrumentation varies, but the focus is always on exalting Jesus."),
+    ("What Bible translation do you use?", "No single required version. Our Bible Fellowship teachers use KJV, NKJV, ESV, CSB, or NIV, whichever they prefer."),
+]
+
+
+def visit():
+    faq_html = "\n".join(f'<div class="card"><h3>{q}</h3><p style="margin:0;">{a}</p></div>' for q, a in VISIT_FAQS)
+    flc = map_url("family-life-center")
+    return f"""
+<div class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Plan Your Visit</span>
+    <h1>We'd love to meet you.</h1>
+    <p>Here's what to expect on your first Sunday at Blaise in Mocksville &mdash; where to park, where to go, and what happens with your kids.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{LINKS['directions']}" target="_blank" rel="noopener">Get Directions</a>
+      <a class="btn btn-outline" href="{LINKS['youtube']}" target="_blank" rel="noopener">Watch Online First</a>
+    </div>
+  </div>
+</div>
+
+<section class="section-tight section-soft">
+  <div class="wrap">
+    <h2>Sunday Mornings</h2>
+  </div>
+  <div class="wrap grid-2">
+    <div class="schedule-row pane-teal"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong><br>Small classes for every age, kids and students included</div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Family Life Center &mdash; coffee in the lobby beforehand</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>When You Arrive</h2>
+    <div class="grid-3">
+      <div class="card"><span class="eyebrow">Step 1</span><h3>Park out front</h3><p style="margin:0;">Visitor parking is right in front of the main building, the Family Life Center (600). <a href="{flc}">See it on the campus map</a>.</p></div>
+      <div class="card"><span class="eyebrow">Step 2</span><h3>Come into the lobby</h3><p style="margin:0;">Greeters will meet you at the door and welcome you into the lobby. Grab a cup of coffee before worship.</p></div>
+      <div class="card"><span class="eyebrow">Step 3</span><h3>Check in your kids</h3><p style="margin:0;">Children's check-in is just inside the lobby. A volunteer will help get your kids where they need to be.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2>For Your Kids</h2>
+    <div class="schedule-row"><span class="time">Nursery</span><div><strong>Birth&ndash;age 3</strong><br>During Bible Fellowship and the Worship Service</div></div>
+    <div class="schedule-row"><span class="time">Children</span><div><strong>Pre-K&ndash;5th grade</strong><br>Bible Fellowship classes at 9:30 AM, plus Children's Church for Pre-K (age 4) through 1st grade during the Worship Service</div></div>
+    <div class="schedule-row"><span class="time">Students</span><div><strong>Grades 6&ndash;12</strong><br>Student Bible Fellowship at 9:30 AM</div></div>
+    <p style="margin-top:24px;"><a class="btn btn-outline" href="children.html">More About Children</a> <a class="btn btn-outline" href="students.html">More About Students</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Common Questions</h2>
+    <div class="grid-3">{faq_html}</div>
+  </div>
+</section>
+
+<section class="section-soft">
+  <div class="wrap">
+    <h2>Getting Here</h2>
+    {directions_block()}
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="callout">
+      <h3>Let us know you're coming</h3>
+      <p>Fill out our Connection Form and we'll be looking for you. Questions before Sunday? Call the church office at <a href="tel:3367513639">(336) 751-3639</a>.</p>
+      {modal_link(LINKS['connection_form'], 'Fill Out the Connection Form')}
+    </div>
   </div>
 </section>
 """
@@ -515,17 +585,17 @@ def students():
   <div class="wrap hero-icon-row">
     {ICON_YOUTH_LG}
     <div>
-      <span class="eyebrow" style="color:#fff;">Middle &amp; High School</span>
-      <h1 style="color:#fff;">Blaise Youth</h1>
+      <span class="eyebrow" style="color:#fff;">Grades 6&ndash;12</span>
+      <h1 style="color:#fff;">Students</h1>
       <p style="color:#fff;">Built for the real terrain of the teen years &mdash; a community that challenges students to keep climbing toward Christ.</p>
     </div>
   </div>
 </div>
 <section>
   <div class="wrap">
-    <p>Blaise Youth (Y4J &mdash; Youth 4 Jesus) is for 6th grade through high school seniors. We're focused on growing into vibrant, enthusiastic followers of Jesus Christ &mdash; studying the Bible, praying for each other, ministering to people, playing games, and going on mission trips from Davie County to South America.</p>
+    <p>Our student ministry, Blaise Youth, is for middle and high schoolers &mdash; 6th grade through seniors. We're focused on growing into vibrant, enthusiastic followers of Jesus Christ &mdash; studying the Bible, praying for each other, ministering to people, playing games, and going on mission trips from Davie County to South America.</p>
     <div class="schedule-row"><span class="time">Sundays</span><div><strong>Bible Fellowship</strong><br>9:30 AM</div></div>
-    <div class="schedule-row"><span class="time">Wednesdays</span><div><strong>Youth Night</strong><br>6:30&ndash;7:45 PM</div></div>
+    <div class="schedule-row"><span class="time">Wednesdays</span><div><strong>Student Night</strong><br>6:30&ndash;7:45 PM</div></div>
     {find_on_map("students.html")}
     {serve_callout("Blaise Youth")}
   </div>
@@ -541,19 +611,19 @@ def children():
     {ICON_CHILDREN_LG}
     <div>
       <span class="eyebrow" style="color:#fff;">Birth &ndash; 5th Grade</span>
-      <h1 style="color:#fff;">Blaise Kids</h1>
-      <p style="color:#fff;">A safe, joyful place where children are rooted in faith from the earliest age.</p>
+      <h1 style="color:#fff;">Children</h1>
+      <p style="color:#fff;">Blaise Kids is a safe, joyful place where children are rooted in faith from the earliest age.</p>
     </div>
   </div>
 </div>
 <section>
   <div class="wrap">
     <h2>Sundays</h2>
-    <div class="schedule-row"><span class="time">9:30&ndash;10:30</span><div><strong>Bible Fellowship Classes</strong><br>Nursery (infant&ndash;3yrs) &middot; Pre-K&ndash;2nd Grade &middot; 3rd&ndash;5th Grade</div></div>
-    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Hour</strong><br>Nursery, plus Children's Church for ages 4&ndash;1st grade</div></div>
+    <div class="schedule-row"><span class="time">9:30 AM</span><div><strong>Bible Fellowship Classes</strong><br>Nursery (birth&ndash;age 3) &middot; Pre-K&ndash;2nd Grade &middot; 3rd&ndash;5th Grade</div></div>
+    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Nursery, plus Children's Church for Pre-K (age 4) through 1st grade</div></div>
     <h2 style="margin-top:40px;">Wednesdays, 6:30&ndash;7:45 PM</h2>
-    <div class="schedule-row"><span class="time">Mission Friends</span><div>Age 3 (potty trained) &ndash; Kindergarten</div></div>
-    <div class="schedule-row"><span class="time">Mission Journey</span><div>1st&ndash;5th Grade</div></div>
+    <div class="schedule-row"><span class="time">Mission Friends</span><div>Age 3 (potty trained) through Kindergarten</div></div>
+    <div class="schedule-row"><span class="time">Mission Journey</span><div>1st&ndash;5th grade</div></div>
     {find_on_map("children.html")}
     <div class="callout" style="margin-top:32px;">
       <h3>Celebrating a Parent/Child Dedication?</h3>
@@ -579,12 +649,15 @@ def senior_adults():
 <section>
   <div class="wrap">
     <p>Good Life is a special time for senior adults in Mocksville and across Davie County to come together for Christian fellowship, friendship, fun, and encouragement. We believe life is better when we share it with others, and we love creating opportunities to laugh together, make new friends, grow in our faith, and serve our community.</p>
+    <h2 style="margin-top:32px;">When We Meet</h2>
+    <div class="schedule-row pane-gold"><span class="time">11:00 AM</span><div><strong>Good Life Lunch</strong><br>Third Thursday of each month &middot; Fellowship Hall, Educational Building (300)</div></div>
+    <p>{find_on_map("senior-adults.html")}</p>
     <p>Throughout the year, we enjoy a variety of activities and gatherings, including fellowship meals, special celebrations, day trips and outings, and opportunities to serve others in Jesus' name.</p>
     <p>But Good Life is about more than activities. It's about people &mdash; caring for one another, encouraging one another, and enjoying the blessings God gives us each day.</p>
     <div class="callout" style="margin-top:32px;">
       <h3>Come Join Us!</h3>
-      <p>For information about our next gathering or upcoming activities, contact the church office or check our church calendar.</p>
-      <a class="btn btn-primary" href="contact.html">Contact Us</a>
+      <p>Everyone is welcome &mdash; bring a friend. For this month's date or any questions, call the church office at <a href="tel:3367513639">(336) 751-3639</a>.</p>
+      <a class="btn btn-primary" href="tel:3367513639">Call (336) 751-3639</a>
       <a class="btn btn-outline" href="{LINKS['calendar']}" target="_blank" rel="noopener">Open the Calendar</a>
     </div>
   </div>
@@ -656,7 +729,7 @@ def small_groups():
     <div class="grid-4">
       <a class="ministry-card mc-women" href="#women">{ICON_WOMEN}<h3>Women</h3><p>Bible studies &amp; ministry teams</p></a>
       <a class="ministry-card mc-men" href="#men">{ICON_MEN}<h3>Men</h3><p>Man Church &amp; discipleship groups</p></a>
-      <div class="ministry-card mc-youth">{ICON_YOUTH}<h3>Students</h3><p>Wednesday nights, 6:30&ndash;7:45</p></div>
+      <div class="ministry-card mc-youth">{ICON_YOUTH}<h3>Students</h3><p>Wednesday nights, 6:30&ndash;7:45 PM</p></div>
       <div class="ministry-card mc-kids">{ICON_CHILDREN}<h3>Families</h3><p>Parents of Youth &amp; more</p></div>
     </div>
     <div class="callout" style="margin-top:32px;">
@@ -939,11 +1012,12 @@ def classifieds():
 
 PAGES = [
     ("index.html", "Home", "A place to belong. A faith worth living. Blaise Baptist Church, Mocksville, NC.", home),
-    ("about.html", "About", "Staff, service times, and what to expect at Blaise Baptist Church.", about),
+    ("visit.html", "Plan Your Visit", "What to expect on your first Sunday at Blaise Baptist Church in Mocksville, NC: service times, parking, kids check-in, and directions.", visit),
+    ("about.html", "About", "Staff, service times, and a campus map for Blaise Baptist Church.", about),
     ("beliefs.html", "Beliefs & Core Values", "What Blaise Baptist Church believes.", beliefs),
     ("baptism.html", "Baptism", "Baptism at Blaise Baptist Church.", baptism),
-    ("students.html", "Students", "Blaise Youth (Y4J) for 6th grade through high school seniors.", students),
-    ("children.html", "Children", "Blaise Kids ministry for birth through 5th grade.", children),
+    ("students.html", "Students", "Student ministry for grades 6-12 at Blaise Baptist Church in Mocksville, NC.", students),
+    ("children.html", "Children", "Children's ministry for birth through 5th grade at Blaise Baptist Church in Mocksville, NC.", children),
     ("senior-adults.html", "Senior Adults", "Good Life, the senior adult ministry at Blaise Baptist Church.", senior_adults),
     ("special-friends.html", "Special Friends", "Special Friends ministry at Blaise Baptist Church.", special_friends),
     ("small-groups.html", "Small Groups", "Find a small group at Blaise Baptist Church.", small_groups),
