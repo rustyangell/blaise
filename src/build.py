@@ -55,6 +55,7 @@ MINISTRY_LOCATIONS = [
     ("Small Groups (various)", "small-groups.html", "classrooms", ""),
     ("Church Offices", "contact.html", "offices", "Weekdays"),
     ("Bible Fellowship", None, "offices", "Sundays, 9:30 AM"),
+    ("Good Life Lunch", "senior-adults.html", "educational", "Third Thursday of each month, 11:00 AM (Fellowship Hall)"),
     # Secondary locations go last, after every page's primary row.
     ("Celebrate Recovery", "celebrate-recovery.html", "sanctuary", "Tuesdays, 7:00 PM (after supper in the 300 building)"),
     ("Student Bible Fellowship", "students.html", "youth-underground", "Sundays, 9:30 AM"),
@@ -579,12 +580,15 @@ def senior_adults():
 <section>
   <div class="wrap">
     <p>Good Life is a special time for senior adults in Mocksville and across Davie County to come together for Christian fellowship, friendship, fun, and encouragement. We believe life is better when we share it with others, and we love creating opportunities to laugh together, make new friends, grow in our faith, and serve our community.</p>
+    <h2 style="margin-top:32px;">When We Meet</h2>
+    <div class="schedule-row pane-gold"><span class="time">11:00 AM</span><div><strong>Good Life Lunch</strong><br>Third Thursday of each month &middot; Fellowship Hall, Educational Building (300)</div></div>
+    <p>{find_on_map("senior-adults.html")}</p>
     <p>Throughout the year, we enjoy a variety of activities and gatherings, including fellowship meals, special celebrations, day trips and outings, and opportunities to serve others in Jesus' name.</p>
     <p>But Good Life is about more than activities. It's about people &mdash; caring for one another, encouraging one another, and enjoying the blessings God gives us each day.</p>
     <div class="callout" style="margin-top:32px;">
       <h3>Come Join Us!</h3>
-      <p>For information about our next gathering or upcoming activities, contact the church office or check our church calendar.</p>
-      <a class="btn btn-primary" href="contact.html">Contact Us</a>
+      <p>Everyone is welcome &mdash; bring a friend. For this month's date or any questions, call the church office at <a href="tel:3367513639">(336) 751-3639</a>.</p>
+      <a class="btn btn-primary" href="tel:3367513639">Call (336) 751-3639</a>
       <a class="btn btn-outline" href="{LINKS['calendar']}" target="_blank" rel="noopener">Open the Calendar</a>
     </div>
   </div>
