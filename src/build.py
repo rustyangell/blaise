@@ -195,6 +195,12 @@ def nav(active):
       {link_items(NAV_ITEMS_AFTER)}
       <li>{modal_link(LINKS['give'], 'Give', 'btn btn-outline')}</li>
     </ul>
+    <!-- Phone menu only: what people most often open the menu to find. -->
+    <div class="nav-drawer-contact">
+      <a href="tel:3367513639"><strong>Call</strong> (336) 751-3639</a>
+      <a href="{LINKS['directions']}" target="_blank" rel="noopener"><strong>Directions</strong> 134 Blaise Church Rd, Mocksville</a>
+      <a href="{LINKS['youtube']}" target="_blank" rel="noopener"><strong>Watch</strong> Sundays live on YouTube</a>
+    </div>
   </div>
 </nav>
 """
