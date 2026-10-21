@@ -408,13 +408,8 @@ def home():
     <h2>Wednesday Nights</h2>
   </div>
   <div class="wrap grid-2">
-    <div class="schedule-row pane-teal"><span class="time">5:00 PM</span><div><strong>Wednesday Meal</strong><br>Family Life Center (600). Sign up each week on Church Center. Suggested donation $5 per person, $20 max per family.</div></div>
+    <div class="schedule-row pane-teal"><span class="time">5:00 PM</span><div><strong>Wednesday Meal</strong><br>Family Life Center (600). Sign up each week on Church Center. Suggested donation $5 per person, $20 max per family.<br>{plain_link(LINKS['wednesday_meals'], "Sign Up for This Week&rsquo;s Meal", "btn btn-primary btn-in-row")}</div></div>
     <div class="schedule-row pane-gold"><span class="time">6:30 PM</span><div><strong>Something for Everyone</strong><br><a href="children.html">Children</a> &middot; <a href="students.html">Students</a> &middot; <a href="small-groups.html#women">Women</a> &middot; <a href="small-groups.html#men">Men</a> &middot; <a href="special-friends.html">Special Friends</a><br>Until 7:45 PM</div></div>
-  </div>
-  <div class="wrap">
-    <div class="hero-actions">
-      {plain_link(LINKS['wednesday_meals'], "Sign Up for This Week&rsquo;s Meal")}
-    </div>
   </div>
 </section>
 
