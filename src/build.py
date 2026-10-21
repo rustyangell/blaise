@@ -23,6 +23,8 @@ LINKS = {
     "men_groups": f"{CC}/groups/man-church-small-groups?enrollment=open_signup%2Crequest_to_join&filter=enrollment",
     "women_groups": f"{CC}/groups/bible-study-small-groups?enrollment=open_signup%2Crequest_to_join&filter=enrollment%2Ctag&tag_id=2043415%2C1514712",
     "calendar": f"{CC}/calendar",
+    # A new meal signup is created every week; the category page always lists the current one.
+    "wednesday_meals": f"{CC}/registrations/events/category/110362",
     "give": "https://app.easytithe.com/App/Giving/blaise",
     "facebook": "https://www.facebook.com/BlaiseChurch",
     "youtube": "https://www.youtube.com/@blaisebaptistchurch",
@@ -43,7 +45,7 @@ MINISTRY_LOCATIONS = [
     # (the one its "Find it on the map" link opens).
     ("Worship Service", "about.html", "family-life-center", "Sundays, 10:30 AM"),
     ("Sunday Bible Fellowship", None, "family-life-center", "Sundays, 9:30 AM"),
-    ("Wednesday Meals", "events.html", "family-life-center", "Wednesdays, 5:00 PM"),
+    ("Wednesday Meal", "index.html", "family-life-center", "Wednesdays, 5:00 PM"),
     ("Men&rsquo;s Wednesday Night Groups", "small-groups.html", "family-life-center", "Wednesdays, 6:30&ndash;7:45 PM"),
     ("Special Friends", "special-friends.html", "family-life-center", ""),
     ("Bible Fellowship", None, "sanctuary", "Sundays, 9:30 AM"),
@@ -400,6 +402,21 @@ def home():
   </div>
 </section>
 
+
+<section class="section-tight">
+  <div class="wrap">
+    <h2>Wednesday Nights</h2>
+  </div>
+  <div class="wrap grid-2">
+    <div class="schedule-row pane-teal"><span class="time">5:00 PM</span><div><strong>Wednesday Meal</strong><br>Family Life Center (600). Sign up each week on Church Center. Suggested donation $5 per person, $20 max per family.</div></div>
+    <div class="schedule-row pane-gold"><span class="time">6:30 PM</span><div><strong>Something for Everyone</strong><br><a href="children.html">Children</a> &middot; <a href="students.html">Students</a> &middot; <a href="small-groups.html#women">Women</a> &middot; <a href="small-groups.html#men">Men</a> &middot; <a href="special-friends.html">Special Friends</a><br>Until 7:45 PM</div></div>
+  </div>
+  <div class="wrap">
+    <div class="hero-actions">
+      {plain_link(LINKS['wednesday_meals'], "Sign Up for This Week&rsquo;s Meal")}
+    </div>
+  </div>
+</section>
 
 <section>
   <div class="wrap">
