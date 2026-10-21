@@ -445,7 +445,7 @@ def home():
     <h2>What's happening at Blaise</h2>
     <p>See the full calendar and sign up for anything below &mdash; everything's handled through Church Center.</p>
     <div class="grid-3" data-pco="home" data-limit="3">
-      <div class="event-card"><h3>See what's coming up</h3><p>Our full calendar and registrations live on Church Center.</p><a class="btn btn-primary" href="{LINKS['calendar']}" target="_blank" rel="noopener">Open the Calendar</a></div>
+      <div class="event-card"><h3>See what's coming up</h3><p>Our full calendar and registrations live on Church Center.</p></div>
     </div>
     <p style="margin-top:24px;"><a class="btn btn-outline" href="events.html">See All Events &amp; the Full Calendar</a></p>
   </div>
@@ -480,7 +480,7 @@ def about():
   <div class="wrap">
     <span class="eyebrow">About Blaise</span>
     <h1>Who we are, and why we're here.</h1>
-    <p>An autonomous Southern Baptist Convention church, devoted to making disciples who are rooted in Christ, growing together, and reaching people. Our beliefs align with the Baptist Faith and Message.</p>
+    <p>A church family in Mocksville and across Davie County, helping one another follow Jesus: rooted in Christ, growing together, and reaching others. We&rsquo;re a Southern Baptist church &mdash; <a href="beliefs.html">here&rsquo;s what we believe</a>.</p>
   </div>
 </div>
 
@@ -712,7 +712,7 @@ def special_friends():
     <div>
       <span class="eyebrow">Adults with Special Needs</span>
       <h1>Special Friends</h1>
-      <p>Every one of God's children is &ldquo;fearfully and wonderfully made.&rdquo; Our Special Friends ministry welcomes adults with physical and mental handicaps to worship, learn, and belong.</p>
+      <p>Every one of God's children is &ldquo;fearfully and wonderfully made.&rdquo; Our Special Friends ministry welcomes adults with physical and intellectual disabilities to worship, learn, and belong.</p>
     </div>
   </div>
 </div>
@@ -745,7 +745,7 @@ def special_friends():
     <div class="card sf-tile">
       {sf_icon("home", "pane-teal")}
       <h3>Who Comes</h3>
-      <p>Our students come from Impact of the Piedmont Agency, from group homes, and from their own families' homes.</p>
+      <p>Our friends come from Impact of the Piedmont Agency, from group homes, and from their own families' homes.</p>
     </div>
     {serve_callout("Special Friends")}
   </div>
@@ -839,7 +839,7 @@ def celebrate_recovery():
 </div>
 <section>
   <div class="wrap">
-    <p>The principles of CR are based on the actual words of Jesus rather than psychological theory. Celebrate Recovery launched at Saddleback Church 25 years ago with 43 people &mdash; today it's in over 29,000 churches worldwide.</p>
+    <p>The principles of CR are based on the actual words of Jesus rather than psychological theory. Celebrate Recovery began at Saddleback Church in California in 1991 and is now part of thousands of churches around the world.</p>
     <p style="font-style:italic;color:var(--sage);">"But we will give ourselves continually to prayer, and to the ministry of the word." &mdash; Acts 6:4</p>
     <h2 style="margin-top:32px;">Tuesdays</h2>
     <div class="schedule-row"><span class="time">6:00 PM</span><div>Supper (suggested $3 donation)</div></div>
