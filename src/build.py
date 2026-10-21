@@ -222,7 +222,6 @@ FOOTER = f"""
       {LOGO_FOOTER}
       <h4>Blaise Baptist Church</h4>
       <p>Rooted in Christ &bull; Growing Together &bull; Reaching Others</p>
-      <p>A disciple-making church in Mocksville, NC &mdash; Davie County.</p>
     </div>
     <div>
       <h4>Visit</h4>
@@ -424,7 +423,7 @@ def home():
     <h2>Wednesday Nights</h2>
   </div>
   <div class="wrap grid-2">
-    <div class="schedule-row pane-teal"><span class="time">5:00 PM</span><div><strong>Wednesday Meal</strong><br>Family Life Center (600). Sign up each week on Church Center. Suggested donation $5 per person, $20 max per family.<br>{plain_link(LINKS['wednesday_meals'], "Sign Up for This Week&rsquo;s Meal", "btn btn-primary btn-in-row")}</div></div>
+    <div class="schedule-row pane-teal"><span class="time">5:00 PM</span><div><strong>Wednesday Meal</strong><br>Family Life Center (600). Suggested donation $5 per person, $20 max per family.<br>{plain_link(LINKS['wednesday_meals'], "Sign Up for the Meal", "btn btn-primary btn-in-row")}</div></div>
     <div class="schedule-row pane-gold"><span class="time">6:30 PM</span><div><strong>Something for Everyone</strong><br><a href="children.html">Children</a> &middot; <a href="students.html">Students</a> &middot; <a href="small-groups.html#women">Women</a> &middot; <a href="small-groups.html#men">Men</a> &middot; <a href="special-friends.html">Special Friends</a><br>Until 7:45 PM</div></div>
   </div>
 </section>
@@ -433,14 +432,14 @@ def home():
   <div class="wrap">
     <span class="eyebrow">Find Your Place</span>
     <h2>Something for every age</h2>
-    <div class="grid-4">
-      <a class="ministry-card mc-kids" href="children.html">{ICON_CHILDREN}<h3>Children</h3><p>Birth through 5th grade, Sundays and Wednesdays</p></a>
-      <a class="ministry-card mc-youth" href="students.html">{ICON_YOUTH}<h3>Students</h3><p>Grades 6&ndash;12, Sundays and Wednesdays</p></a>
+    <div class="grid-4 mc-tiles">
+      <a class="ministry-card mc-kids" href="children.html">{ICON_CHILDREN}<div><h3>Children</h3><p>Birth through 5th grade, Sundays and Wednesdays</p></div></a>
+      <a class="ministry-card mc-youth" href="students.html">{ICON_YOUTH}<div><h3>Students</h3><p>Grades 6&ndash;12, Sundays and Wednesdays</p></div></a>
       <div class="mc-stack">
         <a class="ministry-card mc-men mc-half" href="small-groups.html#men">{ICON_MEN}<div><h3>Men</h3><p>Small groups and events</p></div></a>
         <a class="ministry-card mc-women mc-half" href="small-groups.html#women">{ICON_WOMEN}<div><h3>Women</h3><p>Small groups and events</p></div></a>
       </div>
-      <a class="ministry-card mc-seniors" href="senior-adults.html">{icon_badge("assets/mark-panes.png", "")}<h3>Senior Adults</h3><p>Good Life: fellowship meals, day trips, and serving together</p></a>
+      <a class="ministry-card mc-seniors" href="senior-adults.html">{icon_badge("assets/mark-panes.png", "")}<div><h3>Senior Adults</h3><p>Good Life: fellowship meals, day trips, and serving together</p></div></a>
     </div>
     <p style="margin-top:24px;">Also at Blaise: <a href="special-friends.html">Special Friends</a> for adults with special needs &middot; <a href="celebrate-recovery.html">Celebrate Recovery</a> on Tuesday nights &middot; <a href="missions.html">Missions</a>, from Davie County to the world</p>
   </div>
@@ -494,27 +493,16 @@ def about():
   <div class="wrap">
     <h2>Our Staff</h2>
     <div class="grid-3">{staff_cards}</div>
-  </div>
-</section>
-
-<section class="section-tight">
-  <div class="wrap">
-    <h2>Sunday Mornings</h2>
-  </div>
-  <div class="wrap grid-2">
-    <div class="schedule-row pane-teal"><span class="time">9:30 AM</span><div><strong>Bible Fellowship</strong></div></div>
-    <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br><a href="{map_url('family-life-center')}">Family Life Center</a></div></div>
+    <div class="callout" style="margin-top:40px;max-width:760px;">
+      <h3>Planning your first Sunday?</h3>
+      <p>Service times, where to park, and what happens with your kids are all on one page.</p>
+      <a class="btn btn-primary" href="visit.html">Plan Your Visit</a>
+    </div>
   </div>
 </section>
 
 {campus_map()}
 
-<section class="section-soft">
-  <div class="wrap">
-    <h2>Getting Here</h2>
-    {directions_block()}
-  </div>
-</section>
 """
 
 
@@ -526,7 +514,7 @@ VISIT_FAQS = [
 
 
 def visit():
-    faq_html = "\n".join(f'<div class="card"><h3>{q}</h3><p style="margin:0;">{a}</p></div>' for q, a in VISIT_FAQS)
+    faq_html = "\n".join(f'<details class="faq"><summary>{q}</summary><p>{a}</p></details>' for q, a in VISIT_FAQS)
     flc = map_url("family-life-center")
     return f"""
 <div class="page-hero">
@@ -563,7 +551,7 @@ def visit():
 </section>
 
 <section class="section-soft">
-  <div class="wrap">
+  <div class="wrap wrap-narrow">
     <h2>For Your Kids</h2>
     <div class="schedule-row"><span class="time">Nursery</span><div><strong>Birth&ndash;age 3</strong><br>During Bible Fellowship and the Worship Service</div></div>
     <div class="schedule-row"><span class="time">Children</span><div><strong>Pre-K&ndash;5th grade</strong><br>Bible Fellowship classes at 9:30 AM, plus Children's Church for Pre-K (age 4) through 1st grade during the Worship Service</div></div>
@@ -573,9 +561,9 @@ def visit():
 </section>
 
 <section>
-  <div class="wrap">
+  <div class="wrap wrap-narrow">
     <h2>Common Questions</h2>
-    <div class="grid-3">{faq_html}</div>
+    <div class="faq-list">{faq_html}</div>
   </div>
 </section>
 
@@ -676,7 +664,7 @@ def students():
   </div>
 </div>
 <section>
-  <div class="wrap">
+  <div class="wrap wrap-narrow">
     <p>Our student ministry, Blaise Youth, is for middle and high schoolers &mdash; 6th grade through seniors. We're focused on growing into vibrant, enthusiastic followers of Jesus Christ &mdash; studying the Bible, praying for each other, ministering to people, playing games, and going on mission trips from Davie County to South America.</p>
     <div class="schedule-row"><span class="time">Sundays</span><div><strong>Bible Fellowship</strong><br>9:30 AM</div></div>
     <div class="schedule-row"><span class="time">Wednesdays</span><div><strong>Student Night</strong><br>6:30&ndash;7:45 PM</div></div>
@@ -701,7 +689,7 @@ def children():
   </div>
 </div>
 <section>
-  <div class="wrap">
+  <div class="wrap wrap-narrow">
     <h2>Sundays</h2>
     <div class="schedule-row"><span class="time">9:30 AM</span><div><strong>Bible Fellowship Classes</strong><br>Nursery (birth&ndash;age 3) &middot; Pre-K&ndash;2nd Grade &middot; 3rd&ndash;5th Grade</div></div>
     <div class="schedule-row pane-gold"><span class="time">10:30 AM</span><div><strong>Worship Service</strong><br>Nursery, plus Children's Church for Pre-K (age 4) through 1st grade</div></div>
@@ -731,13 +719,13 @@ def senior_adults():
   </div>
 </div>
 <section>
-  <div class="wrap">
+  <div class="wrap wrap-narrow">
     <p>Good Life is a special time for senior adults in Mocksville and across Davie County to come together for Christian fellowship, friendship, fun, and encouragement. We believe life is better when we share it with others, and we love creating opportunities to laugh together, make new friends, grow in our faith, and serve our community.</p>
+    <p>Throughout the year, we enjoy a variety of activities and gatherings, including fellowship meals, special celebrations, day trips and outings, and opportunities to serve others in Jesus' name.</p>
+    <p>But Good Life is about more than activities. It's about people &mdash; caring for one another, encouraging one another, and enjoying the blessings God gives us each day.</p>
     <h2 style="margin-top:32px;">When We Meet</h2>
     <div class="schedule-row pane-gold"><span class="time">11:00 AM</span><div><strong>Good Life Lunch</strong><br>Third Thursday of each month &middot; Fellowship Hall, Educational Building (300)</div></div>
     <p>{find_on_map("senior-adults.html")}</p>
-    <p>Throughout the year, we enjoy a variety of activities and gatherings, including fellowship meals, special celebrations, day trips and outings, and opportunities to serve others in Jesus' name.</p>
-    <p>But Good Life is about more than activities. It's about people &mdash; caring for one another, encouraging one another, and enjoying the blessings God gives us each day.</p>
     <div class="callout" style="margin-top:32px;">
       <h3>Come Join Us!</h3>
       <p>Everyone is welcome &mdash; bring a friend. For this month's date or any questions, call the church office at <a href="tel:3367513639">(336) 751-3639</a>.</p>
@@ -763,8 +751,8 @@ def special_friends():
   </div>
 </div>
 <section>
-  <div class="wrap">
-    <p>Blaise's Special Friends Ministry is open to special needs adults here in Mocksville and across Davie County. There's a place for you on Sunday mornings and again on Wednesday nights.</p>
+  <div class="wrap wrap-narrow">
+    <p>Blaise's Special Friends Ministry is open to special needs adults here in Mocksville and across Davie County. There's a place for you on Sunday mornings and again on Wednesday nights. Our friends come from Impact of the Piedmont Agency, from group homes, and from their own families' homes.</p>
     <h2 style="margin-top:32px;">When We Meet</h2>
     <div class="schedule-row pane-gold">{sf_icon("sun", "pane-gold")}<span class="time">Sundays</span><div><strong>Special Friends Class</strong><br>9:30 AM &middot; 100 Building</div></div>
     <div class="schedule-row pane-blue">{sf_icon("moon", "pane-blue")}<span class="time">Wednesdays</span><div><strong>Special Friends Night</strong><br>6:30 PM &middot; 600 Building, Family Life Center</div></div>
@@ -787,12 +775,7 @@ def special_friends():
   </div>
 </section>
 <section>
-  <div class="wrap">
-    <div class="card sf-tile">
-      {sf_icon("home", "pane-teal")}
-      <h3>Who Comes</h3>
-      <p>Our friends come from Impact of the Piedmont Agency, from group homes, and from their own families' homes.</p>
-    </div>
+  <div class="wrap wrap-narrow">
     {serve_callout("Special Friends")}
   </div>
 </section>
@@ -851,20 +834,16 @@ def childcare():
     <div class="card">
       <h3>Before &amp; After School Care</h3>
       <p>Grades K&ndash;8 during the school year. Safe, reliable transportation from multiple schools, quality counselors, homework help, and activities in a biblical, value-based environment.</p>
-      <p>Questions? Director Kristen Hollars: <a href="tel:3366958937">336-695-8937</a></p>
     </div>
     <div class="card">
       <h3>Summer Day Camp</h3>
       <p>Rising kindergarten through completed 8th grade. Bible lessons, worship, swimming, sports, crafts, and field trips &mdash; with the older grades grouped separately so camp fits middle schoolers too.</p>
-      <p>Pricing: <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a></p>
     </div>
   </div>
   <div class="wrap" style="margin-top:32px;">
     <div class="callout">
-      <h3>Questions before you enroll?</h3>
-      <p>Email <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a> or call Kristen
-      at <a href="tel:3366958937">336-695-8937</a> and we'll walk you through it.</p>
-      {plain_link(LINKS['childcare_registration'], "Enroll Your Child")}
+      <h3>Questions or pricing?</h3>
+      <p>Director Kristen Hollars is happy to help. Email <a href="mailto:childcare@blaisebaptist.org">childcare@blaisebaptist.org</a> or call <a href="tel:3366958937">336-695-8937</a>.</p>
     </div>
   </div>
 </section>
@@ -884,7 +863,7 @@ def celebrate_recovery():
   </div>
 </div>
 <section>
-  <div class="wrap">
+  <div class="wrap wrap-narrow">
     <p>The principles of CR are based on the actual words of Jesus rather than psychological theory. Celebrate Recovery began at Saddleback Church in California in 1991 and is now part of thousands of churches around the world.</p>
     <p style="font-style:italic;color:var(--sage);">"But we will give ourselves continually to prayer, and to the ministry of the word." &mdash; Acts 6:4</p>
     <h2 style="margin-top:32px;">Tuesdays</h2>
@@ -964,6 +943,7 @@ def contact():
   <div class="wrap">
     <span class="eyebrow">We'd Love to Hear From You</span>
     <h1>Contact Us</h1>
+    <p>Call, email, or stop by &mdash; we&rsquo;re at 134 Blaise Church Rd in Mocksville.</p>
   </div>
 </div>
 <section>
@@ -1044,7 +1024,7 @@ def beliefs():
   </div>
 </section>
 <section class="section-soft">
-  <div class="wrap">
+  <div class="wrap wrap-narrow">
     <h2>What We Believe</h2>
     <ol class="beliefs">
       {items}
