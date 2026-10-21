@@ -68,7 +68,7 @@
       '<span class="date">Announcement</span>' +
       "<h3>" + esc(a.name) + "</h3>" +
       (a.summary ? "<p>" + esc(a.summary) + "</p>" : "") +
-      '<a class="btn btn-primary" href="' + esc(a.url) + '" target="_blank" rel="noopener">Learn More</a>' +
+      (a.url ? '<a class="btn btn-primary" href="' + esc(a.url) + '" target="_blank" rel="noopener">Learn More</a>' : "") +
       "</div>";
   }
 

@@ -154,10 +154,14 @@ async function announcements() {
           .map((j) => included.get(`AnnouncementsAnnouncementCategory:${j.id}`)?.relationships?.announcement_category?.data?.id)
           .map((id) => catName.get(id))
           .filter(Boolean);
+        // Links to other Church Center objects come back as paths ("/calendar/event/…"). An
+        // announcement with no link has no page of its own in Church Center (/announcements/<id>
+        // is a 404), so it gets no URL and the card shows its full text without a button.
+        const url = at.link ? (at.link.startsWith("/") ? CC + at.link : at.link) : at.church_center_url || null;
         return {
           id: a.id,
           name: at.title,
-          summary: plainText(at.summary),
+          summary: plainText(at.summary, url ? 200 : Infinity),
           // A File object with size variants; "default" is Church Center's stock placeholder.
           image: at.image?.attributes?.source === "default" ? null
             : at.image?.attributes?.variants?.medium || at.image?.attributes?.variants?.original || null,
@@ -167,8 +171,7 @@ async function announcements() {
           // page that already shows that item doesn't show it twice.
           event_id: at.link?.match(/\/calendar\/event\/(?:latest\/)?(\d+)/)?.[1] || null,
           signup_id: at.link?.match(/\/registrations\/events\/(\d+)/)?.[1] || null,
-          // Links to other Church Center objects come back as paths ("/calendar/event/…").
-          url: at.link ? (at.link.startsWith("/") ? CC + at.link : at.link) : at.church_center_url || `${CC}/announcements/${a.id}`,
+          url,
         };
       });
   } catch (err) {
