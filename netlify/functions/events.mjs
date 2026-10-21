@@ -158,7 +158,9 @@ async function announcements() {
           id: a.id,
           name: at.title,
           summary: plainText(at.summary),
-          image: at.image || null,
+          // A File object with size variants; "default" is Church Center's stock placeholder.
+          image: at.image?.attributes?.source === "default" ? null
+            : at.image?.attributes?.variants?.medium || at.image?.attributes?.variants?.original || null,
           featured: !!at.featured,
           categories,
           // When the announcement just promotes a calendar event or signup, record which one so a
