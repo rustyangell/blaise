@@ -14,6 +14,7 @@ LINKS = {
     "dedication_form": f"{CC}/people/forms/945729",
     "serving_form": f"{CC}/people/forms/1202575",
     "missions_form": f"{CC}/people/forms/1236262",
+    "prayer_form": f"{CC}/people/forms/1351726",
     # Childcare enrollment lives in ProCare, not Church Center. Every childcare
     # call-to-action reads from this one constant.
     "childcare_registration": "https://schools.procareconnect.com/register/shining-son",
@@ -960,6 +961,8 @@ def contact():
       <h3>Ready to get plugged in?</h3>
       <p>New to Blaise or looking for your place here? Fill out our Connection Form and we'll help you get connected.</p>
       {modal_link(LINKS['connection_form'], 'Fill Out the Connection Form')}
+      <p style="margin-top:20px;">Need prayer? Our church family would be honored to pray for you.</p>
+      {modal_link(LINKS['prayer_form'], 'Submit a Prayer Request', "btn btn-outline")}
       <p style="margin-top:20px;">Interested in Baptism?</p>
       {modal_link(LINKS['baptism_form'], "I'm Interested in Baptism", "btn btn-outline")}
     </div>
