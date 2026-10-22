@@ -147,6 +147,8 @@ SF_ICON_PATHS = {
     "palette": '<path d="M12 22a10 10 0 1 1 10-10c0 3-2.5 4-4.5 4H15a2 2 0 0 0-1.5 3.3c.7.9.3 2.7-1.5 2.7z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10.5" cy="7" r="1.2"/><circle cx="15.5" cy="7.5" r="1.2"/>',
     "sparkles": '<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8zM5 2l.6 1.4L7 4l-1.4.6L5 6l-.6-1.4L3 4l1.4-.6z"/>',
     "home": '<path d="M3 11l9-8 9 8"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/>',
+    "pin": '<path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+    "globe": '<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>',
     "hands": '<path d="M11 14l-2.5 2.5a2 2 0 0 1-2.8-2.8L10 9.4M13 10l3.6-3.6a2 2 0 0 1 2.8 2.8L13 15.6a3 3 0 0 1-4.2 0"/><path d="M2 12l4-4M22 12l-4-4"/>',
 }
 
@@ -958,8 +960,8 @@ def missions():
     <p>Blaise partners with missionaries serving throughout the world, and there&rsquo;s always a way to get involved &mdash; from handyman projects here at home to trips abroad.</p>
     <div class="grid-3" style="margin-top:28px;">
       <div class="card sf-tile">{sf_icon("home", "pane-sage")}<h3>Local</h3><p style="margin:0;">Serving neighbors in Mocksville and across Davie County, including handyman and repair projects for people who need a hand.</p></div>
-      <div class="card sf-tile">{sf_icon("hands", "pane-teal")}<h3>Domestic</h3><p style="margin:0;">Mission trips and service projects in other communities across North Carolina and the U.S.</p></div>
-      <div class="card sf-tile">{sf_icon("sparkles", "pane-gold")}<h3>International</h3><p style="margin:0;">Supporting the missionaries we partner with around the world, and joining them on trips abroad.</p></div>
+      <div class="card sf-tile">{sf_icon("pin", "pane-teal")}<h3>Domestic</h3><p style="margin:0;">Mission trips and service projects in other communities across North Carolina and the U.S.</p></div>
+      <div class="card sf-tile">{sf_icon("globe", "pane-gold")}<h3>International</h3><p style="margin:0;">Supporting the missionaries we partner with around the world, and joining them on trips abroad.</p></div>
     </div>
   </div>
 </section>
