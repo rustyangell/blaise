@@ -30,8 +30,9 @@ implying it passed.
 ## Non-negotiables
 
 - **Never hand-edit `dist/`.** It is generated and gitignored; fix the source and rebuild.
-- **Never touch DNS nameservers, MX, or TXT records** for `blaisebaptist.org`. Mail is Google
-  Workspace and depends on them. See the cutover runbook in `README.md`.
+- **DNS changes for `blaisebaptist.org` follow the cutover runbook in `README.md` — nothing
+  else.** DNS is hosted by Wix today, not DreamHost. Never delete or change the MX record (mail is
+  Google Workspace), and never move DNS hosting to Netlify.
 - **Test against `blaisebaptist.netlify.app`**, not `blaisebaptist.org` — the latter is still the
   old Wix site.
 

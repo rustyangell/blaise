@@ -190,41 +190,58 @@ custom properties at the top of `src/styles.css`:
 ## Going live — DNS cutover runbook
 
 Not done yet. This is the step that makes `blaisebaptist.org` serve this site instead of Wix.
+The same plan, written for staff, is in the Google Doc "Blaise Website Go-Live: DNS Cutover Plan".
 
-### What's true today
+### What's true today (verified October 2026)
 
-- **DreamHost** is both the registrar and the authoritative DNS host for `blaisebaptist.org`.
-- Apex A records point at **Wix** (`185.230.63.x`).
-- `www` resolves to Cloudflare IPs. This is almost certainly Wix's own CDN fronting their
-  hosting, not a Cloudflare account the church controls — confirm in the DreamHost panel rather
-  than planning around it as an obstacle.
-- **All MX records point to Google Workspace.** Staff email (`@blaisebaptist.org`) depends on them.
+- **DreamHost is the registrar, but Wix hosts the DNS.** The nameservers are `ns6.wixdns.net` and
+  `ns7.wixdns.net`. The records shown in DreamHost's DNS panel are **not live** — editing them does
+  nothing until the nameservers point back to DreamHost.
+- The live zone (Wix export) is small and has nothing hidden:
 
-### The one rule
+  | Type | Host | Value |
+  |---|---|---|
+  | A | `@` | `185.230.63.171`, `.186`, `.107` (Wix) |
+  | CNAME | `www` | `cdn3.wixdns.net` (Wix) |
+  | MX | `@` | `smtp.google.com`, priority 10 — **Google Workspace email** |
+  | TXT | `@` | `google-site-verification=M5GjRAv840sR9NVf44nbTcrI7IpnzV6xUCqH-1CbfaU` |
 
-> **Change only the apex A record and the `www` record, both in DreamHost. Do not change
-> nameservers, and do not touch any MX or TXT record.**
+- There are **no SPF, DKIM, or DMARC records** anywhere today.
 
-Google Workspace needs the MX records plus the SPF, DKIM (`google._domainkey`), and DMARC
-(`_dmarc`) TXT records. Editing A records leaves all of that alone. Switching DNS hosting to
-Netlify to "tidy things up" does not — it silently drops every record you don't recreate, and
-church email goes dark. That is the most likely way this goes wrong.
+### The plan, and why
+
+Rebuild the zone in DreamHost, then switch the nameservers from Wix to DreamHost. Leaving DNS in
+Wix ties the domain — and church email — to a Wix account that is about to be cancelled. Moving it
+to the registrar the church controls removes that dependency.
+
+### The rules
+
+> **Make DreamHost's records match the live zone (MX and TXT included) *before* switching
+> nameservers. Never move DNS hosting to Netlify. Never delete or change the MX record.**
+
+A nameserver switch replaces the whole zone. Any record missing on the new side vanishes —
+if that's the MX, church email goes dark. That is the most likely way this goes wrong.
 
 ### Steps
 
-1. **Screenshot the full DreamHost record set first.** That is the rollback.
-2. **Lower the TTL** on the apex A and `www` records to 300s, a day ahead. Makes a bad cutover
-   reversible in minutes rather than hours.
-3. **Decide the canonical hostname.** Recommended: apex (`blaisebaptist.org`) with `www`
-   redirecting to it — shorter to say out loud.
-4. **Add the custom domain in Netlify** to the `blaisebaptist` project. It will display the exact
-   records to create. Use its values.
-5. **In DreamHost, repoint the apex A and `www` records** to what Netlify gave you. Nothing else.
-6. **Verify:** the site loads on both apex and `www`; TLS is valid (Netlify auto-provisions
-   Let's Encrypt once DNS resolves); and — separately — send *and* receive on a
-   `@blaisebaptist.org` address, checking that outbound mail isn't flagged as spam. That last check
-   is what proves SPF and DKIM survived.
-7. **Leave Wix running** for a couple of weeks before cancelling, in case something surfaces.
+1. **Prep DreamHost records** (safe anytime; not live yet):
+   - `@` A `199.34.228.50` → edit to `75.2.60.5` (confirm against Netlify in step 2).
+   - `www` A `199.34.228.50` → delete; add `www` CNAME `blaisebaptist.netlify.app`.
+   - `*` A `199.34.228.50` → delete (old host).
+   - Add `@` TXT with the Google site-verification value above.
+   - Leave the MX (`SMTP.GOOGLE.COM`) and DreamHost's NS records alone.
+2. **Add the custom domain in Netlify** to the `blaisebaptist` project: apex primary, `www`
+   redirecting to it, external DNS. If its apex value isn't `75.2.60.5`, use Netlify's value.
+3. **Switch nameservers** in DreamHost (DNS tab → Nameservers → Change) from Wix to DreamHost's.
+   Weekday afternoon. Propagation takes up to 24 hours; both sites work meanwhile, and mail is
+   unaffected because the MX matches on both sides.
+4. **Verify:** apex and `www` load this site with valid TLS (Netlify provisions Let's Encrypt once
+   DNS resolves); send *and* receive on a `@blaisebaptist.org` address; spot-check a redirect
+   (`/sermons` → `watch.html`).
+5. **Rollback:** set the nameservers back to `ns6.wixdns.net` / `ns7.wixdns.net`. Works only while
+   Wix is active.
+6. **Leave Wix running** about two weeks, then cancel.
+7. **Follow-up:** add SPF, DKIM, and DMARC in DreamHost for email deliverability.
 
 ### Before the cutover
 
