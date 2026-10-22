@@ -45,6 +45,11 @@ enrollment buttons, so if that registration moves, one line changes.
 tuple. `UNLISTED_PAGES` renders with `noindex, nofollow` and appears in no nav or footer —
 reachable by direct URL only (currently just `classifieds.html`, the job openings page).
 
+**SEO, generated automatically.** `SITE_URL` sets the canonical address. Every listed page gets
+a canonical link and link-preview (Open Graph) tags using `assets/og-image.jpg`; the home page also
+carries church details for Google (`CHURCH_SCHEMA`). The build writes `sitemap.xml` (every page in
+`PAGES`) and `robots.txt`. Unlisted pages get none of this.
+
 **Nav lists, near the top:** `NAV_ITEMS`, `ABOUT_ITEMS`, `MINISTRY_ITEMS`, `NAV_ITEMS_AFTER`.
 Moving a page between the top level and a dropdown means moving one tuple between lists. Childcare
 sits in `NAV_ITEMS_AFTER` rather than under Ministries because parents often come to the site for
