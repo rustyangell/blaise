@@ -8,6 +8,10 @@ SRC = os.path.join(ROOT, "src")
 DIST = os.path.join(ROOT, "dist")
 
 CC = "https://blaisebaptist.churchcenter.com"
+
+# Canonical address for search engines and link previews. Every page points here,
+# so Google treats blaisebaptist.netlify.app as a copy, not a second site.
+SITE_URL = "https://blaisebaptist.org"
 LINKS = {
     "connection_form": f"{CC}/people/forms/306668",
     "baptism_form": f"{CC}/people/forms/945693",
@@ -259,7 +263,7 @@ PAGE_TEMPLATE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title} | Blaise Baptist Church</title>
 <meta name="description" content="{description}">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+{seo}<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 {head_extra}<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -281,10 +285,69 @@ PAGE_TEMPLATE = """<!doctype html>
 """
 
 
+def page_url(path):
+    return SITE_URL + "/" + ("" if path == "index.html" else path)
+
+
+# Tells Google the basics about the church: name, address, phone, social profiles.
+CHURCH_SCHEMA = {
+    "@context": "https://schema.org",
+    "@type": "Church",
+    "name": "Blaise Baptist Church",
+    "url": SITE_URL + "/",
+    "logo": SITE_URL + "/assets/logo-green.png",
+    "image": SITE_URL + "/assets/og-image.jpg",
+    "telephone": "+1-336-751-3639",
+    "email": "info@blaisebaptist.org",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "134 Blaise Church Rd",
+        "addressLocality": "Mocksville",
+        "addressRegion": "NC",
+        "postalCode": "27028",
+        "addressCountry": "US",
+    },
+    "sameAs": [LINKS["facebook"], LINKS["youtube"]],
+}
+
+
+def seo_tags(path, title, description):
+    """Canonical link, link-preview (Open Graph) tags, and, on the home page, church details for Google."""
+    full_title = "Blaise Baptist Church" if path == "index.html" else f"{title} | Blaise Baptist Church"
+    url = page_url(path)
+    full_title, description = html.escape(full_title), html.escape(description)
+    tags = f"""<link rel="canonical" href="{url}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blaise Baptist Church">
+<meta property="og:title" content="{full_title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{SITE_URL}/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Family Life Center at Blaise Baptist Church">
+<meta name="twitter:card" content="summary_large_image">
+"""
+    if path == "index.html":
+        tags += '<script type="application/ld+json">' + json.dumps(CHURCH_SCHEMA) + "</script>\n"
+    return tags
+
+
+def write_sitemap_and_robots():
+    urls = "".join(f"  <url><loc>{page_url(path)}</loc></url>\n" for path, *_ in PAGES)
+    with open(os.path.join(DIST, "sitemap.xml"), "w") as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                f"{urls}</urlset>\n")
+    with open(os.path.join(DIST, "robots.txt"), "w") as f:
+        f.write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n")
+
+
 def render(path, title, description, content, head_extra=""):
     html = PAGE_TEMPLATE.format(
         title=title,
         description=description,
+        seo=seo_tags(path, title, description) if not head_extra else "",
         head_extra=head_extra,
         nav=nav(path),
         content=content,
@@ -305,6 +368,7 @@ def build():
     # Reachable by direct URL only: not in the nav, footer, or any page, and kept out of search.
     for path, title, description, content_fn in UNLISTED_PAGES:
         render(path, title, description, content_fn(), '<meta name="robots" content="noindex, nofollow">\n')
+    write_sitemap_and_robots()
     print(f"Built {len(PAGES) + len(UNLISTED_PAGES)} pages into {DIST}")
 
 
