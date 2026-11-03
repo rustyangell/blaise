@@ -173,6 +173,13 @@ about 7 seconds, so a very crowded calendar could trim the far end. A calendar e
 registration link matches a signup in the category is shown once, as the signup. A section is hidden
 entirely when nothing matches. Cards show the image and a plain-text excerpt of the description when
 they exist. Men's and Women's Ministry have no page of their own yet, so they live as jump-linked blocks (`#women`, `#men`, built by `ministry_block()`) at the bottom of the Small Groups page, reached from the Women and Men cards at the top. Each block always shows its copy and a Church Center link; only its "Coming Up" list hides when empty. The Women's button uses a Church Center URL filtered to the `Adults` + `Female` group tags (`LINKS['women_groups']`); Men's points at the whole Man Church group type (`LINKS['men_groups']`), because every men's group lives in that type and Church Center tag filters only work within one group type. Both buttons show only open / request-to-join groups (the `enrollment=` part of each URL); closed groups are hidden. If tag ids change in Planning Center Groups, re-copy the URL from a filtered Church Center page.
+**What never gets published.** Only things staff made public show up on the site:
+- Calendar events must be approved, **Published** to Church Center, and **not link-only**. Hidden, link-only, pending, and rejected events are dropped.
+- Registrations have their own public/link-only setting that the API does not report, so `publicSignupIds()` in `events.mjs` reads Church Center's public registrations page (`/registrations`) and keeps only signups listed there. A signup the API returns but that page doesn't list is treated as private. If that page can't be read, all signups and registration buttons are hidden until it can (fail closed).
+- A public calendar event's "Register" button is kept only when its registration is on that public list.
+- Announcements are the exception: an active announcement is public by design, and its link goes wherever staff pointed it.
+- The response is cached up to about 15 minutes, so hiding something in Planning Center takes that long to disappear from the site.
+
 Other Church Center objects (groups, sermons) are not included.
 
 ## Brand system
