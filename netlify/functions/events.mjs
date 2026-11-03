@@ -1,4 +1,6 @@
 // Serves upcoming public events, open signups, and active announcements from Planning Center as JSON.
+// Only things staff have made public: hidden and link-only calendar events, and registrations missing
+// from Church Center's public list, are left out (see publicSignupIds).
 // Credentials come from Netlify env vars PCO_APP_ID / PCO_SECRET (a Personal Access Token);
 // they never reach the browser. The CDN caches the response, so Planning Center is hit
 // at most every few minutes regardless of traffic.
@@ -40,7 +42,30 @@ function indexIncluded(included = []) {
   return map;
 }
 
-async function calendarEvents() {
+// Registrations has its own visibility setting (public vs. link only) that the API does not
+// report. Church Center's public registrations page lists only the signups staff have made public,
+// so that list is the gate: a signup the API returns but the page does not list is treated as
+// private. If the page can't be read we return an empty set, so signups and registration buttons
+// are hidden rather than risk publishing a private one.
+async function publicSignupIds() {
+  try {
+    const res = await fetch(`${CC}/registrations`, { headers: { "User-Agent": "blaisebaptist-site" } });
+    if (!res.ok) throw new Error(`Church Center ${res.status}`);
+    const html = await res.text();
+    return new Set([...html.matchAll(/\/registrations\/events\/(\d+)/g)].map((m) => m[1]));
+  } catch (err) {
+    console.error("publicSignupIds (hiding all signups):", err.message);
+    return new Set();
+  }
+}
+
+// Registration link on a calendar event, kept only when it points at a public signup.
+function publicRegisterUrl(url, publicIds) {
+  const id = url && url.match(/\/registrations\/events\/(\d+)/)?.[1];
+  return id && publicIds.has(id) ? url : null;
+}
+
+async function calendarEvents(publicIds) {
   const started = Date.now();
   const horizon = started + HORIZON_DAYS * 864e5;
   const ministryHorizon = started + MINISTRY_HORIZON_DAYS * 864e5;
@@ -59,7 +84,9 @@ async function calendarEvents() {
       const event = eventRef && included.get(`Event:${eventRef.id}`);
       if (!event) continue;
       const e = event.attributes;
-      if (!e.visible_in_church_center || e.link_only) continue;
+      // Only approved events that staff published to Church Center. Link-only events are shared by
+      // direct link on purpose and must never be listed here.
+      if (!e.visible_in_church_center || e.link_only || e.approval_status !== "A") continue;
       const categories = (inst.relationships?.tags?.data || [])
         .map((t) => included.get(`Tag:${t.id}`)?.attributes?.name)
         .filter(Boolean);
@@ -77,7 +104,7 @@ async function calendarEvents() {
         featured: !!e.featured,
         image: e.image_url || null,
         url: a.church_center_url || `${CC}/calendar/event/${inst.id}`,
-        register_url: e.registration_url || null,
+        register_url: publicRegisterUrl(e.registration_url, publicIds),
       };
       if (start <= horizon && !byEvent.has(event.id)) byEvent.set(event.id, card);
       if (isMinistry && !ministry.has(event.id)) ministry.set(event.id, card);
@@ -106,11 +133,11 @@ function plainText(html, max = 200) {
   return text.length > max ? text.slice(0, max).replace(/\s+\S*$/, "") + "…" : text;
 }
 
-async function signups() {
+async function signups(publicIds) {
   const body = await pco("/registrations/v2/signups?filter=unarchived&include=next_signup_time,categories&per_page=100");
   const included = indexIncluded(body.included);
   return body.data
-    .filter((s) => s.attributes.open && !s.attributes.archived)
+    .filter((s) => s.attributes.open && !s.attributes.archived && publicIds.has(s.id))
     .map((s) => {
       const ref = s.relationships?.next_signup_time?.data;
       const t = ref && included.get(`SignupTime:${ref.id}`)?.attributes;
@@ -185,7 +212,8 @@ export default async () => {
     return Response.json({ error: "Planning Center credentials not configured" }, { status: 500 });
   }
   try {
-    const [{ events, categorized }, open, news] = await Promise.all([calendarEvents(), signups(), announcements()]);
+    const publicIds = await publicSignupIds();
+    const [{ events, categorized }, open, news] = await Promise.all([calendarEvents(publicIds), signups(publicIds), announcements()]);
     // Fall back to the linked calendar event's image for signups without a logo.
     const imageByUrl = new Map([...events, ...categorized].filter((e) => e.register_url).map((e) => [e.register_url, e.image]));
     for (const s of open) s.image = s.image || imageByUrl.get(s.url) || null;
