@@ -959,9 +959,9 @@ def missions():
     <h2>How We&rsquo;re Involved</h2>
     <p>Blaise partners with missionaries serving throughout the world, and there&rsquo;s always a way to get involved &mdash; from handyman projects here at home to trips abroad.</p>
     <div class="grid-3" style="margin-top:28px;">
-      <div class="card sf-tile">{sf_icon("home", "pane-sage")}<h3>Local</h3><p style="margin:0;">Serving neighbors in Mocksville and across Davie County, including handyman and repair projects for people who need a hand.</p></div>
-      <div class="card sf-tile">{sf_icon("pin", "pane-teal")}<h3>Domestic</h3><p style="margin:0;">Mission trips and service projects in other communities across North Carolina and the U.S.</p></div>
-      <div class="card sf-tile">{sf_icon("globe", "pane-gold")}<h3>International</h3><p style="margin:0;">Supporting the missionaries we partner with around the world, and joining them on trips abroad.</p></div>
+      <div class="card sf-tile match-accent">{sf_icon("home", "pane-sage")}<h3>Local</h3><p style="margin:0;">Serving neighbors in Mocksville and across Davie County, including handyman and repair projects for people who need a hand.</p></div>
+      <div class="card sf-tile match-accent">{sf_icon("pin", "pane-teal")}<h3>Domestic</h3><p style="margin:0;">Mission trips and service projects in other communities across North Carolina and the U.S.</p></div>
+      <div class="card sf-tile match-accent">{sf_icon("globe", "pane-gold")}<h3>International</h3><p style="margin:0;">Supporting the missionaries we partner with around the world, and joining them on trips abroad.</p></div>
     </div>
   </div>
 </section>

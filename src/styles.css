@@ -796,3 +796,10 @@ footer h4 { font-size: 0.88rem; }
   .faq p { padding: 0 20px 20px; }
   footer { padding-left: 0; padding-right: 0; }
 }
+
+/* Cards whose top bar should match their icon, not the position-based rotation above. */
+.card.match-accent:has(.pane-sage) { --accent: var(--pane-1); }
+.card.match-accent:has(.pane-gold) { --accent: var(--pane-2); }
+.card.match-accent:has(.pane-teal) { --accent: var(--pane-3); }
+.card.match-accent:has(.pane-blue) { --accent: var(--pane-4); }
+.card.match-accent:has(.pane-mauve) { --accent: var(--pane-5); }
