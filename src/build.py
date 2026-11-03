@@ -832,12 +832,12 @@ def special_friends():
     <h2>What Wednesday Nights Look Like</h2>
     <p>Our Wednesday program is full and varied, so there's always something to enjoy. Plenty of Blaise volunteers join us every week, so each Special Friend has a companion beside them and a great experience.</p>
     <div class="grid-3 sf-tiles">
-      <div class="card sf-tile">{sf_icon("book", "pane-sage")}<h3>Bible Lessons</h3></div>
-      <div class="card sf-tile">{sf_icon("music", "pane-gold")}<h3>Music</h3></div>
-      <div class="card sf-tile">{sf_icon("users", "pane-blue")}<h3>Small Group Activities</h3></div>
-      <div class="card sf-tile">{sf_icon("dice", "pane-mauve")}<h3>Games</h3></div>
-      <div class="card sf-tile">{sf_icon("palette", "pane-teal")}<h3>Crafts</h3></div>
-      <div class="card sf-tile">{sf_icon("sparkles", "pane-gold")}<h3>Seasonal &amp; Holiday Events</h3></div>
+      <div class="card sf-tile match-accent">{sf_icon("book", "pane-sage")}<h3>Bible Lessons</h3></div>
+      <div class="card sf-tile match-accent">{sf_icon("music", "pane-gold")}<h3>Music</h3></div>
+      <div class="card sf-tile match-accent">{sf_icon("users", "pane-blue")}<h3>Small Group Activities</h3></div>
+      <div class="card sf-tile match-accent">{sf_icon("dice", "pane-mauve")}<h3>Games</h3></div>
+      <div class="card sf-tile match-accent">{sf_icon("palette", "pane-teal")}<h3>Crafts</h3></div>
+      <div class="card sf-tile match-accent">{sf_icon("sparkles", "pane-gold")}<h3>Seasonal &amp; Holiday Events</h3></div>
     </div>
   </div>
 </section>
